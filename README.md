@@ -17,3 +17,14 @@ samples, guidance on mobile development, and a full API reference.
 
 #Add All file to your project
 $ flutter packages get
+
+
+#we will do -- 
+1. Google/Email (signup / login) authentications
+2. OTP mobile verification, (Optional)
+3. Payment method (Bkash / Rocket)
+4. Google Maps Integration,
+5. Push Notifications
+6. Chat, Tracking orders
+7. Multi Roles and Permissions (Optional)
+
