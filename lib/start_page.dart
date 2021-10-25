@@ -4,6 +4,7 @@ import 'home_page.dart';
 import 'signup_page.dart';
 import 'constants.dart';
 import 'unitextfield.dart';
+import 'forgot_password.dart';
 
 class StartPage extends StatelessWidget {
   const StartPage({Key? key}) : super(key: key);
@@ -11,27 +12,29 @@ class StartPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(
-      padding: const EdgeInsets.all(32),
+      padding: const EdgeInsets.all(25),
       children: [
         Image.asset('images/The_Food_Freaks.png'),
+        const SizedBox(height: 10),
         const UniTextField(uniLabelText: 'Username'),
         const SizedBox(height: 24),
         const UniTextField(uniLabelText: 'Password'),
         const SizedBox(height: 10),
         GestureDetector(
-            child: const Text("FORGOT PASSWORD?", style: kTextStyle, textAlign: TextAlign.right,),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const SighUpPage(),
-                ),
-              );
-            }),
-        // const Text(
-        //   'FORGOT PASSWORD?',
-        //   textAlign: TextAlign.right,
-        // ),
+          child: const Text(
+            "FORGOT PASSWORD?",
+            style: kTextStyle,
+            textAlign: TextAlign.right,
+          ),
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const ForgotPasswordPage(),
+              ),
+            );
+          },
+        ),
         const SizedBox(height: 24),
         RaisedButton(
           onPressed: () {
