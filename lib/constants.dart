@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 
 const kBottomContainerHeight = 80.0;
 
-const kButtonColor1 = Colors.redAccent;
-const kButtonColor2 = Colors.blueGrey;
+const kColor1 = Colors.redAccent;
+const kColor2 = Colors.blueGrey;
+const kBackgroundColor = Color(0xFFECBEBE);
 
 const kRoundedRectangleBorder = RoundedRectangleBorder(
   borderRadius: BorderRadius.all(Radius.circular(30)),

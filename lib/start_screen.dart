@@ -1,10 +1,10 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'home_page.dart';
-import 'signup_page.dart';
+import 'screens/home_screen.dart';
+import 'screens/signup_screen.dart';
 import 'constants.dart';
 import 'unitextfield.dart';
-import 'forgot_password.dart';
+import 'screens/forgot_pas_screen.dart';
 
 class StartPage extends StatelessWidget {
   const StartPage({Key? key}) : super(key: key);
@@ -30,7 +30,7 @@ class StartPage extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => const ForgotPasswordPage(),
+                builder: (context) => const ForgotPasScreen(),
               ),
             );
           },
@@ -45,7 +45,7 @@ class StartPage extends StatelessWidget {
               ),
             );
           },
-          color: kButtonColor1,
+          color: kColor1,
           shape: kRoundedRectangleBorder,
           child: const Text(
             'Sign in',
@@ -67,7 +67,7 @@ class StartPage extends StatelessWidget {
               ),
             );
           },
-          color: kButtonColor2,
+          color: kColor2,
           shape: kRoundedRectangleBorder,
           child: const Text(
             'Sign Up',

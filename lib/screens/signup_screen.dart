@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'unitextfield.dart';
-import 'main.dart';
-import 'constants.dart';
+import '../unitextfield.dart';
+import '../main.dart';
+import '../constants.dart';
 
-class ForgotPasswordPage extends StatelessWidget {
-  const ForgotPasswordPage({Key? key}) : super(key: key);
+class SighUpPage extends StatelessWidget {
+  const SighUpPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,15 +19,13 @@ class ForgotPasswordPage extends StatelessWidget {
           padding: const EdgeInsets.all(25),
           children: [
             Image.asset('images/The_Food_Freaks.png'),
-            const UniTextField(uniLabelText: 'Username'),
-            const SizedBox(height: 24),
             const UniTextField(uniLabelText: 'Email'),
             const SizedBox(height: 24),
-            const UniTextField(uniLabelText: 'Code'),
+            const UniTextField(uniLabelText: 'Username'),
             const SizedBox(height: 24),
-            const UniTextField(uniLabelText: 'New Password'),
+            const UniTextField(uniLabelText: 'Password'),
             const SizedBox(height: 24),
-            const UniTextField(uniLabelText: 'Confirm Password'),
+            const UniTextField(uniLabelText: 'Confirmed Password'),
             const SizedBox(height: 24),
             RaisedButton(
               onPressed: () {
@@ -38,10 +36,10 @@ class ForgotPasswordPage extends StatelessWidget {
                   ),
                 );
               },
-              color: kButtonColor2,
+              color: kColor2,
               shape: kRoundedRectangleBorder,
               child: const Text(
-                'Submit',
+                'Sign Up',
                 style: kButtonTextStyle,
               ),
             )
