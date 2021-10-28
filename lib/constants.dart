@@ -4,6 +4,8 @@ const kBottomContainerHeight = 80.0;
 
 const kColor1 = Colors.redAccent;
 const kColor2 = Colors.blueGrey;
+const kColor3 = Color(0xFFFAEEE0);
+const kLabelColor = Colors.black;
 const kBackgroundColor = Color(0xFFECBEBE);
 
 const kRoundedRectangleBorder = RoundedRectangleBorder(
@@ -14,3 +16,4 @@ const kButtonTextStyle = TextStyle(color: Color(0xFFFFFFFF));
 
 const kTextStyle =
     TextStyle(decoration: TextDecoration.underline, color: Colors.redAccent);
+

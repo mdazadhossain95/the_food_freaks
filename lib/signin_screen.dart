@@ -1,13 +1,15 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'screens/home_screen.dart';
+import 'tabone.dart';
 import 'screens/signup_screen.dart';
 import 'constants.dart';
 import 'unitextfield.dart';
 import 'screens/forgot_pas_screen.dart';
+import 'main_home.dart';
+import 'fortest/fortest.dart';
 
-class StartPage extends StatelessWidget {
-  const StartPage({Key? key}) : super(key: key);
+class SignInScreen extends StatelessWidget {
+  const SignInScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +43,7 @@ class StartPage extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => const HomePage(),
+                builder: (context) => const MainHome(),
               ),
             );
           },
