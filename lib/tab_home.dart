@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:the_food_freaks/constants.dart';
+
 import 'fortest/cookie_detail.dart';
 
 class TabHome extends StatelessWidget {
@@ -23,13 +24,13 @@ class TabHome extends StatelessWidget {
                 mainAxisSpacing: 15.0,
                 childAspectRatio: 0.8,
                 children: <Widget>[
-                  _buildCard('Cookie mint', '\$3.99', 'images/The_Food_freaks.png',
+                  _buildCard('Cookie mint', '\$3.99', 'images/food_1.jpg',
                       false, false, context),
-                  _buildCard('Cookie cream', '\$5.99', 'images/The_Food_freaks.png',
+                  _buildCard('Cookie cream', '\$5.99', 'images/food_2.jpg',
                       true, false, context),
-                  _buildCard('Cookie classic', '\$1.99',
-                      'images/The_Food_freaks.png', false, true, context),
-                  _buildCard('Cookie choco', '\$2.99', 'images/The_Food_freaks.png',
+                  _buildCard('Cookie classic', '\$1.99', 'images/food_3.jpg',
+                      false, true, context),
+                  _buildCard('Cookie choco', '\$2.99', 'images/food_4.jpg',
                       false, false, context)
                 ],
               )),
@@ -43,7 +44,7 @@ class TabHome extends StatelessWidget {
       bool isFavorite, context) {
     return Padding(
         padding:
-        const EdgeInsets.only(top: 5.0, bottom: 5.0, left: 5.0, right: 5.0),
+            const EdgeInsets.only(top: 5.0, bottom: 5.0, left: 5.0, right: 5.0),
         child: InkWell(
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
@@ -69,10 +70,9 @@ class TabHome extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             isFavorite
-                                ? const Icon(Icons.favorite,
-                                color: kColor1)
+                                ? const Icon(Icons.favorite, color: kColor1)
                                 : const Icon(Icons.favorite_border,
-                                color: kColor1)
+                                    color: kColor1)
                           ])),
                   Hero(
                       tag: imgPath,

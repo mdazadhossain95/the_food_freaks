@@ -4,9 +4,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:the_food_freaks/fortest/cookie_detail.dart';
 import 'package:the_food_freaks/fortest/cookie_page.dart';
-import 'slider_screen.dart';
+
 import 'constants.dart';
 import 'nested_page.dart';
+import 'slider_screen.dart';
 
 class TabOne extends StatelessWidget {
   const TabOne({Key? key}) : super(key: key);
@@ -35,7 +36,6 @@ class TabOne extends StatelessWidget {
               );
             },
           ),
-
           const SizedBox(height: 10.0),
           NestedPage(),
           const SizedBox(height: 10.0),
@@ -50,14 +50,14 @@ class TabOne extends StatelessWidget {
                 crossAxisSpacing: 5.0,
                 mainAxisSpacing: 5.0,
                 children: [
-                  _buildCard('Cookie mint', '\$3.99',
-                      'images/The_Food_freaks.png', false, false, context),
-                  _buildCard('Cookie cream', '\$5.99',
-                      'images/The_Food_freaks.png', true, false, context),
-                  _buildCard('Cookie classic', '\$1.99',
-                      'images/The_Food_freaks.png', false, true, context),
-                  _buildCard('Cookie choco', '\$2.99',
-                      'images/The_Food_freaks.png', false, false, context)
+                  _buildCard('Cookie mint', '\$3.99', 'images/food_1.jpg',
+                      false, false, context),
+                  _buildCard('Cookie cream', '\$5.99', 'images/food_2.jpg',
+                      true, false, context),
+                  _buildCard('Cookie classic', '\$1.99', 'images/food_3.jpg',
+                      false, true, context),
+                  _buildCard('Cookie choco', '\$2.99', 'images/food_4.jpg',
+                      false, false, context)
                 ],
               )),
           const SizedBox(height: 15.0)

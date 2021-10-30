@@ -4,13 +4,13 @@ class NestedPage extends StatelessWidget {
   NestedPage({Key? key}) : super(key: key);
 
   final List<String> imgList = [
-    'images/food/food_1.jpg',
-    'images/food/food_2.jpg',
-    'images/food/food_3.jpg',
-    'images/food/food_4.jpg',
-    'images/food/food_5.jpg',
-    'images/food/food_6.jpg',
-    'images/food/food_7.jpg'
+    'images/food_1.jpg',
+    'images/food_2.jpg',
+    'images/food_3.jpg',
+    'images/food_4.jpg',
+    'images/food_5.jpg',
+    'images/food_6.jpg',
+    'images/food_7.jpg'
   ];
 
   @override
@@ -43,8 +43,6 @@ class NestedPage extends StatelessWidget {
     );
   }
 }
-
-
 
 // {
 //   return Image.asset(imgList[index],
