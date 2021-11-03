@@ -1,22 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:the_food_freaks/constants.dart';
 
-import 'cookie_detail.dart';
+import 'package:the_food_freaks/src/screens/addtocart.dart';
 
-class CookiePage extends StatelessWidget {
-  const CookiePage({Key? key}) : super(key: key);
+class TabHome extends StatelessWidget {
+  const TabHome({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kBackgroundColor,
       body: ListView(
+        shrinkWrap: true,
         children: <Widget>[
-          const SizedBox(height: 15.0),
+          // const SizedBox(height: 15.0),
           Container(
-              padding: const EdgeInsets.only(right: 15.0, left: 15.0),
+              padding: const EdgeInsets.only(right: 15.0),
               width: MediaQuery.of(context).size.width - 30.0,
-              height: MediaQuery.of(context).size.height - 30.0,
+              height: MediaQuery.of(context).size.height - 50.0,
               child: GridView.count(
                 crossAxisCount: 2,
                 primary: false,
@@ -50,8 +51,8 @@ class CookiePage extends StatelessWidget {
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => CookieDetail(
                       assetPath: imgPath,
-                      cookieprice: price,
-                      cookiename: name)));
+                      productprice: price,
+                      productname: name, add: 0,)));
             },
             child: Container(
                 decoration: BoxDecoration(
@@ -62,7 +63,7 @@ class CookiePage extends StatelessWidget {
                           spreadRadius: 3.0,
                           blurRadius: 5.0)
                     ],
-                    color: kColor3),
+                    color: Colors.white),
                 child: Column(children: [
                   Padding(
                       padding: const EdgeInsets.all(5.0),
@@ -91,7 +92,7 @@ class CookiePage extends StatelessWidget {
                           fontSize: 14.0)),
                   Text(name,
                       style: const TextStyle(
-                          color: kLabelColor,
+                          color: Color(0xFF575E67),
                           fontFamily: 'Oswald',
                           fontSize: 14.0)),
                   Padding(

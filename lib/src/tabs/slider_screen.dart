@@ -21,29 +21,28 @@ class SliderScreen extends StatelessWidget {
     return Container(
       child: CarouselSlider(
         options: CarouselOptions(
-            height: 400.0,
+            height: 250.0,
             enlargeCenterPage: true,
             autoPlay: true,
             aspectRatio: 16 / 9,
             autoPlayCurve: Curves.fastOutSlowIn,
             enableInfiniteScroll: true,
             autoPlayAnimationDuration: const Duration(milliseconds: 800),
-            viewportFraction: 0.8),
+            viewportFraction: 0.7),
         items: imgList
             .map(
               (item) => Container(
-                margin: const EdgeInsets.all(5.0),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-                child: Center(
-                  child: Image.asset(
-                    item,
-                    fit: BoxFit.cover,
-                    width: double.infinity,
-                  ),
-                ),
-              ),
+                  margin: const EdgeInsets.all(15.0),
+                  child: Positioned.fill(
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(12.0),
+                      child: Image.asset(
+                        item,
+                        fit: BoxFit.cover,
+                        width: double.infinity,
+                      ),
+                    ),
+                  )),
             )
             .toList(),
       ),

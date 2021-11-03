@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import '../constants.dart';
+import 'package:the_food_freaks/constants.dart';
 
-class OrderScreen extends StatelessWidget {
-  const OrderScreen({Key? key}) : super(key: key);
+class ProfileScreen extends StatelessWidget {
+  const ProfileScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Order'),
+        title: const Text('Profile'),
         backgroundColor: kColor1,
       ),
     );

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'signin_screen.dart';
-import 'constants.dart';
+import 'package:the_food_freaks/src/user/signin_screen.dart';
+import '../constants.dart';
 
 void main() {
   runApp(
@@ -16,10 +16,12 @@ class TheFoodFreaks extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      backgroundColor: kBackgroundColor,
-      body: Center(
-        child: SignInScreen(),
+    return const SafeArea(
+      child: Scaffold(
+        backgroundColor: kBackgroundColor,
+        body: Center(
+          child: SignInScreen(),
+        ),
       ),
     );
   }

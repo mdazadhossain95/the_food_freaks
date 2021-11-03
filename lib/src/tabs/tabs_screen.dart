@@ -1,25 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:the_food_freaks/constants.dart';
-import 'package:the_food_freaks/tabone.dart';
-import 'fortest/cookie_page.dart';
-import 'package:the_food_freaks/search_bar.dart';
+import 'package:the_food_freaks/src/tabs/tabone.dart';
+import 'package:the_food_freaks/src/widgets/search_bar.dart';
+import 'package:the_food_freaks/src/tabs/gridview.dart';
+import 'package:the_food_freaks/src/tabs/storescreen.dart';
+import 'package:the_food_freaks/src/tabs/resturantdetails.dart';
 
 class TabsScreen extends StatefulWidget {
-   TabsScreen({Key? key}) : super(key: key);
+  TabsScreen({Key? key}) : super(key: key);
 
   @override
   _TabsScreenState createState() => _TabsScreenState();
 }
 
-class _TabsScreenState extends State<TabsScreen> with SingleTickerProviderStateMixin {
+class _TabsScreenState extends State<TabsScreen>
+    with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
-    _tabController = TabController(length: 3, vsync: this);
-
-    // print(widget.name);
+    _tabController = TabController(length: 4, vsync: this);
   }
 
   @override
@@ -57,20 +58,29 @@ class _TabsScreenState extends State<TabsScreen> with SingleTickerProviderStateM
                       fontFamily: 'Oswald',
                       fontSize: 21.0,
                     )),
+              ),
+              Tab(
+                child: Text('Resturant',
+                    style: TextStyle(
+                      fontFamily: 'Oswald',
+                      fontSize: 21.0,
+                    )),
               )
             ]),
         SizedBox(
-            height: MediaQuery.of(context).size.height - 20.0,
-            width: double.infinity,
-            child: TabBarView(controller: _tabController, children: const [
+          height: MediaQuery.of(context).size.height - 20.0,
+          width: MediaQuery.of(context).size.width,
+          child: TabBarView(
+            controller: _tabController,
+            children: const [
               TabOne(),
-              CookiePage(),
-              CookiePage(),
-            ]))
+              GridViewScreen(),
+              StoreScreen(),
+              ResturantDetails()
+            ],
+          ),
+        )
       ],
     );
   }
 }
-
-
-
