@@ -1,53 +1,125 @@
 import 'package:flutter/material.dart';
-import '../unitextfield.dart';
-import '../main.dart';
 import 'package:the_food_freaks/constants.dart';
+import 'package:the_food_freaks/src/user/signin_screen.dart';
+import '../textformfields.dart';
+import 'package:the_food_freaks/constants.dart';
+import 'package:the_food_freaks/src/widgets/customtext.dart';
 
-class ForgotPasScreen extends StatelessWidget {
+class ForgotPasScreen extends StatefulWidget {
   const ForgotPasScreen({Key? key}) : super(key: key);
 
   @override
+  _ForgotPasScreenState createState() => _ForgotPasScreenState();
+}
+
+class _ForgotPasScreenState extends State<ForgotPasScreen> {
+  late String email;
+  late String oldpassword;
+  late String newpassword;
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('The Food Freaks'),
-        backgroundColor: const Color(0xFFECBEBE),
-      ),
-      backgroundColor: const Color(0xFFECBEBE),
-      body: Center(
-        child: ListView(
-          padding: const EdgeInsets.all(25),
-          children: [
-            Image.asset('images/The_Food_Freaks.png'),
-            const UniTextField(uniLabelText: 'Username'),
-            const SizedBox(height: 24),
-            const UniTextField(uniLabelText: 'Email'),
-            const SizedBox(height: 24),
-            const UniTextField(uniLabelText: 'Code'),
-            const SizedBox(height: 24),
-            const UniTextField(uniLabelText: 'New Password'),
-            const SizedBox(height: 24),
-            const UniTextField(uniLabelText: 'Confirm Password'),
-            const SizedBox(height: 24),
-            RaisedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const TheFoodFreaks(),
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: kBackgroundColor,
+        appBar: AppBar(
+          centerTitle: true,
+          backgroundColor: kColor1,
+          title: const CustomText(
+            text: 'The Food Freaks',
+            size: 20,
+            color: kWhite,
+            weight: FontWeight.bold,
+          ),
+        ),
+        body: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Container(
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const SizedBox(height: 50.0),
+                  const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: CustomText(
+                      text: 'Forgot Password',
+                      size: 30,
+                      weight: FontWeight.bold,
+                    ),
                   ),
-                );
-              },
-              color: kColor2,
-              shape: kRoundedRectangleBorder,
-              child: const Text(
-                'Submit',
-                style: kButtonTextStyle,
+                  const SizedBox(height: 10.0),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Image.asset(
+                      'images/The_Food_Freaks.png',
+                      height: MediaQuery.of(context).size.height * 0.3,
+                      width: MediaQuery.of(context).size.width,
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  TextFields(
+                      onchange: (value) {
+                        email = value;
+                      },
+                      hintText: 'Email',
+                      obscureText: false,
+                      userIcon: Icons.person,
+                      inputType: TextInputType.emailAddress),
+                  const SizedBox(height: 10),
+                  TextFields(
+                      onchange: (value) {
+                        oldpassword = value;
+                      },
+                      hintText: 'Old Password',
+                      obscureText: true,
+                      userIcon: Icons.lock,
+                      inputType: TextInputType.visiblePassword),
+                  const SizedBox(height: 10),
+                  TextFields(
+                      onchange: (value) {
+                        newpassword = value;
+                      },
+                      hintText: 'New Password',
+                      obscureText: true,
+                      userIcon: Icons.lock,
+                      inputType: TextInputType.visiblePassword),
+                  const SizedBox(height: 10),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ElevatedButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => SignInScreen(),
+                              ),
+                            );
+                          },
+                          style: ButtonStyle(
+                              backgroundColor:
+                                  MaterialStateProperty.all(kColor2),
+                              shape: MaterialStateProperty.all(
+                                  RoundedRectangleBorder(
+                                      borderRadius:
+                                          BorderRadius.circular(30.0)))),
+                          child: const CustomText(
+                            text: 'Submit',
+                          ),
+                        ),
+                      ),
+                    ],
+                  )
+                ],
               ),
-            )
-          ],
+            ),
+          ),
         ),
       ),
     );
+    ;
   }
 }

@@ -1,25 +1,25 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:the_food_freaks/src/home.dart';
+import 'package:the_food_freaks/src/user/signin_screen.dart';
 import '../textformfields.dart';
 import 'package:the_food_freaks/constants.dart';
 import 'package:the_food_freaks/src/widgets/customtext.dart';
-import 'package:the_food_freaks/src/user/signin_screen.dart';
 
-class SignUpPage extends StatefulWidget {
-  // static const String id = 'Signup_screen';
+class Registration extends StatefulWidget {
+  static const String id = 'registration_screen';
 
-  const SignUpPage({Key? key}) : super(key: key);
+  const Registration({Key? key}) : super(key: key);
 
   @override
-  _SignUpPageState createState() => _SignUpPageState();
+  _RegistrationState createState() => _RegistrationState();
 }
 
-class _SignUpPageState extends State<SignUpPage> {
+class _RegistrationState extends State<Registration> {
   final _auth = FirebaseAuth.instance;
   late String email;
   late String password;
 
-  // late String confirmpassword;
 
   @override
   Widget build(BuildContext context) {
@@ -101,15 +101,18 @@ class _SignUpPageState extends State<SignUpPage> {
                               final newUser =
                                   await _auth.createUserWithEmailAndPassword(
                                       email: email, password: password);
+                              if (newUser != null) {
+                                Navigator.pushNamed(context, SignInScreen.id);
+                              }
                             } catch (e) {
                               print(e);
                             }
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => SignInScreen(),
-                              ),
-                            );
+                            // Navigator.push(
+                            //   context,
+                            //   MaterialPageRoute(
+                            //     builder: (context) => MainHome(),
+                            //   ),
+                            // );
                           },
                           style: ButtonStyle(
                               backgroundColor:

@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 
 //pages
 import 'package:the_food_freaks/constants.dart';
-import 'package:the_food_freaks/src/screens/profile_screen.dart';
+import 'package:the_food_freaks/src/user/profile_screen.dart';
 import 'package:the_food_freaks/src/screens/settings_screen.dart';
+import 'package:the_food_freaks/src/widgets/customtext.dart';
+
 
 class MenuScreen extends StatelessWidget {
   const MenuScreen({Key? key}) : super(key: key);
@@ -25,18 +27,9 @@ class MenuScreen extends StatelessWidget {
                   'https://cdn4.iconfinder.com/data/icons/people-avatars-2/64/Avatars_39-512.png'),
             ),
           ),
-          // ListTile(
-          //   title: const Text('Order'),
-          //   onTap: () {
-          //     Navigator.of(context).pop();
-          //     Navigator.push(
-          //         context,
-          //         MaterialPageRoute(
-          //             builder: (BuildContext context) => ));
-          //   },
-          // ),
           ListTile(
-            title: const Text('Profile'),
+            leading: const Icon(Icons.account_box),
+            title: const CustomText(text: 'Profile', size: 16,),
             onTap: () {
               Navigator.of(context).pop();
               Navigator.push(
@@ -46,19 +39,9 @@ class MenuScreen extends StatelessWidget {
                           const ProfileScreen()));
             },
           ),
-          // ListTile(
-          //   title: const Text('Addresses'),
-          //   onTap: () {
-          //     Navigator.of(context).pop();
-          //     Navigator.push(
-          //         context,
-          //         MaterialPageRoute(
-          //             builder: (BuildContext context) =>
-          //                 const AddressesScreen()));
-          //   },
-          // ),
           ListTile(
-            title: const Text('Settings'),
+            leading: const Icon(Icons.settings),
+            title: const CustomText(text: 'Settings', size: 16,),
             onTap: () {
               Navigator.of(context).pop();
               Navigator.push(

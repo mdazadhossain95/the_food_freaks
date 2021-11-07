@@ -1,20 +1,43 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-//pages
-import '../../constants.dart';
+import 'package:the_food_freaks/constants.dart';
 import 'package:the_food_freaks/src/screens/menu_screen.dart';
 import 'package:the_food_freaks/src/tabs/tabs_screen.dart';
 import 'package:the_food_freaks/src/widgets/customtext.dart';
 
-class MainHome extends StatefulWidget {
-  const MainHome({Key? key}) : super(key: key);
+class Home extends StatefulWidget {
+  static const String id = 'Home_screen';
 
   @override
-  _MainHomeState createState() => _MainHomeState();
+  _HomeState createState() => _HomeState();
 }
 
-class _MainHomeState extends State<MainHome> {
+class _HomeState extends State<Home> {
+  final _auth = FirebaseAuth.instance;
+  late User loggedInUser;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    getCurrentUser();
+  }
+
+
+  void getCurrentUser() async{
+    try{
+        final user = await _auth.currentUser;
+        if(user != null){
+      loggedInUser = user;
+      print(loggedInUser.email);
+    }
+  } catch(e){
+    print(e);
+    }
+
+  }
   @override
   Widget build(BuildContext context) {
     return SafeArea(
