@@ -18,18 +18,31 @@ class SearchBar extends StatelessWidget {
             blurRadius: 4,
           )
         ]),
-        child: const ListTile(
-          trailing: Icon(
-            Icons.search,
-            color: kColor1,
-          ),
-          title: TextField(
-            decoration: InputDecoration(
-              hintText: 'Find food and restaurant',
-              border: InputBorder.none,
+        child: Column(
+          // crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // DropdownButton<String>(
+            //   items: <String>['Food', 'Restaurant'].map((String value) {
+            //     return DropdownMenuItem<String>(
+            //       value: value,
+            //       child: Text(value),
+            //     );
+            //   }).toList(),
+            //   onChanged: (_) {},
+            // ),
+            ListTile(
+              trailing: Icon(
+                Icons.search,
+                color: kColor1,
+              ),
+              title: TextField(
+                decoration: InputDecoration(
+                  hintText: 'Find food and restaurant',
+                  border: InputBorder.none,
+                ),
+              ),
             ),
-          ),
-
+          ],
         ),
       ),
     );

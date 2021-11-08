@@ -35,6 +35,7 @@ flutter:
   uses-material-design: true
   assets:
     - images/
+    - jsonfiles/
 #    - images/food/
 
     - family: 'Oswald'

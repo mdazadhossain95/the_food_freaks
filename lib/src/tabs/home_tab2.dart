@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class NestedPage extends StatelessWidget {
-  NestedPage({Key? key}) : super(key: key);
+class HomeTab2 extends StatelessWidget {
+  HomeTab2({Key? key}) : super(key: key);
 
   final List<String> imgList = [
     'images/food_1.jpg',
@@ -43,8 +43,3 @@ class NestedPage extends StatelessWidget {
     );
   }
 }
-
-// {
-//   return Image.asset(imgList[index],
-//       fit: BoxFit.cover);
-// },

@@ -7,32 +7,35 @@ import 'package:the_food_freaks/src/home.dart';
 import 'package:the_food_freaks/src/widgets/customtext.dart';
 import 'package:the_food_freaks/src/widgets/iconbutton.dart';
 
-class CookieDetail extends StatefulWidget {
+class ProductDetails extends StatefulWidget {
   final assetPath;
   final productprice;
   final productname;
   int add = 0;
   final rating;
+  final description;
 
-  CookieDetail(
+  ProductDetails(
       {Key? key,
       this.assetPath,
       this.productprice,
       this.productname,
       this.rating,
+      this.description,
       required this.add})
       : super(key: key);
 
   @override
-  _CookieDetailState createState() => _CookieDetailState();
+  _ProductDetailsState createState() => _ProductDetailsState();
 }
 
-class _CookieDetailState extends State<CookieDetail> {
+class _ProductDetailsState extends State<ProductDetails> {
   late final assetPaths;
   late final productprices;
   late final productnames;
   late int adds;
   late final ratings;
+  late final description;
 
   @override
   void initState() {
@@ -43,6 +46,7 @@ class _CookieDetailState extends State<CookieDetail> {
     productnames = widget.productname;
     adds = widget.add;
     ratings = widget.rating;
+    description = widget.description;
   }
 
   @override
@@ -132,26 +136,6 @@ class _CookieDetailState extends State<CookieDetail> {
                       Icons.star,
                       color: kColor1,
                       size: 16,
-                    ),
-                    const Icon(
-                      Icons.star,
-                      color: kColor1,
-                      size: 16,
-                    ),
-                    const Icon(
-                      Icons.star,
-                      color: kColor1,
-                      size: 16,
-                    ),
-                    const Icon(
-                      Icons.star,
-                      color: kColor1,
-                      size: 16,
-                    ),
-                    const Icon(
-                      Icons.star,
-                      color: kGrey,
-                      size: 16,
                     )
                   ],
                 ),
@@ -167,34 +151,43 @@ class _CookieDetailState extends State<CookieDetail> {
                   // ignore: sized_box_for_whitespace
                   child: Container(
                     width: MediaQuery.of(context).size.width - 50.0,
-                    child: const CustomText(
-                      text:
-                          'Cold, creamy ice cream sandwiched between delicious deluxe cookies. Pick your favorite deluxe cookies and ice cream flavor.',
+                    child: CustomText(
+                      text: description,
                       size: 16,
                     ),
                   ),
                 ),
               ],
             ),
-          )
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Center(
+                  // ignore: sized_box_for_whitespace
+                  child: Container(
+                    height: 100,
+                    width: 100,
+                    child: FittedBox(
+                      child: FloatingActionButton(
+                        onPressed: () {},
+                        child: const Icon(
+                          Icons.shopping_cart,
+                          size: 25.0,
+                          color: kWhite,
+                        ),
+                        backgroundColor: kColor1,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
         ],
       ),
-      floatingActionButton: Container(
-        height: 100,
-        width: 100,
-        child: FittedBox(
-          child: FloatingActionButton(
-            onPressed: () {},
-            child: const Icon(
-              Icons.shopping_cart,
-              size: 25.0,
-              color: kWhite,
-            ),
-            backgroundColor: kColor1,
-          ),
-        ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }

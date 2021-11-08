@@ -17,10 +17,8 @@ class StoreScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // ignore: sized_box_for_whitespace
     return ListView.builder(
         shrinkWrap: true,
-        // scrollDirection: Axis.vertical,
         itemCount: StoresList.length,
         itemBuilder: (BuildContext ctx, int index) {
           return Padding(

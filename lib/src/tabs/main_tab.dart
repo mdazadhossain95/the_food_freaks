@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:the_food_freaks/constants.dart';
-import 'package:the_food_freaks/src/tabs/tabone.dart';
+import 'package:the_food_freaks/src/tabs/home_tab.dart';
 import 'package:the_food_freaks/src/widgets/search_bar.dart';
-import 'package:the_food_freaks/src/tabs/gridview.dart';
-import 'package:the_food_freaks/src/tabs/storescreen.dart';
+import 'package:the_food_freaks/src/tabs/popular_tab.dart';
+import 'package:the_food_freaks/src/tabs/store_tab.dart';
 import 'package:the_food_freaks/src/tabs/resturantdetails.dart';
 
-class TabsScreen extends StatefulWidget {
-  TabsScreen({Key? key}) : super(key: key);
+class MainTab extends StatefulWidget {
+  MainTab({Key? key}) : super(key: key);
 
   @override
-  _TabsScreenState createState() => _TabsScreenState();
+  _MainTabState createState() => _MainTabState();
 }
 
-class _TabsScreenState extends State<TabsScreen>
+class _MainTabState extends State<MainTab>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
@@ -60,7 +60,7 @@ class _TabsScreenState extends State<TabsScreen>
                     )),
               ),
               Tab(
-                child: Text('Resturant',
+                child: Text('Restaurant',
                     style: TextStyle(
                       fontFamily: 'Oswald',
                       fontSize: 21.0,
@@ -73,8 +73,8 @@ class _TabsScreenState extends State<TabsScreen>
           child: TabBarView(
             controller: _tabController,
             children: const [
-              TabOne(),
-              GridViewScreen(),
+              HomeTab(),
+              PopularTab(),
               StoreScreen(),
               ResturantDetails()
             ],

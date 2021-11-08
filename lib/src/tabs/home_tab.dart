@@ -1,15 +1,13 @@
-// ignore_for_file: avoid_unnecessary_containers
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../constants.dart';
-import 'package:the_food_freaks/src/tabs/slider_screen.dart';
+import 'package:the_food_freaks/src/tabs/home_tab1.dart';
 import 'package:the_food_freaks/src/widgets/customtext.dart';
 import 'package:the_food_freaks/src/screens/card_container.dart';
 
-class TabOne extends StatelessWidget {
-  const TabOne({Key? key}) : super(key: key);
+class HomeTab extends StatelessWidget {
+  const HomeTab({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,9 +16,11 @@ class TabOne extends StatelessWidget {
       body: ListView(
         shrinkWrap: true,
         children: [
-          const SizedBox(height: 5.0),
-          SliderScreen(),
-          const SizedBox(height: 5.0),
+
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: HomeTab1(),
+          ),
           const Padding(
             padding: EdgeInsets.only(left: 20.0),
             child: CustomText(
@@ -53,7 +53,7 @@ class TabOne extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: 15.0)
+          const SizedBox(height: 230.0)
         ],
       ),
     );

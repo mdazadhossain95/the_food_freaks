@@ -6,46 +6,46 @@ import 'package:the_food_freaks/src/widgets/customtext.dart';
 List<Product> productsList = [
   Product(
       name: 'Cereals',
-      price: 5.99,
-      rating: 4.2,
+      price: "4.7",
+      rating: "4.7",
       vendor: "GoodFoods",
-      wishList: true,
-      image: 'food_1.jpg'),
+      isFavorite: true,
+      imgPath: 'food_1.jpg'),
   Product(
       name: 'burger',
-      price: 2.99,
-      rating: 4.2,
+      price: "4.7",
+      rating: "4.7",
       vendor: "GoodFoods",
-      wishList: false,
-      image: 'food_2.jpg'),
+      isFavorite: false,
+      imgPath: 'food_2.jpg'),
   Product(
       name: 'Cereals',
-      price: 5.99,
-      rating: 4.2,
+      price: "4.7",
+      rating: "4.7",
       vendor: "GoodFoods",
-      wishList: true,
-      image: 'food_3.jpg'),
+      isFavorite: true,
+      imgPath: 'food_3.jpg'),
   Product(
       name: 'Cereals',
-      price: 5.99,
-      rating: 4.2,
+      price: "4.7",
+      rating: "4.7",
       vendor: "GoodFoods",
-      wishList: true,
-      image: 'food_4.jpg'),
+      isFavorite: true,
+      imgPath: 'food_4.jpg'),
   Product(
       name: 'Cereals',
-      price: 5.99,
-      rating: 4.2,
+      price: "4.7",
+      rating: "4.7",
       vendor: "GoodFoods",
-      wishList: true,
-      image: 'food_5.jpg'),
+      isFavorite: true,
+      imgPath: 'food_5.jpg'),
   Product(
       name: 'Cereals',
-      price: 5.99,
-      rating: 4.2,
+      price: "4.7",
+      rating: "4.7",
       vendor: "GoodFoods",
-      wishList: true,
-      image: 'food_6.jpg')
+      isFavorite: true,
+      imgPath: 'food_6.jpg')
 ];
 
 class ResturantDetails extends StatelessWidget {
@@ -83,8 +83,8 @@ class ResturantDetails extends StatelessWidget {
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(10.0),
                               child: Image.asset(
-                                'images/${productsList[index].image}',
-                                height: 130,
+                                'images/${productsList[index].imgPath.toString()}',
+                                height: 90,
                                 width: 130,
                                 fit: BoxFit.cover,
                               ),
@@ -100,7 +100,7 @@ class ResturantDetails extends StatelessWidget {
                           child: Row(
                             children: [
                               CustomText(
-                                  text: productsList[index].name, size: 22),
+                                  text: productsList[index].name.toString(), size: 22),
                             ],
                           ),
                         ),
@@ -109,7 +109,7 @@ class ResturantDetails extends StatelessWidget {
                           child: Row(
                             children: [
                               CustomText(
-                                text: "\$${productsList[index].price}",
+                                text: "\$${productsList[index].price.toString()}",
                                 weight: FontWeight.bold,
 
                               ),

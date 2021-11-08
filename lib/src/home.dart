@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:the_food_freaks/constants.dart';
 import 'package:the_food_freaks/src/screens/menu_screen.dart';
-import 'package:the_food_freaks/src/tabs/tabs_screen.dart';
+import 'package:the_food_freaks/src/tabs/main_tab.dart';
 import 'package:the_food_freaks/src/widgets/customtext.dart';
 
 class Home extends StatefulWidget {
@@ -66,7 +66,7 @@ class _HomeState extends State<Home> {
           ],
         ),
         drawer: const MenuScreen(),
-        body: TabsScreen(),
+        body: MainTab(),
       ),
     );
   }

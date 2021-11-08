@@ -3,8 +3,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
-class SliderScreen extends StatelessWidget {
-  SliderScreen({Key? key}) : super(key: key);
+class HomeTab1 extends StatelessWidget {
+  HomeTab1({Key? key}) : super(key: key);
 
   final List<String> imgList = [
     'images/food_1.jpg',
