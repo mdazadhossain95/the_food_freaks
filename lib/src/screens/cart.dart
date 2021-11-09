@@ -3,6 +3,7 @@ import 'package:the_food_freaks/constants.dart';
 import 'package:the_food_freaks/src/models/products.dart';
 import 'package:the_food_freaks/src/widgets/customtext.dart';
 
+
 List<Product> productsList = [
   Product(
       name: 'Cereals',
@@ -48,15 +49,19 @@ List<Product> productsList = [
       imgPath: 'food_6.jpg')
 ];
 
-class ResturantDetails extends StatelessWidget {
-  const ResturantDetails({Key? key}) : super(key: key);
+class Cart extends StatefulWidget {
+  const Cart({Key? key}) : super(key: key);
 
+  @override
+  _CartState createState() => _CartState();
+}
+
+class _CartState extends State<Cart> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: MediaQuery.of(context).size.height,
-      child: Container(
-        child: ListView.builder(
+      child: ListView.builder(
           shrinkWrap: true,
           scrollDirection: Axis.vertical,
           itemCount: productsList.length,
@@ -80,13 +85,15 @@ class ResturantDetails extends StatelessWidget {
                       children: [
                         Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(10.0),
-                            child: Image.asset(
-                              'images/${productsList[index].imgPath.toString()}',
-                              height: 90,
-                              width: 130,
-                              fit: BoxFit.cover,
+                          child: Positioned.fill(
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(10.0),
+                              child: Image.asset(
+                                'images/${productsList[index].imgPath.toString()}',
+                                height: 90,
+                                width: 130,
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ),
                         ),
@@ -99,8 +106,7 @@ class ResturantDetails extends StatelessWidget {
                           child: Row(
                             children: [
                               CustomText(
-                                  text: productsList[index].name.toString(),
-                                  size: 22),
+                                  text: productsList[index].name.toString(), size: 22),
                             ],
                           ),
                         ),
@@ -109,22 +115,20 @@ class ResturantDetails extends StatelessWidget {
                           child: Row(
                             children: [
                               CustomText(
-                                text:
-                                    "\$${productsList[index].price.toString()}",
+                                text: "\$${productsList[index].price.toString()}",
                                 weight: FontWeight.bold,
+
                               ),
                             ],
                           ),
                         )
                       ],
-                    ),
+                    )
                   ],
                 ),
               ),
             );
-          },
-        ),
-      ),
+          }),
     );
   }
 }

@@ -40,29 +40,31 @@ class _PopularTabState extends State<PopularTab> {
 
             return Container(
               child: GridView.builder(
-                  gridDelegate:
-                      const SliverGridDelegateWithMaxCrossAxisExtent(
-                          maxCrossAxisExtent: 400,
-                          // childAspectRatio: 3 / 2,
-                          // crossAxisSpacing: 5,
-                          // mainAxisSpacing: 5
-                      ),
+                  gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                    maxCrossAxisExtent: 400,
+                    // childAspectRatio: 3 / 2,
+                    // crossAxisSpacing: 5,
+                    // mainAxisSpacing: 5
+                  ),
                   itemCount: items.length,
                   itemBuilder: (context, index) {
                     return Padding(
                       padding: const EdgeInsets.all(8),
                       child: InkWell(
                         onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
                               builder: (context) => ProductDetails(
-                                    assetPath: items[index].imgPath.toString(),
-                                    productprice: items[index].price.toString(),
-                                    productname: items[index].name.toString(),
-                                    rating: items[index].rating.toString(),
-                                    description: items[index].description.toString(),
-                                    add: 0,
-
-                                  )));
+                                assetPath: items[index].imgPath.toString(),
+                                productprice: items[index].price.toString(),
+                                productname: items[index].name.toString(),
+                                rating: items[index].rating.toString(),
+                                description:
+                                    items[index].description.toString(),
+                                add: 0,
+                              ),
+                            ),
+                          );
                         },
                         child: Container(
                           height: MediaQuery.of(context).size.height * 0.33,
@@ -166,7 +168,8 @@ class _PopularTabState extends State<PopularTab> {
                                   Padding(
                                     padding: const EdgeInsets.only(right: 8.0),
                                     child: CustomText(
-                                      text: "\$${items[index].price.toString()}",
+                                      text:
+                                          "\$${items[index].price.toString()}",
                                       weight: FontWeight.bold,
                                     ),
                                   )
@@ -188,5 +191,4 @@ class _PopularTabState extends State<PopularTab> {
       ),
     );
   }
-
 }

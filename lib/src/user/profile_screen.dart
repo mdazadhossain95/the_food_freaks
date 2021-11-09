@@ -43,28 +43,28 @@ class ProfileScreen extends StatelessWidget {
                       padding: EdgeInsets.all(8.0),
                       child: CustomText(text: 'Name', size: 20),
                     ),
-                    InfoProfile(text: name, onPressed: (){
+                    InformationProfile(text: name, onPressed: (){
 
                     }),
                     const Padding(
                       padding: EdgeInsets.all(8.0),
                       child: CustomText(text: 'Email', size: 20),
                     ),
-                    InfoProfile(text: email, onPressed: (){
+                    InformationProfile(text: email, onPressed: (){
 
                     }),
                     const Padding(
                       padding: EdgeInsets.all(8.0),
                       child: CustomText(text: 'Phone', size: 20,),
                     ),
-                    InfoProfile(text: phone, onPressed: (){
+                    InformationProfile(text: phone, onPressed: (){
 
                     }),
                     const Padding(
                       padding: EdgeInsets.all(8.0),
                       child: CustomText(text: 'Address', size: 20,),
                     ),
-                    InfoProfile(text: address, onPressed: (){
+                    InformationProfile(text: address, onPressed: (){
 
                     }),
 

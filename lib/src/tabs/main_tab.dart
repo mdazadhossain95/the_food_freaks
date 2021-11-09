@@ -20,7 +20,7 @@ class _MainTabState extends State<MainTab>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 4, vsync: this);
+    _tabController = TabController(length: 5, vsync: this);
   }
 
   @override
@@ -65,6 +65,13 @@ class _MainTabState extends State<MainTab>
                       fontFamily: 'Oswald',
                       fontSize: 21.0,
                     )),
+              ),
+              Tab(
+                child: Text('Restaurant',
+                    style: TextStyle(
+                      fontFamily: 'Oswald',
+                      fontSize: 21.0,
+                    )),
               )
             ]),
         SizedBox(
@@ -76,6 +83,7 @@ class _MainTabState extends State<MainTab>
               HomeTab(),
               PopularTab(),
               StoreScreen(),
+              ResturantDetails(),
               ResturantDetails()
             ],
           ),

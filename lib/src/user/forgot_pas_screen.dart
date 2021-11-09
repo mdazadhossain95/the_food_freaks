@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:the_food_freaks/constants.dart';
 import 'package:the_food_freaks/src/user/signin_screen.dart';
 import '../textformfields.dart';
-import 'package:the_food_freaks/constants.dart';
 import 'package:the_food_freaks/src/widgets/customtext.dart';
 
 class ForgotPasScreen extends StatefulWidget {
@@ -120,6 +119,5 @@ class _ForgotPasScreenState extends State<ForgotPasScreen> {
         ),
       ),
     );
-    ;
   }
 }

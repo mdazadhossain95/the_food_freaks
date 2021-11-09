@@ -21,6 +21,9 @@ dependencies:
   firebase_auth: ^3.1.4
   firebase_core: ^1.8.0
   provider: ^6.0.1
+  dio: ^4.0.1
+  flutter_polyline_points: ^1.0.0
+  google_maps_flutter: ^2.0.9
 
 
 
@@ -36,11 +39,10 @@ flutter:
   assets:
     - images/
     - jsonfiles/
-#    - images/food/
 
-    - family: 'Oswald'
-      fonts:
-        - asset: 'fonts/Oswald-Regular.ttf'
-        - weight: 400
+#    - family: 'Oswald'
+#      fonts:
+#        - asset: 'fonts/Oswald-Regular.ttf'
+#        - weight: 400
 
 

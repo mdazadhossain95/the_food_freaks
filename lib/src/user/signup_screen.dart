@@ -6,8 +6,6 @@ import 'package:the_food_freaks/src/widgets/customtext.dart';
 import 'package:the_food_freaks/src/user/signin_screen.dart';
 
 class SignUpPage extends StatefulWidget {
-  // static const String id = 'Signup_screen';
-
   const SignUpPage({Key? key}) : super(key: key);
 
   @override
@@ -18,8 +16,6 @@ class _SignUpPageState extends State<SignUpPage> {
   final _auth = FirebaseAuth.instance;
   late String email;
   late String password;
-
-  // late String confirmpassword;
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +34,6 @@ class _SignUpPageState extends State<SignUpPage> {
         ),
         body: SingleChildScrollView(
           scrollDirection: Axis.vertical,
-          // ignore: avoid_unnecessary_containers
           child: Container(
             child: Center(
               child: Column(
@@ -80,16 +75,6 @@ class _SignUpPageState extends State<SignUpPage> {
                       obscureText: true,
                       userIcon: Icons.lock,
                       inputType: TextInputType.visiblePassword),
-                  const SizedBox(height: 10),
-                  // TextFields(
-                  //     onchange: (value) {
-                  //       confirmpassword = value;
-                  //     },
-                  //     hintText: 'Confirm Password',
-                  //     obscureText: true,
-                  //     userIcon: Icons.lock,
-                  //     inputType: TextInputType.visiblePassword),
-                  // const SizedBox(height: 10),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -98,6 +83,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         child: ElevatedButton(
                           onPressed: () async {
                             try {
+                              // ignore: unused_local_variable
                               final newUser =
                                   await _auth.createUserWithEmailAndPassword(
                                       email: email, password: password);

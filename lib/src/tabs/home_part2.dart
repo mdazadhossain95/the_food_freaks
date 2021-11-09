@@ -7,8 +7,8 @@ import 'package:the_food_freaks/src/screens/addtocart.dart';
 import 'package:the_food_freaks/src/widgets/customtext.dart';
 import 'package:flutter/services.dart' as rootBundle;
 
-class CardContainer extends StatelessWidget {
-  const CardContainer({Key? key}) : super(key: key);
+class HomePart2 extends StatelessWidget {
+  const HomePart2({Key? key}) : super(key: key);
 
   Future<List<Product>> ReadJsonData() async {
     final jsondata =
@@ -54,7 +54,7 @@ class CardContainer extends StatelessWidget {
                               )));
                         },
                         child: Padding(
-                          padding: const EdgeInsets.fromLTRB(12, 13, 16, 12),
+                          padding: const EdgeInsets.all(8.0),
                           child: Container(
                             height: MediaQuery.of(context).size.height * 0.35,
                             width: MediaQuery.of(context).size.width * 0.40,
@@ -71,13 +71,11 @@ class CardContainer extends StatelessWidget {
                               children: [
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
-                                  child: Positioned.fill(
-                                    child: Image.asset(
-                                      items[index].imgPath.toString(),
-                                      height: 140,
-                                      width: 140,
-                                      fit: BoxFit.cover,
-                                    ),
+                                  child: Image.asset(
+                                    items[index].imgPath.toString(),
+                                    height: 140,
+                                    width: 140,
+                                    fit: BoxFit.cover,
                                   ),
                                 ),
                                 Row(

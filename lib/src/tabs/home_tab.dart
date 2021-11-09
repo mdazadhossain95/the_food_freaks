@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../constants.dart';
-import 'package:the_food_freaks/src/tabs/home_tab1.dart';
+import 'package:the_food_freaks/src/tabs/home_part1.dart';
 import 'package:the_food_freaks/src/widgets/customtext.dart';
-import 'package:the_food_freaks/src/screens/card_container.dart';
+import 'package:the_food_freaks/src/tabs/home_part2.dart';
 
 class HomeTab extends StatelessWidget {
   const HomeTab({Key? key}) : super(key: key);
@@ -19,7 +19,7 @@ class HomeTab extends StatelessWidget {
 
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: HomeTab1(),
+            child: HomePart1(),
           ),
           const Padding(
             padding: EdgeInsets.only(left: 20.0),
@@ -30,7 +30,7 @@ class HomeTab extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 10.0),
-          const CardContainer(),
+          const HomePart2(),
           const SizedBox(height: 10.0),
           const Padding(
             padding: EdgeInsets.only(left: 20.0),
@@ -51,6 +51,8 @@ class HomeTab extends StatelessWidget {
                   ),
                 ),
               ),
+              // MapSample(),
+
             ],
           ),
           const SizedBox(height: 230.0)

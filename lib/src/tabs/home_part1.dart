@@ -3,8 +3,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
-class HomeTab1 extends StatelessWidget {
-  HomeTab1({Key? key}) : super(key: key);
+class HomePart1 extends StatelessWidget {
+  HomePart1({Key? key}) : super(key: key);
 
   final List<String> imgList = [
     'images/food_1.jpg',
@@ -33,14 +33,12 @@ class HomeTab1 extends StatelessWidget {
             .map(
               (item) => Container(
                   margin: const EdgeInsets.all(15.0),
-                  child: Positioned.fill(
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(12.0),
-                      child: Image.asset(
-                        item,
-                        fit: BoxFit.cover,
-                        width: double.infinity,
-                      ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(12.0),
+                    child: Image.asset(
+                      item,
+                      fit: BoxFit.cover,
+                      width: double.infinity,
                     ),
                   )),
             )

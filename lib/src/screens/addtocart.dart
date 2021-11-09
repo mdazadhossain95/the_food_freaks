@@ -3,7 +3,6 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:the_food_freaks/constants.dart';
-import 'package:the_food_freaks/src/home.dart';
 import 'package:the_food_freaks/src/widgets/customtext.dart';
 import 'package:the_food_freaks/src/widgets/iconbutton.dart';
 
@@ -72,12 +71,13 @@ class _ProductDetailsState extends State<ProductDetails> {
       body: ListView(
         children: [
           Hero(
-              tag: assetPaths,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Image.asset(assetPaths,
-                    height: 300.0, width: 70.0, fit: BoxFit.cover),
-              )),
+            tag: assetPaths,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Image.asset(assetPaths,
+                  height: 300.0, width: 70.0, fit: BoxFit.cover),
+            ),
+          ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(

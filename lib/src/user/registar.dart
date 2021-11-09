@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:the_food_freaks/src/home.dart';
 import 'package:the_food_freaks/src/user/signin_screen.dart';
 import '../textformfields.dart';
 import 'package:the_food_freaks/constants.dart';
@@ -101,6 +100,7 @@ class _RegistrationState extends State<Registration> {
                               final newUser =
                                   await _auth.createUserWithEmailAndPassword(
                                       email: email, password: password);
+                              // ignore: unnecessary_null_comparison
                               if (newUser != null) {
                                 Navigator.pushNamed(context, SignInScreen.id);
                               }

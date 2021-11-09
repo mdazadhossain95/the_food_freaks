@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:the_food_freaks/constants.dart';
-import 'package:the_food_freaks/src/models/products.dart';
 import 'package:the_food_freaks/src/models/stores.dart';
 import 'package:the_food_freaks/src/widgets/customtext.dart';
 
