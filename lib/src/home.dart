@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:the_food_freaks/constants.dart';
+import 'package:the_food_freaks/src/screens/cart.dart';
 import 'package:the_food_freaks/src/screens/menu_screen.dart';
 import 'package:the_food_freaks/src/tabs/main_tab.dart';
 import 'package:the_food_freaks/src/widgets/customtext.dart';
@@ -25,19 +26,18 @@ class _HomeState extends State<Home> {
     getCurrentUser();
   }
 
-
-  void getCurrentUser() async{
-    try{
-        final user = await _auth.currentUser;
-        if(user != null){
-      loggedInUser = user;
-      print(loggedInUser.email);
+  void getCurrentUser() async {
+    try {
+      final user = await _auth.currentUser;
+      if (user != null) {
+        loggedInUser = user;
+        print(loggedInUser.email);
+      }
+    } catch (e) {
+      loggedInUser.email;
     }
-  } catch(e){
-    print(e);
-    }
-
   }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -52,17 +52,23 @@ class _HomeState extends State<Home> {
           backgroundColor: kColor1,
           actions: [
             IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.favorite,
-                  color: Colors.white,
-                )),
+              onPressed: () {},
+              icon: const Icon(
+                Icons.favorite,
+                color: Colors.white,
+              ),
+            ),
             IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.shopping_cart,
-                  color: Colors.white,
-                ))
+              onPressed: () {
+                setState(() {
+                  Cart();
+                });
+              },
+              icon: const Icon(
+                Icons.shopping_cart,
+                color: Colors.white,
+              ),
+            )
           ],
         ),
         drawer: const MenuScreen(),

@@ -18,8 +18,7 @@
     "vendor": "GoodFoods",
     "isFavorite": true,
     "description": "Hello This is a Food"
-  }
-,
+  },
   {
     "name": "Cereals",
     "imgPath": "images/food_1.jpg",

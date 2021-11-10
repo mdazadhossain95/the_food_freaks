@@ -13,14 +13,13 @@ class MainTab extends StatefulWidget {
   _MainTabState createState() => _MainTabState();
 }
 
-class _MainTabState extends State<MainTab>
-    with SingleTickerProviderStateMixin {
+class _MainTabState extends State<MainTab> with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 5, vsync: this);
+    _tabController = TabController(length: 4, vsync: this);
   }
 
   @override
@@ -66,13 +65,6 @@ class _MainTabState extends State<MainTab>
                       fontSize: 21.0,
                     )),
               ),
-              Tab(
-                child: Text('Restaurant',
-                    style: TextStyle(
-                      fontFamily: 'Oswald',
-                      fontSize: 21.0,
-                    )),
-              )
             ]),
         SizedBox(
           height: MediaQuery.of(context).size.height - 20.0,
@@ -84,7 +76,6 @@ class _MainTabState extends State<MainTab>
               PopularTab(),
               StoreScreen(),
               ResturantDetails(),
-              ResturantDetails()
             ],
           ),
         )

@@ -42,9 +42,6 @@ class _PopularTabState extends State<PopularTab> {
               child: GridView.builder(
                   gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
                     maxCrossAxisExtent: 400,
-                    // childAspectRatio: 3 / 2,
-                    // crossAxisSpacing: 5,
-                    // mainAxisSpacing: 5
                   ),
                   itemCount: items.length,
                   itemBuilder: (context, index) {

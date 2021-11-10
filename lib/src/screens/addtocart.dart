@@ -1,8 +1,8 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:the_food_freaks/constants.dart';
+import 'package:the_food_freaks/src/screens/cart.dart';
 import 'package:the_food_freaks/src/widgets/customtext.dart';
 import 'package:the_food_freaks/src/widgets/iconbutton.dart';
 
@@ -35,6 +35,10 @@ class _ProductDetailsState extends State<ProductDetails> {
   late int adds;
   late final ratings;
   late final description;
+
+  final TextEditingController _controller = TextEditingController();
+
+
 
   @override
   void initState() {
@@ -84,7 +88,7 @@ class _ProductDetailsState extends State<ProductDetails> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 RoundIconButton(
-                    icon: FontAwesomeIcons.minus,
+                    icon: Icons.remove,
                     onPressed: () {
                       setState(() {
                         adds--;
@@ -93,9 +97,10 @@ class _ProductDetailsState extends State<ProductDetails> {
                 CustomText(
                   text: adds.toString(),
                   size: 25,
+
                 ),
                 RoundIconButton(
-                    icon: FontAwesomeIcons.plus,
+                    icon: Icons.add,
                     onPressed: () {
                       setState(() {
                         adds++;
@@ -172,7 +177,19 @@ class _ProductDetailsState extends State<ProductDetails> {
                     width: 100,
                     child: FittedBox(
                       child: FloatingActionButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => Cart(
+                                assetPath: assetPaths,
+                                productprice: productprices,
+                                productname: productnames,
+                                description: description,
+                                // add: adds
+                              ),
+                            ),
+                          );
+                        },
                         child: const Icon(
                           Icons.shopping_cart,
                           size: 25.0,
@@ -191,3 +208,5 @@ class _ProductDetailsState extends State<ProductDetails> {
     );
   }
 }
+
+

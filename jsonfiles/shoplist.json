@@ -1,0 +1,75 @@
+[
+  {
+    "storeName": "shop 1",
+    "storeImgPath": "images/food_1.jpg",
+    "2": [
+      {
+        "name": "Cereals",
+        "imgPath": "images/food_1.jpg",
+        "rating": "4.7",
+        "price": "5.99",
+        "added": 0,
+        "vendor": "GoodFoods",
+        "isFavorite": true,
+        "description": "Hello This is a Food"
+      },
+      {
+        "name": "Cereals",
+        "imgPath": "images/food_2.jpg",
+        "rating": "4.7",
+        "price": "5.99",
+        "added": 0,
+        "vendor": "GoodFoods",
+        "isFavorite": true,
+        "description": "Hello This is a Food"
+      },
+      {
+        "name": "Cereals",
+        "imgPath": "images/food_3.jpg",
+        "rating": "4.7",
+        "price": "5.99",
+        "added": 0,
+        "vendor": "GoodFoods",
+        "isFavorite": true,
+        "description": "Hello This is a Food"
+      }
+    ]
+  },
+
+  {
+    "storeName": "shop 2",
+    "storeImgPath": "images/food_4.jpg",
+    "2": [
+      {
+        "name": "Cereals",
+        "imgPath": "images/food_1.jpg",
+        "rating": "4.7",
+        "price": "5.99",
+        "added": 0,
+        "vendor": "GoodFoods",
+        "isFavorite": true,
+        "description": "Hello This is a Food"
+      },
+      {
+        "name": "Cereals",
+        "imgPath": "images/food_1.jpg",
+        "rating": "4.7",
+        "price": "5.99",
+        "added": 0,
+        "vendor": "GoodFoods",
+        "isFavorite": true,
+        "description": "Hello This is a Food"
+      },
+      {
+        "name": "Cereals",
+        "imgPath": "images/food_1.jpg",
+        "rating": "4.7",
+        "price": "5.99",
+        "added": 0,
+        "vendor": "GoodFoods",
+        "isFavorite": true,
+        "description": "Hello This is a Food"
+      }
+    ]
+  }
+]
