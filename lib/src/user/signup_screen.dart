@@ -1,9 +1,8 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import '../textformfields.dart';
 import 'package:the_food_freaks/constants.dart';
 import 'package:the_food_freaks/src/widgets/customtext.dart';
-import 'package:the_food_freaks/src/user/signin_screen.dart';
+
+import '../textformfields.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({Key? key}) : super(key: key);
@@ -13,7 +12,6 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
-  final _auth = FirebaseAuth.instance;
   late String email;
   late String password;
 
@@ -81,29 +79,15 @@ class _SignUpPageState extends State<SignUpPage> {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: ElevatedButton(
-                          onPressed: () async {
-                            try {
-                              // ignore: unused_local_variable
-                              final newUser =
-                                  await _auth.createUserWithEmailAndPassword(
-                                      email: email, password: password);
-                            } catch (e) {
-                              print(e);
-                            }
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => SignInScreen(),
-                              ),
-                            );
-                          },
+                          onPressed: () {},
                           style: ButtonStyle(
-                              backgroundColor:
-                                  MaterialStateProperty.all(kColor2),
-                              shape: MaterialStateProperty.all(
-                                  RoundedRectangleBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(30.0)))),
+                            backgroundColor: MaterialStateProperty.all(kColor2),
+                            shape: MaterialStateProperty.all(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30.0),
+                              ),
+                            ),
+                          ),
                           child: const CustomText(
                             text: 'Sign Up',
                           ),

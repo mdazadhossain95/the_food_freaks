@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:the_food_freaks/constants.dart';
@@ -7,37 +6,17 @@ import 'package:the_food_freaks/src/screens/menu_screen.dart';
 import 'package:the_food_freaks/src/tabs/main_tab.dart';
 import 'package:the_food_freaks/src/widgets/customtext.dart';
 
+// Touhid
 class Home extends StatefulWidget {
-  static const String id = 'Home_screen';
+  // static const String id = 'Home_screen';
+  static const routeName = '/home-screens';
 
   @override
   _HomeState createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
-  final _auth = FirebaseAuth.instance;
-  late User loggedInUser;
-
   @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-
-    getCurrentUser();
-  }
-
-  void getCurrentUser() async {
-    try {
-      final user = await _auth.currentUser;
-      if (user != null) {
-        loggedInUser = user;
-        print(loggedInUser.email);
-      }
-    } catch (e) {
-      loggedInUser.email;
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(

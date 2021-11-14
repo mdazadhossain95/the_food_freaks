@@ -1,13 +1,18 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:the_food_freaks/src/user/registar.dart';
+import 'package:localstorage/localstorage.dart';
+import 'package:provider/provider.dart';
 import 'package:the_food_freaks/constants.dart';
-import '../textformfields.dart';
-import 'forgot_pas_screen.dart';
-import '../home.dart';
+import 'package:the_food_freaks/src/state/user_state.dart';
+import 'package:the_food_freaks/src/user/registar.dart';
 import 'package:the_food_freaks/src/widgets/customtext.dart';
 
+import '../home.dart';
+import '../screens/components/form_input_box.dart';
+import 'forgot_pas_screen.dart';
+
+// Touhid
 class SignInScreen extends StatefulWidget {
+  static const routeName = '/sign-in-screens';
   const SignInScreen({Key? key}) : super(key: key);
   static const String id = 'Signin_screen';
 
@@ -16,10 +21,44 @@ class SignInScreen extends StatefulWidget {
 }
 
 class _SignInScreenState extends State<SignInScreen> {
-  final _auth = FirebaseAuth.instance;
-  late String email;
-  late String password;
+  LocalStorage storage = LocalStorage('usertoken');
+  UserState userState = UserState();
+  String _useremail = '';
+  String _password = '';
+  final _form = GlobalKey<FormState>();
 
+  void _loginNow() async {
+    var isValid = _form.currentState!.validate();
+    if (!isValid) {
+      return;
+    }
+    _form.currentState!.save();
+    // calling usersate to function login
+    bool istoken = await Provider.of<UserState>(context, listen: false)
+        .loginNow(_useremail, _password);
+
+    if (istoken) {
+      Navigator.of(context).pushReplacementNamed(Home.routeName);
+    } else {
+      showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: const Text("Invalid Credentials. Try Again!!"),
+              actions: [
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text("Ok"),
+                )
+              ],
+            );
+          });
+    }
+  }
+
+  @override
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -37,143 +76,137 @@ class _SignInScreenState extends State<SignInScreen> {
         ),
         body: SingleChildScrollView(
           scrollDirection: Axis.vertical,
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const SizedBox(height: 50.0),
-                const Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: CustomText(
-                    text: 'Login',
-                    size: 30,
-                    weight: FontWeight.bold,
+          child: Form(
+            key: _form,
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const SizedBox(height: 50.0),
+                  const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: CustomText(
+                      text: 'Login',
+                      size: 30,
+                      weight: FontWeight.bold,
+                    ),
                   ),
-                ),
-                const SizedBox(height: 10.0),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Image.asset(
-                    'images/The_Food_Freaks.png',
-                    height: MediaQuery.of(context).size.height * 0.3,
-                    width: MediaQuery.of(context).size.width,
+                  const SizedBox(height: 10.0),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Image.asset(
+                      'images/The_Food_Freaks.png',
+                      height: MediaQuery.of(context).size.height * 0.3,
+                      width: MediaQuery.of(context).size.width,
+                    ),
                   ),
-                ),
-                const SizedBox(height: 10),
-                TextFields(
-                  onchange: (value) {
-                    email = value;
-                  },
-                  hintText: 'Email',
-                  obscureText: false,
-                  userIcon: Icons.person,
-                  inputType: TextInputType.emailAddress,
-                ),
-                const SizedBox(height: 10),
-                TextFields(
-                  onchange: (value) {
-                    password = value;
-                  },
-                  hintText: 'Password',
-                  obscureText: true,
-                  userIcon: Icons.lock_sharp,
-                  inputType: TextInputType.visiblePassword,
-                ),
-                const SizedBox(height: 10),
-                GestureDetector(
-                  child: const Text(
-                    "FORGOT PASSWORD?",
-                    style: kTextStyle,
-                    textAlign: TextAlign.right,
-                  ),
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const ForgotPasScreen(),
-                      ),
-                    );
-                  },
-                ),
-                const SizedBox(height: 10),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ElevatedButton(
-                    onPressed: () async {
-                      try {
-                        final newUser = await _auth.signInWithEmailAndPassword(
-                            email: email, password: password);
-                        // ignore: unnecessary_null_comparison
-                        if (newUser != null) {
-                          // Navigator.pushNamed(context, Home.id);
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => Home(),
-                            ),
-                          );
-                        }
-                      } catch (e) {
-                        print(e);
+                  const SizedBox(height: 10),
+                  LoginSignUpInputBox(
+                    validator: (v) {
+                      if (v!.isEmpty) {
+                        return 'Enter Your Email';
                       }
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //     builder: (context) => Home(),
-                      //   ),
-                      // );
+                      return null;
                     },
-                    style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(kColor1),
-                        shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(18.0)))),
-                    child: const CustomText(
-                      text: 'Sign in',
-                    ),
+                    onSave: (v) {
+                      _useremail = v!;
+                    },
+                    labelText: "Enter Your Email",
+                    icon: Icons.person,
+                    obscureText: false,
                   ),
-                ),
-                const SizedBox(height: 10.0),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Text(
-                        "DON'T HAVE ACCOUNT?",
-                        textAlign: TextAlign.center,
+                  const SizedBox(height: 10),
+                  LoginSignUpInputBox(
+                    validator: (v) {
+                      if (v!.isEmpty) {
+                        return 'Enter Your Password';
+                      }
+                      return null;
+                    },
+                    onSave: (v) {
+                      _password = v!;
+                    },
+                    labelText: "Enter Your Password",
+                    icon: Icons.lock_sharp,
+                    obscureText: true,
+                  ),
+                  const SizedBox(height: 10),
+                  GestureDetector(
+                    child: const Text(
+                      "FORGOT PASSWORD?",
+                      style: kTextStyle,
+                      textAlign: TextAlign.right,
+                    ),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const ForgotPasScreen(),
+                        ),
+                      );
+                    },
+                  ),
+                  const SizedBox(height: 10),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        _loginNow();
+                      },
+                      style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(kColor1),
+                          shape: MaterialStateProperty.all(
+                              RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(18.0)))),
+                      child: const CustomText(
+                        text: 'Sign in',
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        children: [
-                          ElevatedButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const Registration(),
-                                ),
-                              );
-                            },
-                            style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all(kColor2),
-                              shape: MaterialStateProperty.all(
-                                RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(30.0),
+                  ),
+                  const SizedBox(height: 10.0),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Text(
+                          "DON'T HAVE ACCOUNT?",
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          children: [
+                            ElevatedButton(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const Registration(),
+                                  ),
+                                );
+                              },
+                              style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStateProperty.all(kColor2),
+                                shape: MaterialStateProperty.all(
+                                  RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(30.0),
+                                  ),
                                 ),
                               ),
+                              child: const CustomText(
+                                text: 'Sign Up',
+                              ),
                             ),
-                            child: const CustomText(
-                              text: 'Sign Up',
-                            ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
-                )
-              ],
+                    ],
+                  )
+                ],
+              ),
             ),
           ),
         ),
