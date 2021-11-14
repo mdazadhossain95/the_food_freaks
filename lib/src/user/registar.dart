@@ -1,12 +1,14 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:the_food_freaks/src/user/signin_screen.dart';
-import '../textformfields.dart';
+import 'package:provider/provider.dart';
 import 'package:the_food_freaks/constants.dart';
+import 'package:the_food_freaks/src/screens/components/form_input_box.dart';
+import 'package:the_food_freaks/src/state/user_state.dart';
+import 'package:the_food_freaks/src/user/signin_screen.dart';
 import 'package:the_food_freaks/src/widgets/customtext.dart';
 
+// Touhid
 class Registration extends StatefulWidget {
-  static const String id = 'registration_screen';
+  static const routeName = '/registration-screens';
 
   const Registration({Key? key}) : super(key: key);
 
@@ -15,10 +17,42 @@ class Registration extends StatefulWidget {
 }
 
 class _RegistrationState extends State<Registration> {
-  final _auth = FirebaseAuth.instance;
-  late String email;
-  late String password;
+  UserState userState = UserState();
+  String _useremail = '';
+  String _password = '';
+  String _confpassword = '';
 
+  final _from = GlobalKey<FormState>();
+
+  void _registerNow() async {
+    var isValid = _from.currentState!.validate();
+    if (!isValid) {
+      return;
+    }
+    _from.currentState!.save();
+
+    bool isregister = await Provider.of<UserState>(context, listen: false)
+        .registerNow(_useremail, _password);
+    if (isregister) {
+      Navigator.of(context).pushReplacementNamed(SignInScreen.routeName);
+    } else {
+      showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: const Text("Something is wrong. Try Again!!"),
+              actions: [
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text("Ok"),
+                )
+              ],
+            );
+          });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,100 +69,111 @@ class _RegistrationState extends State<Registration> {
             weight: FontWeight.bold,
           ),
         ),
-        body: SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          // ignore: avoid_unnecessary_containers
-          child: Container(
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const SizedBox(height: 50.0),
-                  const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: CustomText(
-                      text: 'Sign Up',
-                      size: 30,
-                      weight: FontWeight.bold,
+        body: Form(
+          key: _from,
+          child: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            // ignore: avoid_unnecessary_containers
+            child: Container(
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const SizedBox(height: 50.0),
+                    const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: CustomText(
+                        text: 'Sign Up',
+                        size: 30,
+                        weight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 10.0),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Image.asset(
-                      'images/The_Food_Freaks.png',
-                      height: MediaQuery.of(context).size.height * 0.3,
-                      width: MediaQuery.of(context).size.width,
+                    const SizedBox(height: 10.0),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Image.asset(
+                        'images/The_Food_Freaks.png',
+                        height: MediaQuery.of(context).size.height * 0.3,
+                        width: MediaQuery.of(context).size.width,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 10),
-                  TextFields(
-                      onchange: (value) {
-                        email = value;
+                    const SizedBox(height: 10),
+                    LoginSignUpInputBox(
+                      validator: (v) {
+                        if (v!.isEmpty) {
+                          return 'Enter Your Email';
+                        }
+                        return null;
                       },
-                      hintText: 'Email',
+                      onSave: (v) {
+                        _useremail = v!;
+                      },
+                      labelText: "Enter Your Email",
+                      icon: Icons.person,
                       obscureText: false,
-                      userIcon: Icons.person,
-                      inputType: TextInputType.emailAddress),
-                  const SizedBox(height: 10),
-                  TextFields(
-                      onchange: (value) {
-                        password = value;
+                    ),
+                    const SizedBox(height: 10),
+                    LoginSignUpInputBox(
+                      validator: (v) {
+                        if (v!.isEmpty) {
+                          return 'Enter Your Password';
+                        }
+                        return null;
                       },
-                      hintText: 'Password',
+                      onChange: (v) {
+                        setState(() {
+                          _confpassword = v;
+                        });
+                      },
+                      onSave: (v) {
+                        _password = v!;
+                      },
+                      labelText: "Enter Your Password",
+                      icon: Icons.lock_sharp,
                       obscureText: true,
-                      userIcon: Icons.lock,
-                      inputType: TextInputType.visiblePassword),
-                  const SizedBox(height: 10),
-                  // TextFields(
-                  //     onchange: (value) {
-                  //       confirmpassword = value;
-                  //     },
-                  //     hintText: 'Confirm Password',
-                  //     obscureText: true,
-                  //     userIcon: Icons.lock,
-                  //     inputType: TextInputType.visiblePassword),
-                  // const SizedBox(height: 10),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: ElevatedButton(
-                          onPressed: () async {
-                            try {
-                              final newUser =
-                                  await _auth.createUserWithEmailAndPassword(
-                                      email: email, password: password);
-                              // ignore: unnecessary_null_comparison
-                              if (newUser != null) {
-                                Navigator.pushNamed(context, SignInScreen.id);
-                              }
-                            } catch (e) {
-                              print(e);
-                            }
-                            // Navigator.push(
-                            //   context,
-                            //   MaterialPageRoute(
-                            //     builder: (context) => MainHome(),
-                            //   ),
-                            // );
-                          },
-                          style: ButtonStyle(
-                              backgroundColor:
-                                  MaterialStateProperty.all(kColor2),
-                              shape: MaterialStateProperty.all(
-                                  RoundedRectangleBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(30.0)))),
-                          child: const CustomText(
-                            text: 'Sign Up',
+                    ),
+                    const SizedBox(height: 10),
+                    LoginSignUpInputBox(
+                      validator: (v) {
+                        if (_confpassword != v) {
+                          return 'Confirm Password';
+                        }
+                        return null;
+                      },
+                      onSave: (v) {
+                        setState(() {
+                          _password = v;
+                        });
+                      },
+                      labelText: "Confirm Password",
+                      icon: Icons.lock_sharp,
+                      obscureText: true,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: ElevatedButton(
+                            onPressed: () {
+                              _registerNow();
+                            },
+                            style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStateProperty.all(kColor2),
+                                shape: MaterialStateProperty.all(
+                                    RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(30.0)))),
+                            child: const CustomText(
+                              text: 'Sign Up',
+                            ),
                           ),
                         ),
-                      ),
-                    ],
-                  )
-                ],
+                      ],
+                    )
+                  ],
+                ),
               ),
             ),
           ),

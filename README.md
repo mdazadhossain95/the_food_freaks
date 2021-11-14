@@ -28,3 +28,9 @@ $ flutter packages get
 6. Chat, Tracking orders
 7. Multi Roles and Permissions (Optional)
 
+#You need to make a virtual environment with the requirements.txt file but if you don't have python in your system please install it
+steps:
+## pip install virtualenv (if you don't already have virtualenv installed)
+## virtualenv venv to create your new environment (called 'venv' here)
+## source venv/bin/activate to enter the virtual environment
+## pip install -r requirements.txt to install the requirements in the current environment

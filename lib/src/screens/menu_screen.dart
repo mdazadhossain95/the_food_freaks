@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 //pages
 import 'package:the_food_freaks/constants.dart';
-import 'package:the_food_freaks/src/user/profileScreenTest.dart';
 import 'package:the_food_freaks/src/user/profile_screen.dart';
 import 'package:the_food_freaks/src/screens/settings_screen.dart';
 import 'package:the_food_freaks/src/widgets/customtext.dart';
@@ -37,7 +36,7 @@ class MenuScreen extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                       builder: (BuildContext context) =>
-                          const ProfileScreenTest()));
+                          const ProfileScreen()));
             },
           ),
           ListTile(
