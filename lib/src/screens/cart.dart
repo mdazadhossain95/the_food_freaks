@@ -140,7 +140,7 @@ class _CartState extends State<Cart> {
                             // crossAxisAlignment: CrossAxisAlignment.,
                             children: [
                               Padding(
-                                padding: const EdgeInsets.only(left: 30.0),
+                                padding: const EdgeInsets.only(left: 2.0),
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -163,6 +163,10 @@ class _CartState extends State<Cart> {
                                             adds++;
                                           });
                                         }),
+                                    const Icon(
+                                      Icons.delete,
+                                      color: kColor1,
+                                    ),
                                   ],
                                 ),
                               ),
@@ -189,7 +193,7 @@ class _CartState extends State<Cart> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      CustomText(text: 'Subtotal'),
+                      const CustomText(text: 'Subtotal'),
                       CustomText(text: productprices),
                     ],
                   ),
@@ -198,20 +202,20 @@ class _CartState extends State<Cart> {
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
+                    children: const [
                       CustomText(text: 'Delevery'),
                       CustomText(text: '20'),
                     ],
                   ),
                 ),
-                Divider(
+                const Divider(
                   color: kWhite,
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
+                    children: const [
                       CustomText(text: 'Total'),
                       CustomText(text: '25.99'),
                     ],
@@ -241,10 +245,8 @@ class _CartState extends State<Cart> {
                     ),
                   ),
                 ),
-
               ],
             ),
-
           )
         ],
       ),

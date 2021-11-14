@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:the_food_freaks/constants.dart';
+import 'package:the_food_freaks/src/home.dart';
+import 'package:the_food_freaks/src/widgets/customtext.dart';
 
 class ProfileScreenTest extends StatelessWidget {
   const ProfileScreenTest({Key? key}) : super(key: key);
@@ -46,7 +48,9 @@ class ProfileScreenTest extends StatelessWidget {
                                   width: 80,
                                   color: Colors.black.withOpacity(0.3),
                                   child: Column(
-                                    children: [Icon(Icons.add_a_photo_outlined)],
+                                    children: [
+                                      Icon(Icons.add_a_photo_outlined)
+                                    ],
                                   ),
                                 ),
                               )
@@ -78,9 +82,9 @@ class ProfileScreenTest extends StatelessWidget {
                         Text(
                           "Hi there Azad!",
                           style:
-                              Theme.of(context).textTheme.headline6!.copyWith(
-                                    color: Color(0xFF4A4B4D),
-                                  ),
+                          Theme.of(context).textTheme.headline6!.copyWith(
+                            color: Color(0xFF4A4B4D),
+                          ),
                         ),
                         SizedBox(
                           height: 5,
@@ -129,11 +133,29 @@ class ProfileScreenTest extends StatelessWidget {
                         SizedBox(
                           height: 50,
                           width: double.infinity,
-                          child: ElevatedButton(
-                            onPressed: () {},
-                            child: Text("Save"),
+                          child:                 Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: ElevatedButton(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => Home(),
+                                  ),
+                                );
+                              },
+                              style: ButtonStyle(
+                                  backgroundColor: MaterialStateProperty.all(kColor1),
+                                  shape: MaterialStateProperty.all(
+                                      RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(18.0)))),
+                              child: const CustomText(
+                                text: 'Save',
+                              ),
+                            ),
                           ),
-                        )
+                          ),
+                        // )
                       ],
                     ),
                   ),
