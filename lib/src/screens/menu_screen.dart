@@ -1,15 +1,25 @@
 import 'package:flutter/material.dart';
-
+import 'package:localstorage/localstorage.dart';
 //pages
 import 'package:the_food_freaks/constants.dart';
-import 'package:the_food_freaks/src/user/profileScreenTest.dart';
-import 'package:the_food_freaks/src/user/profile_screen.dart';
 import 'package:the_food_freaks/src/screens/settings_screen.dart';
+import 'package:the_food_freaks/src/user/profileScreenTest.dart';
+import 'package:the_food_freaks/src/user/signin_screen.dart';
 import 'package:the_food_freaks/src/widgets/customtext.dart';
 
-
-class MenuScreen extends StatelessWidget {
+class MenuScreen extends StatefulWidget {
   const MenuScreen({Key? key}) : super(key: key);
+
+  @override
+  State<MenuScreen> createState() => _MenuScreenState();
+}
+
+class _MenuScreenState extends State<MenuScreen> {
+  void _logout() async {
+    LocalStorage storage = LocalStorage('usertoken');
+    await storage.clear();
+    Navigator.of(context).pushReplacementNamed(SignInScreen.routeName);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +40,10 @@ class MenuScreen extends StatelessWidget {
           ),
           ListTile(
             leading: const Icon(Icons.account_box),
-            title: const CustomText(text: 'Profile', size: 16,),
+            title: const CustomText(
+              text: 'Profile',
+              size: 16,
+            ),
             onTap: () {
               Navigator.of(context).pop();
               Navigator.push(
@@ -42,7 +55,10 @@ class MenuScreen extends StatelessWidget {
           ),
           ListTile(
             leading: const Icon(Icons.settings),
-            title: const CustomText(text: 'Settings', size: 16,),
+            title: const CustomText(
+              text: 'Settings',
+              size: 16,
+            ),
             onTap: () {
               Navigator.of(context).pop();
               Navigator.push(
@@ -52,6 +68,16 @@ class MenuScreen extends StatelessWidget {
                           const SettingsScreen()));
             },
           ),
+          const Spacer(),
+          ListTile(
+              leading: const Icon(Icons.logout),
+              title: const CustomText(
+                text: 'Logout',
+                size: 16,
+              ),
+              onTap: () {
+                _logout();
+              }),
         ],
       ),
     );

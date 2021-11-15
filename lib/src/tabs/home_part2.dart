@@ -44,36 +44,39 @@ class _HomePart2State extends State<HomePart2> {
             itemBuilder: (_, index) {
               return Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: InkWell(
-                  onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => ProductDetails(
-                              assetPath:
-                                  "http://10.0.2.2:8000${items[index].image}",
-                              productprice: items[index].price.toString(),
-                              productname: items[index].title.toString(),
-                              rating: items[index].rateing.toString(),
-                              description: items[index].description.toString(),
-                              add: 0,
-                            )));
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      height: MediaQuery.of(context).size.height * 0.35,
-                      width: MediaQuery.of(context).size.width * 0.40,
-                      decoration: const BoxDecoration(
-                        color: kWhite,
-                        boxShadow: [
-                          BoxShadow(
-                              color: kColor1,
-                              offset: Offset(15, 5),
-                              blurRadius: 30)
-                        ],
-                      ),
-                      child: Column(
-                        children: [
-                          Padding(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    height: MediaQuery.of(context).size.height * 0.35,
+                    width: MediaQuery.of(context).size.width * 0.40,
+                    decoration: const BoxDecoration(
+                      color: kWhite,
+                      boxShadow: [
+                        BoxShadow(
+                            color: kColor1,
+                            offset: Offset(15, 5),
+                            blurRadius: 30)
+                      ],
+                    ),
+                    child: Column(
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => ProductDetails(
+                                      assetPath:
+                                          "http://10.0.2.2:8000${items[index].image}",
+                                      productprice:
+                                          items[index].price.toString(),
+                                      productname:
+                                          items[index].title.toString(),
+                                      rating: items[index].rateing.toString(),
+                                      description:
+                                          items[index].description.toString(),
+                                      add: 0,
+                                    )));
+                          },
+                          child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Image.network(
                               "http://10.0.2.2:8000${items[index].image}",
@@ -82,29 +85,36 @@ class _HomePart2State extends State<HomePart2> {
                               fit: BoxFit.cover,
                             ),
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              //name
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: CustomText(
-                                    text: items[index].title.toString()),
-                              ),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            //name
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: CustomText(
+                                  text: items[index].title.toString()),
+                            ),
 
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20),
-                                    color: kWhite,
-                                    boxShadow: const [
-                                      BoxShadow(
-                                          color: kGrey,
-                                          offset: Offset(1, 1),
-                                          blurRadius: 4)
-                                    ],
-                                  ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                  color: kWhite,
+                                  boxShadow: const [
+                                    BoxShadow(
+                                        color: kGrey,
+                                        offset: Offset(1, 1),
+                                        blurRadius: 4)
+                                  ],
+                                ),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    Provider.of<ProductState>(context,
+                                            listen: false)
+                                        .favoriteButton(items[index].id as int);
+                                  },
                                   child: Padding(
                                     padding: const EdgeInsets.all(4),
                                     child: items[index].favorite
@@ -120,43 +130,43 @@ class _HomePart2State extends State<HomePart2> {
                                           ),
                                   ),
                                 ),
+                              ),
+                            )
+                          ],
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(1.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 8.0),
+                                    child: CustomText(
+                                        text: items[index].rateing.toString(),
+                                        color: kGrey,
+                                        size: 14),
+                                  ),
+                                  const Icon(
+                                    Icons.star,
+                                    color: kColor1,
+                                    size: 16,
+                                  )
+                                ],
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(right: 8.0),
+                                child: CustomText(
+                                  text: "\$${items[index].price.toString()}",
+                                  weight: FontWeight.bold,
+                                  size: 12,
+                                ),
                               )
                             ],
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(1.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 8.0),
-                                      child: CustomText(
-                                          text: items[index].rateing.toString(),
-                                          color: kGrey,
-                                          size: 14),
-                                    ),
-                                    const Icon(
-                                      Icons.star,
-                                      color: kColor1,
-                                      size: 16,
-                                    )
-                                  ],
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(right: 8.0),
-                                  child: CustomText(
-                                    text: "\$${items[index].price.toString()}",
-                                    weight: FontWeight.bold,
-                                    size: 12,
-                                  ),
-                                )
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
+                        )
+                      ],
                     ),
                   ),
                 ),

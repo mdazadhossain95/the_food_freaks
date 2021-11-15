@@ -38,8 +38,6 @@ class _ProductDetailsState extends State<ProductDetails> {
 
   final TextEditingController _controller = TextEditingController();
 
-
-
   @override
   void initState() {
     // TODO: implement initState
@@ -97,7 +95,6 @@ class _ProductDetailsState extends State<ProductDetails> {
                 CustomText(
                   text: adds.toString(),
                   size: 25,
-
                 ),
                 RoundIconButton(
                     icon: Icons.add,
@@ -208,5 +205,3 @@ class _ProductDetailsState extends State<ProductDetails> {
     );
   }
 }
-
-
