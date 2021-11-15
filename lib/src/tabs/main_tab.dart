@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:the_food_freaks/constants.dart';
 import 'package:the_food_freaks/src/tabs/home_tab.dart';
-import 'package:the_food_freaks/src/widgets/search_bar.dart';
 import 'package:the_food_freaks/src/tabs/popular_tab.dart';
 import 'package:the_food_freaks/src/tabs/store_tab.dart';
-import 'package:the_food_freaks/src/tabs/resturantdetails.dart';
+import 'package:the_food_freaks/src/widgets/search_bar.dart';
 
 class MainTab extends StatefulWidget {
   MainTab({Key? key}) : super(key: key);
@@ -19,7 +18,7 @@ class _MainTabState extends State<MainTab> with SingleTickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 4, vsync: this);
+    _tabController = TabController(length: 3, vsync: this);
   }
 
   @override
@@ -58,13 +57,13 @@ class _MainTabState extends State<MainTab> with SingleTickerProviderStateMixin {
                       fontSize: 21.0,
                     )),
               ),
-              Tab(
-                child: Text('Restaurant',
-                    style: TextStyle(
-                      fontFamily: 'Oswald',
-                      fontSize: 21.0,
-                    )),
-              ),
+              // Tab(
+              //   child: Text('Restaurant',
+              //       style: TextStyle(
+              //         fontFamily: 'Oswald',
+              //         fontSize: 21.0,
+              //       )),
+              // ),
             ]),
         SizedBox(
           height: MediaQuery.of(context).size.height - 20.0,
@@ -75,7 +74,7 @@ class _MainTabState extends State<MainTab> with SingleTickerProviderStateMixin {
               HomeTab(),
               PopularTab(),
               StoreScreen(),
-              ResturantDetails(),
+              // ResturantDetails(),
             ],
           ),
         )

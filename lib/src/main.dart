@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:localstorage/localstorage.dart';
 import 'package:provider/provider.dart';
 import 'package:the_food_freaks/src/home.dart';
+import 'package:the_food_freaks/src/state/product_state.dart';
 import 'package:the_food_freaks/src/state/user_state.dart';
 import 'package:the_food_freaks/src/user/registar.dart';
 import 'package:the_food_freaks/src/user/signin_screen.dart';
@@ -20,6 +21,9 @@ class TheFoodFreaks extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
           create: (ctx) => UserState(), // ctx is context here
+        ),
+        ChangeNotifierProvider(
+          create: (ctx) => ProductState(), // ctx is context here
         ),
       ],
       child: MaterialApp(
