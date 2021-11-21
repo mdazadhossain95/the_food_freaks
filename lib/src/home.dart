@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:the_food_freaks/constants.dart';
 import 'package:the_food_freaks/src/screens/cart.dart';
+import 'package:the_food_freaks/src/screens/favorite.dart';
+import 'package:the_food_freaks/src/screens/main_cart.dart';
 import 'package:the_food_freaks/src/screens/menu_screen.dart';
 import 'package:the_food_freaks/src/tabs/main_tab.dart';
 import 'package:the_food_freaks/src/widgets/customtext.dart';
@@ -31,7 +33,10 @@ class _HomeState extends State<Home> {
           backgroundColor: kColor1,
           actions: [
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => FavoriteScreen()));
+              },
               icon: const Icon(
                 Icons.favorite,
                 color: Colors.white,
@@ -39,9 +44,8 @@ class _HomeState extends State<Home> {
             ),
             IconButton(
               onPressed: () {
-                setState(() {
-                  Cart();
-                });
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => MainCart()));
               },
               icon: const Icon(
                 Icons.shopping_cart,

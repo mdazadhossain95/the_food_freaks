@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:the_food_freaks/constants.dart';
 import 'package:the_food_freaks/src/models/products.dart';
 import 'package:the_food_freaks/src/screens/payment.dart';
-import 'package:the_food_freaks/src/tabs/home_tab.dart';
 import 'package:the_food_freaks/src/widgets/customtext.dart';
 import 'package:flutter/services.dart' as rootBundle;
 import 'package:the_food_freaks/src/widgets/iconbutton.dart';
@@ -198,16 +197,16 @@ class _CartState extends State<Cart> {
                     ],
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
-                      CustomText(text: 'Delevery'),
-                      CustomText(text: '20'),
-                    ],
-                  ),
-                ),
+                // Padding(
+                //   padding: const EdgeInsets.all(8.0),
+                //   child: Row(
+                //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //     children: const [
+                //       CustomText(text: 'Delevery'),
+                //       CustomText(text: '20'),
+                //     ],
+                //   ),
+                // ),
                 const Divider(
                   color: kWhite,
                 ),
@@ -215,9 +214,11 @@ class _CartState extends State<Cart> {
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
-                      CustomText(text: 'Total'),
-                      CustomText(text: '25.99'),
+                    children: [
+                      const CustomText(text: 'Total'),
+
+                      CustomText(text: productprices.toString() * adds),
+                      // TextField()
                     ],
                   ),
                 ),
