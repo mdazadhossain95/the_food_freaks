@@ -38,7 +38,7 @@ class _ResturantDetailsState extends State<ResturantDetails> {
       appBar: AppBar(
         centerTitle: true,
         title: const CustomText(
-          text: 'The Food Freaks',
+          text: 'Resturant details',
           size: 18,
         ),
         backgroundColor: kColor1,

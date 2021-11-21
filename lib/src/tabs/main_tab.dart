@@ -57,13 +57,6 @@ class _MainTabState extends State<MainTab> with SingleTickerProviderStateMixin {
                       fontSize: 21.0,
                     )),
               ),
-              // Tab(
-              //   child: Text('Restaurant',
-              //       style: TextStyle(
-              //         fontFamily: 'Oswald',
-              //         fontSize: 21.0,
-              //       )),
-              // ),
             ]),
         SizedBox(
           height: MediaQuery.of(context).size.height - 20.0,
