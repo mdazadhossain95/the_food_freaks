@@ -76,7 +76,7 @@ class _ProductDetailsState extends State<ProductDetails> {
             tag: assetPaths,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Image.asset(assetPaths,
+              child: Image.network(assetPaths,
                   height: 300.0, width: 70.0, fit: BoxFit.cover),
             ),
           ),

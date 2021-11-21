@@ -1,12 +1,11 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' as rootBundle;
 import 'package:the_food_freaks/constants.dart';
 import 'package:the_food_freaks/src/models/products.dart';
 import 'package:the_food_freaks/src/screens/payment.dart';
-import 'package:the_food_freaks/src/tabs/home_tab.dart';
 import 'package:the_food_freaks/src/widgets/customtext.dart';
-import 'package:flutter/services.dart' as rootBundle;
 import 'package:the_food_freaks/src/widgets/iconbutton.dart';
 
 Future<List<Product>> ReadJsonData() async {
@@ -103,7 +102,7 @@ class _CartState extends State<Cart> {
                                   padding: const EdgeInsets.all(8.0),
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(10.0),
-                                    child: Image.asset(
+                                    child: Image.network(
                                       assetPaths,
                                       height: 90,
                                       width: 90,
