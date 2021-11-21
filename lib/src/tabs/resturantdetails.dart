@@ -108,7 +108,8 @@ class _ResturantDetailsState extends State<ResturantDetails> {
                                 Navigator.of(context).push(
                                   MaterialPageRoute(
                                     builder: (context) => ProductDetails(
-                                      assetPath: items[index].image.toString(),
+                                      assetPath:
+                                          "http://10.0.2.2:8000${items[index].image}",
                                       productprice:
                                           items[index].price.toString(),
                                       productname:
@@ -130,8 +131,8 @@ class _ResturantDetailsState extends State<ResturantDetails> {
                                         child: ClipRRect(
                                           borderRadius:
                                               BorderRadius.circular(10.0),
-                                          child: Image.asset(
-                                            items[index].image.toString(),
+                                          child: Image.network(
+                                            "http://10.0.2.2:8000${items[index].image}",
                                             height: 90,
                                             width: 130,
                                             fit: BoxFit.cover,
