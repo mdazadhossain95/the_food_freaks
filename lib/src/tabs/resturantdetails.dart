@@ -180,7 +180,7 @@ class _ResturantDetailsState extends State<ResturantDetails> {
               ],
             );
           } else {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           }

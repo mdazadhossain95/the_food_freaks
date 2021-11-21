@@ -14,6 +14,7 @@ class StoreScreen extends StatefulWidget {
 class _StoreScreenState extends State<StoreScreen> {
   bool _init = true;
   bool _isLoading = false;
+
   @override
   // everytime we call a api or future data we need to make the function async
   void didChangeDependencies() async {
@@ -39,13 +40,15 @@ class _StoreScreenState extends State<StoreScreen> {
     } else {
       return Scaffold(
         body: Container(
+          padding: const EdgeInsets.only(bottom: 230.0),
+          // margin: const EdgeInsets.symmetric(vertical: 50.0),
           height: MediaQuery.of(context).size.height,
           child: ListView.builder(
             shrinkWrap: true,
             itemCount: items.length,
             itemBuilder: (BuildContext ctx, int index) {
               return Padding(
-                padding: const EdgeInsets.all(20.0),
+                padding: const EdgeInsets.all(10.0),
                 child: Card(
                   elevation: 20,
                   shape: RoundedRectangleBorder(
@@ -67,14 +70,6 @@ class _StoreScreenState extends State<StoreScreen> {
                         // GestureDetector
 
                         GestureDetector(
-                          // onTap: () {
-                          //   Navigator.push(
-                          //     context,
-                          //     MaterialPageRoute(
-                          //       builder: (context) => const ResturantDetails(),
-                          //     ),
-                          //   );
-                          // },
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Image.network(
@@ -85,7 +80,7 @@ class _StoreScreenState extends State<StoreScreen> {
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: CustomText(text: items[index].vendor),
-                        )
+                        ),
                       ],
                     ),
                   ),
