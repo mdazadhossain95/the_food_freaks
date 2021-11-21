@@ -75,7 +75,7 @@ class _ResturantDetailsState extends State<ResturantDetails> {
                         ),
                         Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Image.network(assetPaths, fit: BoxFit.cover),
+                          child: Image.network(assetPaths, height: 250.0, fit: BoxFit.cover),
                         )
                       ],
                     ),

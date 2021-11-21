@@ -57,7 +57,7 @@ class _ProductDetailsState extends State<ProductDetails> {
       appBar: AppBar(
         centerTitle: true,
         title: const CustomText(
-          text: 'The Food Freaks',
+          text: 'Add To Cart',
           size: 18,
         ),
         backgroundColor: kColor1,
