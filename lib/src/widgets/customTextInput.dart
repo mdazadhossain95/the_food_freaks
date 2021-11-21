@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+
 class CustomTextInput extends StatelessWidget {
   final String _hintText;
   final EdgeInsets _padding;

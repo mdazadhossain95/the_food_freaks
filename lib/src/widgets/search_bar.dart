@@ -23,7 +23,7 @@ class _SearchBarState extends State<SearchBar> {
         ]),
         child: Column(
           // crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
+          children: const [
             ListTile(
               trailing: Icon(
                 Icons.search,

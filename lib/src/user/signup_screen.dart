@@ -32,71 +32,69 @@ class _SignUpPageState extends State<SignUpPage> {
         ),
         body: SingleChildScrollView(
           scrollDirection: Axis.vertical,
-          child: Container(
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const SizedBox(height: 50.0),
-                  const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: CustomText(
-                      text: 'Sign Up',
-                      size: 30,
-                      weight: FontWeight.bold,
-                    ),
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const SizedBox(height: 50.0),
+                const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: CustomText(
+                    text: 'Sign Up',
+                    size: 30,
+                    weight: FontWeight.bold,
                   ),
-                  const SizedBox(height: 10.0),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Image.asset(
-                      'images/The_Food_Freaks.png',
-                      height: MediaQuery.of(context).size.height * 0.3,
-                      width: MediaQuery.of(context).size.width,
-                    ),
+                ),
+                const SizedBox(height: 10.0),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Image.asset(
+                    'images/The_Food_Freaks.png',
+                    height: MediaQuery.of(context).size.height * 0.3,
+                    width: MediaQuery.of(context).size.width,
                   ),
-                  const SizedBox(height: 10),
-                  TextFields(
-                      onchange: (value) {
-                        email = value;
-                      },
-                      hintText: 'Email',
-                      obscureText: false,
-                      userIcon: Icons.person,
-                      inputType: TextInputType.emailAddress),
-                  const SizedBox(height: 10),
-                  TextFields(
-                      onchange: (value) {
-                        password = value;
-                      },
-                      hintText: 'Password',
-                      obscureText: true,
-                      userIcon: Icons.lock,
-                      inputType: TextInputType.visiblePassword),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: ElevatedButton(
-                          onPressed: () {},
-                          style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all(kColor2),
-                            shape: MaterialStateProperty.all(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(30.0),
-                              ),
+                ),
+                const SizedBox(height: 10),
+                TextFields(
+                    onchange: (value) {
+                      email = value;
+                    },
+                    hintText: 'Email',
+                    obscureText: false,
+                    userIcon: Icons.person,
+                    inputType: TextInputType.emailAddress),
+                const SizedBox(height: 10),
+                TextFields(
+                    onchange: (value) {
+                      password = value;
+                    },
+                    hintText: 'Password',
+                    obscureText: true,
+                    userIcon: Icons.lock,
+                    inputType: TextInputType.visiblePassword),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: ElevatedButton(
+                        onPressed: () {},
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(kColor2),
+                          shape: MaterialStateProperty.all(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30.0),
                             ),
                           ),
-                          child: const CustomText(
-                            text: 'Sign Up',
-                          ),
+                        ),
+                        child: const CustomText(
+                          text: 'Sign Up',
                         ),
                       ),
-                    ],
-                  )
-                ],
-              ),
+                    ),
+                  ],
+                )
+              ],
             ),
           ),
         ),

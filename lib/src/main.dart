@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:localstorage/localstorage.dart';
 import 'package:provider/provider.dart';
 import 'package:the_food_freaks/src/home.dart';
+import 'package:the_food_freaks/src/notification/notification.dart';
 import 'package:the_food_freaks/src/state/product_state.dart';
 import 'package:the_food_freaks/src/state/user_state.dart';
 import 'package:the_food_freaks/src/user/registar.dart';
@@ -19,6 +20,9 @@ class TheFoodFreaks extends StatelessWidget {
     // Using multi provider to communicate with different states all over the app
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider(
+          create: (_) => NotificationService(), // ctx is context here
+        ),
         ChangeNotifierProvider(
           create: (ctx) => UserState(), // ctx is context here
         ),

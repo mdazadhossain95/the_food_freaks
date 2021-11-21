@@ -5,6 +5,7 @@ import 'package:the_food_freaks/src/screens/components/form_input_box.dart';
 import 'package:the_food_freaks/src/state/user_state.dart';
 import 'package:the_food_freaks/src/user/signin_screen.dart';
 import 'package:the_food_freaks/src/widgets/customtext.dart';
+import 'package:the_food_freaks/src/notification/notification.dart';
 
 // Touhid
 class Registration extends StatefulWidget {
@@ -55,6 +56,14 @@ class _RegistrationState extends State<Registration> {
   }
 
   @override
+  void initState() {
+
+    Provider.of<NotificationService>(context, listen: false).initialize();
+
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
@@ -76,104 +85,109 @@ class _RegistrationState extends State<Registration> {
             // ignore: avoid_unnecessary_containers
             child: Container(
               child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const SizedBox(height: 50.0),
-                    const Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: CustomText(
-                        text: 'Sign Up',
-                        size: 30,
-                        weight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(height: 10.0),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Image.asset(
-                        'images/The_Food_Freaks.png',
-                        height: MediaQuery.of(context).size.height * 0.3,
-                        width: MediaQuery.of(context).size.width,
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                    LoginSignUpInputBox(
-                      validator: (v) {
-                        if (v!.isEmpty) {
-                          return 'Enter Your Email';
-                        }
-                        return null;
-                      },
-                      onSave: (v) {
-                        _useremail = v!;
-                      },
-                      labelText: "Enter Your Email",
-                      icon: Icons.person,
-                      obscureText: false,
-                    ),
-                    const SizedBox(height: 10),
-                    LoginSignUpInputBox(
-                      validator: (v) {
-                        if (v!.isEmpty) {
-                          return 'Enter Your Password';
-                        }
-                        return null;
-                      },
-                      onChange: (v) {
-                        setState(() {
-                          _confpassword = v;
-                        });
-                      },
-                      onSave: (v) {
-                        _password = v!;
-                      },
-                      labelText: "Enter Your Password",
-                      icon: Icons.lock_sharp,
-                      obscureText: true,
-                    ),
-                    const SizedBox(height: 10),
-                    LoginSignUpInputBox(
-                      validator: (v) {
-                        if (_confpassword != v) {
-                          return 'Confirm Password';
-                        }
-                        return null;
-                      },
-                      onSave: (v) {
-                        setState(() {
-                          _password = v;
-                        });
-                      },
-                      labelText: "Confirm Password",
-                      icon: Icons.lock_sharp,
-                      obscureText: true,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: ElevatedButton(
-                            onPressed: () {
-                              _registerNow();
-                            },
-                            style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStateProperty.all(kColor2),
-                                shape: MaterialStateProperty.all(
-                                    RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(30.0)))),
-                            child: const CustomText(
+                child: Consumer<NotificationService>(
+                  builder: (context, model, _) =>
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const SizedBox(height: 50.0),
+                          const Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: CustomText(
                               text: 'Sign Up',
+                              size: 30,
+                              weight: FontWeight.bold,
                             ),
                           ),
-                        ),
-                      ],
-                    )
-                  ],
-                ),
+                          const SizedBox(height: 10.0),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Image.asset(
+                              'images/The_Food_Freaks.png',
+                              height: MediaQuery.of(context).size.height * 0.3,
+                              width: MediaQuery.of(context).size.width,
+                            ),
+                          ),
+                          const SizedBox(height: 10),
+                          LoginSignUpInputBox(
+                            validator: (v) {
+                              if (v!.isEmpty) {
+                                return 'Enter Your Email';
+                              }
+                              return null;
+                            },
+                            onSave: (v) {
+                              _useremail = v!;
+                            },
+                            labelText: "Enter Your Email",
+                            icon: Icons.person,
+                            obscureText: false,
+                          ),
+                          const SizedBox(height: 10),
+                          LoginSignUpInputBox(
+                            validator: (v) {
+                              if (v!.isEmpty) {
+                                return 'Enter Your Password';
+                              }
+                              return null;
+                            },
+                            onChange: (v) {
+                              setState(() {
+                                _confpassword = v;
+                              });
+                            },
+                            onSave: (v) {
+                              _password = v!;
+                            },
+                            labelText: "Enter Your Password",
+                            icon: Icons.lock_sharp,
+                            obscureText: true,
+                          ),
+                          const SizedBox(height: 10),
+                          LoginSignUpInputBox(
+                            validator: (v) {
+                              if (_confpassword != v) {
+                                return 'Confirm Password';
+                              }
+                              return null;
+                            },
+                            onSave: (v) {
+                              setState(() {
+                                _password = v;
+                              });
+                            },
+                            labelText: "Confirm Password",
+                            icon: Icons.lock_sharp,
+                            obscureText: true,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    model.instantNotification();
+                                    _registerNow();
+
+                                  },
+                                  style: ButtonStyle(
+                                      backgroundColor:
+                                      MaterialStateProperty.all(kColor2),
+                                      shape: MaterialStateProperty.all(
+                                          RoundedRectangleBorder(
+                                              borderRadius:
+                                              BorderRadius.circular(30.0)))),
+                                  child: const CustomText(
+                                    text: 'Sign Up',
+                                  ),
+                                ),
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+                )
               ),
             ),
           ),

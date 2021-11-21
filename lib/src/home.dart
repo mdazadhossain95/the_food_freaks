@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:the_food_freaks/constants.dart';
-import 'package:the_food_freaks/src/screens/cart.dart';
 import 'package:the_food_freaks/src/screens/favorite.dart';
 import 'package:the_food_freaks/src/screens/main_cart.dart';
 import 'package:the_food_freaks/src/screens/menu_screen.dart';

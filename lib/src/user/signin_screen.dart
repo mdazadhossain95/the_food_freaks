@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:localstorage/localstorage.dart';
 import 'package:provider/provider.dart';
 import 'package:the_food_freaks/constants.dart';
+import 'package:the_food_freaks/src/notification/notification.dart';
 import 'package:the_food_freaks/src/state/user_state.dart';
 import 'package:the_food_freaks/src/user/registar.dart';
 import 'package:the_food_freaks/src/widgets/customtext.dart';
@@ -59,6 +60,13 @@ class _SignInScreenState extends State<SignInScreen> {
   }
 
   @override
+  void initState() {
+
+    Provider.of<NotificationService>(context, listen: false).initialize();
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -79,133 +87,137 @@ class _SignInScreenState extends State<SignInScreen> {
           child: Form(
             key: _form,
             child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const SizedBox(height: 50.0),
-                  const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: CustomText(
-                      text: 'Login',
-                      size: 30,
-                      weight: FontWeight.bold,
+              child: Consumer<NotificationService>(
+                builder: (context, model, _) =>
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const SizedBox(height: 50.0),
+                    const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: CustomText(
+                        text: 'Login',
+                        size: 30,
+                        weight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 10.0),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Image.asset(
-                      'images/The_Food_Freaks.png',
-                      height: MediaQuery.of(context).size.height * 0.3,
-                      width: MediaQuery.of(context).size.width,
+                    const SizedBox(height: 10.0),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Image.asset(
+                        'images/The_Food_Freaks.png',
+                        height: MediaQuery.of(context).size.height * 0.3,
+                        width: MediaQuery.of(context).size.width,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 10),
-                  LoginSignUpInputBox(
-                    validator: (v) {
-                      if (v!.isEmpty) {
-                        return 'Enter Your Email';
-                      }
-                      return null;
-                    },
-                    onSave: (v) {
-                      _useremail = v!;
-                    },
-                    labelText: "Enter Your Email",
-                    icon: Icons.person,
-                    obscureText: false,
-                  ),
-                  const SizedBox(height: 10),
-                  LoginSignUpInputBox(
-                    validator: (v) {
-                      if (v!.isEmpty) {
-                        return 'Enter Your Password';
-                      }
-                      return null;
-                    },
-                    onSave: (v) {
-                      _password = v!;
-                    },
-                    labelText: "Enter Your Password",
-                    icon: Icons.lock_sharp,
-                    obscureText: true,
-                  ),
-                  const SizedBox(height: 10),
-                  GestureDetector(
-                    child: const Text(
-                      "FORGOT PASSWORD?",
-                      style: kTextStyle,
-                      textAlign: TextAlign.right,
-                    ),
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const ForgotPasScreen(),
-                        ),
-                      );
-                    },
-                  ),
-                  const SizedBox(height: 10),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: ElevatedButton(
-                      onPressed: () {
-                        _loginNow();
+                    const SizedBox(height: 10),
+                    LoginSignUpInputBox(
+                      validator: (v) {
+                        if (v!.isEmpty) {
+                          return 'Enter Your Email';
+                        }
+                        return null;
                       },
-                      style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(kColor1),
-                          shape: MaterialStateProperty.all(
-                              RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(18.0)))),
-                      child: const CustomText(
-                        text: 'Sign in',
-                      ),
+                      onSave: (v) {
+                        _useremail = v!;
+                      },
+                      labelText: "Enter Your Email",
+                      icon: Icons.person,
+                      obscureText: false,
                     ),
-                  ),
-                  const SizedBox(height: 10.0),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Text(
-                          "DON'T HAVE ACCOUNT?",
-                          textAlign: TextAlign.center,
+                    const SizedBox(height: 10),
+                    LoginSignUpInputBox(
+                      validator: (v) {
+                        if (v!.isEmpty) {
+                          return 'Enter Your Password';
+                        }
+                        return null;
+                      },
+                      onSave: (v) {
+                        _password = v!;
+                      },
+                      labelText: "Enter Your Password",
+                      icon: Icons.lock_sharp,
+                      obscureText: true,
+                    ),
+                    const SizedBox(height: 10),
+                    GestureDetector(
+                      child: const Text(
+                        "FORGOT PASSWORD?",
+                        style: kTextStyle,
+                        textAlign: TextAlign.right,
+                      ),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const ForgotPasScreen(),
+                          ),
+                        );
+                      },
+                    ),
+                    const SizedBox(height: 10),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          model.instantNotification();
+                          _loginNow();
+                        },
+                        style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all(kColor1),
+                            shape: MaterialStateProperty.all(
+                                RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(18.0)))),
+                        child: const CustomText(
+                          text: 'Sign in',
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          children: [
-                            ElevatedButton(
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => const Registration(),
-                                  ),
-                                );
-                              },
-                              style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStateProperty.all(kColor2),
-                                shape: MaterialStateProperty.all(
-                                  RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(30.0),
+                    ),
+                    const SizedBox(height: 10.0),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Text(
+                            "DON'T HAVE ACCOUNT?",
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            children: [
+                              ElevatedButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => const Registration(),
+                                    ),
+                                  );
+                                },
+                                style: ButtonStyle(
+                                  backgroundColor:
+                                      MaterialStateProperty.all(kColor2),
+                                  shape: MaterialStateProperty.all(
+                                    RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(30.0),
+                                    ),
                                   ),
                                 ),
+                                child: const CustomText(
+                                  text: 'Sign Up',
+                                ),
                               ),
-                              child: const CustomText(
-                                text: 'Sign Up',
-                              ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
-                  )
-                ],
+                      ],
+                    )
+                  ],
+                ),
               ),
             ),
           ),

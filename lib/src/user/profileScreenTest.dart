@@ -82,9 +82,9 @@ class ProfileScreenTest extends StatelessWidget {
                         Text(
                           "Hi there Azad!",
                           style:
-                          Theme.of(context).textTheme.headline6!.copyWith(
-                            color: Color(0xFF4A4B4D),
-                          ),
+                              Theme.of(context).textTheme.headline6!.copyWith(
+                                    color: Color(0xFF4A4B4D),
+                                  ),
                         ),
                         SizedBox(
                           height: 5,
@@ -133,7 +133,7 @@ class ProfileScreenTest extends StatelessWidget {
                         SizedBox(
                           height: 50,
                           width: double.infinity,
-                          child:                 Padding(
+                          child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: ElevatedButton(
                               onPressed: () {
@@ -145,16 +145,18 @@ class ProfileScreenTest extends StatelessWidget {
                                 );
                               },
                               style: ButtonStyle(
-                                  backgroundColor: MaterialStateProperty.all(kColor1),
+                                  backgroundColor:
+                                      MaterialStateProperty.all(kColor1),
                                   shape: MaterialStateProperty.all(
                                       RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(18.0)))),
+                                          borderRadius:
+                                              BorderRadius.circular(18.0)))),
                               child: const CustomText(
                                 text: 'Save',
                               ),
                             ),
                           ),
-                          ),
+                        ),
                         // )
                       ],
                     ),
