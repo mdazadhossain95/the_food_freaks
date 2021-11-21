@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:the_food_freaks/constants.dart';
 import 'package:the_food_freaks/src/screens/cart.dart';
 import 'package:the_food_freaks/src/widgets/customtext.dart';
-import 'package:the_food_freaks/src/widgets/iconbutton.dart';
 
 class ProductDetails extends StatefulWidget {
   final assetPath;
@@ -78,32 +77,6 @@ class _ProductDetailsState extends State<ProductDetails> {
               padding: const EdgeInsets.all(8.0),
               child: Image.network(assetPaths,
                   height: 300.0, width: 70.0, fit: BoxFit.cover),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                RoundIconButton(
-                    icon: Icons.remove,
-                    onPressed: () {
-                      setState(() {
-                        adds--;
-                      });
-                    }),
-                CustomText(
-                  text: adds.toString(),
-                  size: 25,
-                ),
-                RoundIconButton(
-                    icon: Icons.add,
-                    onPressed: () {
-                      setState(() {
-                        adds++;
-                      });
-                    }),
-              ],
             ),
           ),
           Padding(

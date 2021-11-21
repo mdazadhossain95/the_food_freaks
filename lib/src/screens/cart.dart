@@ -37,6 +37,7 @@ class Cart extends StatefulWidget {
 }
 
 class _CartState extends State<Cart> {
+  late int total = int.parse(productprices);
   late final assetPaths;
   late final productprices;
   late final productnames;
@@ -139,7 +140,7 @@ class _CartState extends State<Cart> {
                             // crossAxisAlignment: CrossAxisAlignment.,
                             children: [
                               Padding(
-                                padding: const EdgeInsets.only(left: 2.0),
+                                padding: const EdgeInsets.only(left: 60.0),
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -149,6 +150,8 @@ class _CartState extends State<Cart> {
                                         onPressed: () {
                                           setState(() {
                                             adds--;
+                                            total = total -
+                                                int.parse(productprices);
                                           });
                                         }),
                                     CustomText(
@@ -160,11 +163,16 @@ class _CartState extends State<Cart> {
                                         onPressed: () {
                                           setState(() {
                                             adds++;
+                                            total =
+                                                adds * int.parse(productprices);
                                           });
                                         }),
-                                    const Icon(
-                                      Icons.delete,
-                                      color: kColor1,
+                                    GestureDetector(
+                                      onTap: () {},
+                                      child: const Icon(
+                                        Icons.delete,
+                                        color: kColor1,
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -217,7 +225,7 @@ class _CartState extends State<Cart> {
                     children: [
                       const CustomText(text: 'Total'),
 
-                      CustomText(text: productprices.toString() * adds),
+                      CustomText(text: total.toString()),
                       // TextField()
                     ],
                   ),

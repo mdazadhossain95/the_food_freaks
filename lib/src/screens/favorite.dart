@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:the_food_freaks/src/screens/single_product.dart';
+import 'package:the_food_freaks/src/state/product_state.dart';
 import 'package:the_food_freaks/src/widgets/customtext.dart';
+
 import '../../constants.dart';
 
 class FavoriteScreen extends StatelessWidget {
@@ -7,6 +11,7 @@ class FavoriteScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final favorite = Provider.of<ProductState>(context).favorites;
     return Scaffold(
       backgroundColor: kBackgroundColor,
       appBar: AppBar(
@@ -16,6 +21,23 @@ class FavoriteScreen extends StatelessWidget {
           text: 'Favorite',
           size: 18,
           weight: FontWeight.bold,
+        ),
+      ),
+      body: GridView.builder(
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            // childAspectRatio: 3 / 2,
+            crossAxisCount: 2,
+            crossAxisSpacing: 10,
+            mainAxisSpacing: 10),
+        itemCount: favorite.length,
+        itemBuilder: (ctx, i) => SingleProduct(
+          id: favorite[i].id as int,
+          title: favorite[i].title,
+          price: favorite[i].price,
+          image: favorite[i].image.toString(),
+          rateing: favorite[i].rateing,
+          favorite: favorite[i].favorite,
+          description: favorite[i].description,
         ),
       ),
     );
