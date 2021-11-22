@@ -60,14 +60,6 @@ class _ProductDetailsState extends State<ProductDetails> {
           size: 18,
         ),
         backgroundColor: kColor1,
-        actions: [
-          IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.favorite,
-                color: kWhite,
-              )),
-        ],
       ),
       body: ListView(
         children: [
