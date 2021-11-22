@@ -92,7 +92,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const SizedBox(height: 50.0),
+                    // const SizedBox(height: 50.0),
                     const Padding(
                       padding: EdgeInsets.all(8.0),
                       child: CustomText(
@@ -110,7 +110,6 @@ class _SignInScreenState extends State<SignInScreen> {
                         width: MediaQuery.of(context).size.width,
                       ),
                     ),
-                    const SizedBox(height: 10),
                     LoginSignUpInputBox(
                       validator: (v) {
                         if (v!.isEmpty) {

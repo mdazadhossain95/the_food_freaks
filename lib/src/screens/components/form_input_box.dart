@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:the_food_freaks/constants.dart';
 
 // Touhid
 class LoginSignUpInputBox extends StatelessWidget {
@@ -29,22 +30,21 @@ class LoginSignUpInputBox extends StatelessWidget {
         obscureText: obscureText,
         decoration: InputDecoration(
           focusedBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: Colors.red),
+            borderSide: const BorderSide(color: kWhite),
             borderRadius: BorderRadius.circular(5.5),
           ),
           enabledBorder: const OutlineInputBorder(
             borderSide: BorderSide(
-              color: Colors.red,
+              color: kWhite,
             ),
           ),
           prefixIcon: Icon(
             icon,
-            color: Colors.red,
+            color: kColor1,
           ),
           filled: true,
-          fillColor: Colors.red[50],
-          labelText: labelText,
-          labelStyle: const TextStyle(color: Colors.red),
+          fillColor: kWhite,
+          hintText: labelText,
         ),
       ),
     );
