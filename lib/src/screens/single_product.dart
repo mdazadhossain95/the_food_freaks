@@ -4,7 +4,7 @@ import 'package:the_food_freaks/src/state/product_state.dart';
 import 'package:the_food_freaks/src/widgets/customtext.dart';
 
 import '../../constants.dart';
-import 'addtocart.dart';
+import 'productdetails_screen.dart';
 
 class SingleProduct extends StatelessWidget {
   int id;

@@ -205,16 +205,6 @@ class _CartState extends State<Cart> {
                     ],
                   ),
                 ),
-                // Padding(
-                //   padding: const EdgeInsets.all(8.0),
-                //   child: Row(
-                //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //     children: const [
-                //       CustomText(text: 'Delevery'),
-                //       CustomText(text: '20'),
-                //     ],
-                //   ),
-                // ),
                 const Divider(
                   color: kWhite,
                 ),
@@ -224,7 +214,6 @@ class _CartState extends State<Cart> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       const CustomText(text: 'Total'),
-
                       CustomText(text: total.toString()),
                       // TextField()
                     ],

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:the_food_freaks/constants.dart';
 import 'package:the_food_freaks/src/models/products.dart';
-import 'package:the_food_freaks/src/screens/addtocart.dart';
+import 'package:the_food_freaks/src/screens/productdetails_screen.dart';
 import 'package:the_food_freaks/src/state/product_state.dart';
 import 'package:the_food_freaks/src/widgets/customtext.dart';
 
