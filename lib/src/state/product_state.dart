@@ -140,18 +140,14 @@ class ProductState with ChangeNotifier {
     return total;
   }
 
-  // double get totalamount {
-  //   var total = 0.0;
-  //
-  //   _products.forEach((cart) {
-  //     total += cart.price * cart.quantity;
-  //
-  //   });
-  //
-  //   return total;
-  // }
+  getTotalPrice(){
+    double total = 0.0;
+    cart.forEach((element) {
+      total += element.price * element.quantity;
+    });
+    return total;
+  }
 
-  // num get totalprice => _products.fold(0, (previousValue, element) => previousValue + element.price);
 
 
 

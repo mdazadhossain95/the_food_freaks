@@ -31,8 +31,9 @@ class _SearchBarState extends State<SearchBar> {
               ),
               title: TextField(
                 decoration: InputDecoration(
-                  hintText: 'Find food and restaurant',
+                  hintText: 'Find your food',
                   border: InputBorder.none,
+
                 ),
               ),
             ),

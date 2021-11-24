@@ -28,8 +28,6 @@ class Cart extends StatefulWidget {
 }
 
 class _CartState extends State<Cart> {
-  late int subtotal = 0;
-
   @override
   Widget build(BuildContext context) {
     var items = Provider.of<ProductState>(context);
@@ -216,7 +214,7 @@ class _CartState extends State<Cart> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       const CustomText(text: 'Total'),
-                      // CustomText(text: '\$${items.totalamount}'),
+                      CustomText(text: '\$${items.getTotalPrice()}'),
                       // TextField()
                     ],
                   ),
