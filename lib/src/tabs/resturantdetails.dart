@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:the_food_freaks/constants.dart';
 import 'package:the_food_freaks/src/models/products.dart';
+import 'package:the_food_freaks/src/screens/cart.dart';
 import 'package:the_food_freaks/src/screens/productdetails_screen.dart';
 import 'package:the_food_freaks/src/state/product_state.dart';
 import 'package:the_food_freaks/src/widgets/customtext.dart';
@@ -33,6 +34,8 @@ class _ResturantDetailsState extends State<ResturantDetails> {
 
   @override
   Widget build(BuildContext context) {
+    var items2 = Provider.of<ProductState>(context);
+
     return Scaffold(
       backgroundColor: kBackgroundColor,
       appBar: AppBar(
@@ -75,7 +78,8 @@ class _ResturantDetailsState extends State<ResturantDetails> {
                         ),
                         Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Image.network(assetPaths, height: 250.0, fit: BoxFit.cover),
+                          child: Image.network(assetPaths,
+                              height: 250.0, fit: BoxFit.cover),
                         )
                       ],
                     ),
@@ -86,7 +90,7 @@ class _ResturantDetailsState extends State<ResturantDetails> {
                     child: ListView.builder(
                       shrinkWrap: true,
                       scrollDirection: Axis.vertical,
-                      itemCount: items.length,
+                      itemCount: items2.getProductList.length,
                       itemBuilder: (_, index) {
                         return Padding(
                           padding: const EdgeInsets.all(8.0),
@@ -105,20 +109,12 @@ class _ResturantDetailsState extends State<ResturantDetails> {
                             ),
                             child: InkWell(
                               onTap: () {
+                                items2.setActiveProduct(
+                                    items2.getProductList[index]);
+
                                 Navigator.of(context).push(
                                   MaterialPageRoute(
-                                    builder: (context) => ProductDetails(
-                                      assetPath:
-                                          "http://10.0.2.2:8000${items[index].image}",
-                                      productprice:
-                                          items[index].price.toString(),
-                                      productname:
-                                          items[index].title.toString(),
-                                      rating: items[index].rateing.toString(),
-                                      description:
-                                          items[index].description.toString(),
-                                      add: 0,
-                                    ),
+                                    builder: (context) => ProductDetails(),
                                   ),
                                 );
                               },
@@ -126,13 +122,14 @@ class _ResturantDetailsState extends State<ResturantDetails> {
                                 children: [
                                   Column(
                                     children: [
+                                      //product picture
                                       Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: ClipRRect(
                                           borderRadius:
                                               BorderRadius.circular(10.0),
                                           child: Image.network(
-                                            "http://10.0.2.2:8000${items[index].image}",
+                                            "http://10.0.2.2:8000${items2.getProductList[index].image}",
                                             height: 90,
                                             width: 130,
                                             fit: BoxFit.cover,
@@ -146,23 +143,28 @@ class _ResturantDetailsState extends State<ResturantDetails> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
+                                      //product name
                                       Padding(
                                         padding: const EdgeInsets.all(4.0),
                                         child: CustomText(
-                                            text: items[index].title.toString(),
+                                            text: items2
+                                                .getProductList[index].title
+                                                .toString(),
                                             size: 18,
                                             weight: FontWeight.bold),
                                       ),
+                                      //product price
                                       Padding(
                                         padding: const EdgeInsets.all(4.0),
                                         child: CustomText(
                                             text:
-                                                "\$${items[index].price.toString()}"),
+                                                "\$${items2.getProductList[index].price.toString()}"),
                                       ),
+                                      //product description
                                       Padding(
                                         padding: const EdgeInsets.all(4.0),
                                         child: CustomText(
-                                            text: items[index]
+                                            text: items2.getProductList[index]
                                                 .description
                                                 .toString()),
                                       ),

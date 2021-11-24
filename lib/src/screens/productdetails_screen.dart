@@ -1,88 +1,123 @@
 import 'dart:ui';
 
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:the_food_freaks/constants.dart';
 import 'package:the_food_freaks/src/screens/cart.dart';
+import 'package:the_food_freaks/src/state/product_state.dart';
 import 'package:the_food_freaks/src/widgets/customtext.dart';
 
 class ProductDetails extends StatefulWidget {
-  final assetPath;
-  final productprice;
-  final productname;
-  int add = 0;
-  final rating;
-  final description;
-
-  ProductDetails(
-      {Key? key,
-      this.assetPath,
-      this.productprice,
-      this.productname,
-      this.rating,
-      this.description,
-      required this.add})
-      : super(key: key);
-
   @override
   _ProductDetailsState createState() => _ProductDetailsState();
 }
 
 class _ProductDetailsState extends State<ProductDetails> {
-  late final assetPaths;
-  late final productprices;
-  late final productnames;
-  late int adds;
-  late final ratings;
-  late final description;
-
-  final TextEditingController _controller = TextEditingController();
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    assetPaths = widget.assetPath;
-    productprices = widget.productprice;
-    productnames = widget.productname;
-    adds = widget.add;
-    ratings = widget.rating;
-    description = widget.description;
-  }
+  // final TextEditingController _controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    var items = Provider.of<ProductState>(context);
     return Scaffold(
       backgroundColor: kBackgroundColor,
       appBar: AppBar(
         centerTitle: true,
         title: const CustomText(
-          text: 'Add To Cart',
+          text: 'Product Details',
           size: 18,
         ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(top: 8.0, right: 14.0),
+            child: InkWell(
+              onTap: (){
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Cart(),
+                  ),
+                );
+              },
+              child: Badge(
+                badgeContent: Text(
+                  items.getCartQty().toString(),
+                  style: const TextStyle(
+                    color: kWhite,
+                  ),
+                ),
+                child: const Icon(Icons.shopping_cart),
+              ),
+            ),
+          ),
+
+        ],
         backgroundColor: kColor1,
       ),
       body: ListView(
         children: [
-          Hero(
-            tag: assetPaths,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Image.network(assetPaths,
-                  height: 300.0, width: 70.0, fit: BoxFit.cover),
-            ),
+          //picture
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Image.network(
+                "http://10.0.2.2:8000${items.activeProduct!.image}",
+                height: 300.0,
+                width: 70.0,
+                fit: BoxFit.cover),
           ),
           Padding(
             padding: const EdgeInsets.all(20.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                //product name
                 CustomText(
-                    text: productnames, size: 22.0, weight: FontWeight.bold),
+                    text: items.activeProduct!.title,
+                    size: 22.0,
+                    weight: FontWeight.bold),
+
+                //product price
                 CustomText(
-                    text: productprices, size: 22.0, weight: FontWeight.bold)
+                    text: items.activeProduct!.price.toString(),
+                    size: 22.0,
+                    weight: FontWeight.bold)
               ],
             ),
           ),
+          Padding(
+            padding: const EdgeInsets.only(top: 8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                IconButton(
+                  onPressed: () {
+                    items.addOneItemToCart(
+                        items.activeProduct!);
+                  },
+                  icon: const Icon(Icons.add,
+                      color: Colors.green),
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey),
+                  ),
+                  child: Text(items.activeProduct!.quantity
+                      .toString()),
+                ),
+                IconButton(
+                  onPressed: () {
+                    items.removeOneItemToCart(
+                        items.activeProduct!);
+                  },
+                  icon: const Icon(Icons.remove,
+                      color: Colors.red),
+                ),
+              ],
+            ),
+          ),
+
+          //product description
           Padding(
             padding: const EdgeInsets.all(20.0),
             child: Row(
@@ -91,10 +126,11 @@ class _ProductDetailsState extends State<ProductDetails> {
                 const CustomText(text: 'Description', size: 16),
                 Row(
                   children: [
+                    //product ratings
                     Padding(
                       padding: const EdgeInsets.only(left: 8.0),
                       child: CustomText(
-                          text: ratings.toString() + '/5',
+                          text: items.activeProduct!.rateing.toString() + '/5',
                           color: kBlack,
                           size: 14),
                     ),
@@ -114,12 +150,13 @@ class _ProductDetailsState extends State<ProductDetails> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                //product description
                 Center(
                   // ignore: sized_box_for_whitespace
                   child: Container(
                     width: MediaQuery.of(context).size.width - 50.0,
                     child: CustomText(
-                      text: description,
+                      text: items.activeProduct!.description,
                       size: 16,
                     ),
                   ),
@@ -140,15 +177,10 @@ class _ProductDetailsState extends State<ProductDetails> {
                     child: FittedBox(
                       child: FloatingActionButton(
                         onPressed: () {
-                          Navigator.of(context).push(
+                          Navigator.push(
+                            context,
                             MaterialPageRoute(
-                              builder: (context) => Cart(
-                                assetPath: assetPaths,
-                                productprice: productprices,
-                                productname: productnames,
-                                description: description,
-                                // add: adds
-                              ),
+                              builder: (context) => Cart(),
                             ),
                           );
                         },

@@ -26,6 +26,8 @@ class SingleProduct extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var items = Provider.of<ProductState>(context);
+
     return Padding(
       padding: const EdgeInsets.all(5.0),
       child: Container(
@@ -44,12 +46,12 @@ class SingleProduct extends StatelessWidget {
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) => ProductDetails(
-                      assetPath: "http://10.0.2.2:8000${image}",
-                      productprice: price.toString(),
-                      productname: title,
-                      rating: rateing.toString(),
-                      description: description,
-                      add: 0,
+                      // assetPath: "http://10.0.2.2:8000${image}",
+                      // productprice: price.toString(),
+                      // productname: title,
+                      // rating: rateing.toString(),
+                      // description: description,
+                      // add: 0,
                     ),
                   ),
                 );

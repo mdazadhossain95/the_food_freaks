@@ -51,7 +51,7 @@ class _MainTabState extends State<MainTab> with SingleTickerProviderStateMixin {
                     )),
               ),
               Tab(
-                child: Text('Stores',
+                child: Text('Resturants',
                     style: TextStyle(
                       fontFamily: 'Oswald',
                       fontSize: 21.0,

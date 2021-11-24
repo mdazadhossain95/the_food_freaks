@@ -15,6 +15,7 @@ class PopularTab extends StatefulWidget {
 class _PopularTabState extends State<PopularTab> {
   bool _init = true;
   bool _isLoading = false;
+
   @override
   // everytime we call a api or future data we need to make the function async
   void didChangeDependencies() async {
@@ -32,7 +33,7 @@ class _PopularTabState extends State<PopularTab> {
   // backgroundColor: kBackgroundColor,
   @override
   Widget build(BuildContext context) {
-    final items = Provider.of<ProductState>(context).getProductList;
+    var items = Provider.of<ProductState>(context);
 
     if (!_isLoading) {
       return const Scaffold(
@@ -43,10 +44,12 @@ class _PopularTabState extends State<PopularTab> {
       return Scaffold(
         backgroundColor: kBackgroundColor,
         body: GridView.builder(
+            shrinkWrap: true,
+            scrollDirection: Axis.vertical,
+            physics: ScrollPhysics(),
             gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-              maxCrossAxisExtent: 400,
-            ),
-            itemCount: items.length,
+              maxCrossAxisExtent: 400),
+            itemCount: items.getProductList.length,
             itemBuilder: (context, index) {
               return Padding(
                 padding: const EdgeInsets.all(8),
@@ -64,23 +67,17 @@ class _PopularTabState extends State<PopularTab> {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          Navigator.of(context).push(
+                          items.setActiveProduct(items.getProductList[index]);
+
+                          Navigator.push(
+                            context,
                             MaterialPageRoute(
-                              builder: (context) => ProductDetails(
-                                assetPath:
-                                    "http://10.0.2.2:8000${items[index].image}",
-                                productprice: items[index].price.toString(),
-                                productname: items[index].title.toString(),
-                                rating: items[index].rateing.toString(),
-                                description:
-                                    items[index].description.toString(),
-                                add: 0,
-                              ),
+                              builder: (context) => ProductDetails(),
                             ),
                           );
                         },
                         child: Hero(
-                          tag: "http://10.0.2.2:8000${items[index].image}",
+                          tag: "http://10.0.2.2:8000${items.getProductList[index].title}",
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Container(
@@ -89,7 +86,7 @@ class _PopularTabState extends State<PopularTab> {
                               decoration: BoxDecoration(
                                 image: DecorationImage(
                                   image: NetworkImage(
-                                      "http://10.0.2.2:8000${items[index].image}"),
+                                      "http://10.0.2.2:8000${items.getProductList[index].image}"),
                                 ),
                               ),
                             ),
@@ -103,7 +100,8 @@ class _PopularTabState extends State<PopularTab> {
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: CustomText(
-                              text: items[index].title.toString(),
+                              text:
+                                  items.getProductList[index].title.toString(),
                             ),
                           ),
 
@@ -124,11 +122,12 @@ class _PopularTabState extends State<PopularTab> {
                                 onTap: () {
                                   Provider.of<ProductState>(context,
                                           listen: false)
-                                      .favoriteButton(items[index].id as int);
+                                      .favoriteButton(items
+                                          .getProductList[index].id as int);
                                 },
                                 child: Padding(
                                   padding: const EdgeInsets.all(4),
-                                  child: items[index].favorite
+                                  child: items.getProductList[index].favorite
                                       ? const Icon(
                                           Icons.favorite,
                                           color: kColor1,
@@ -154,7 +153,8 @@ class _PopularTabState extends State<PopularTab> {
                               Padding(
                                 padding: const EdgeInsets.only(left: 8.0),
                                 child: CustomText(
-                                    text: items[index].rateing.toString(),
+                                    text: items.getProductList[index].rateing
+                                        .toString(),
                                     color: kGrey,
                                     size: 14),
                               ),
@@ -169,7 +169,8 @@ class _PopularTabState extends State<PopularTab> {
                           Padding(
                             padding: const EdgeInsets.only(right: 8.0),
                             child: CustomText(
-                              text: "\$${items[index].price.toString()}",
+                              text:
+                                  "\$${items.getProductList[index].price.toString()}",
                               weight: FontWeight.bold,
                             ),
                           )

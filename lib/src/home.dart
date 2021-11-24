@@ -1,11 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:the_food_freaks/constants.dart';
+import 'package:the_food_freaks/src/screens/cart.dart';
 import 'package:the_food_freaks/src/screens/favorite.dart';
-import 'package:the_food_freaks/src/screens/main_cart.dart';
 import 'package:the_food_freaks/src/screens/menu_screen.dart';
+import 'package:the_food_freaks/src/state/product_state.dart';
 import 'package:the_food_freaks/src/tabs/main_tab.dart';
 import 'package:the_food_freaks/src/widgets/customtext.dart';
+import 'package:badges/badges.dart';
 
 // Touhid
 class Home extends StatefulWidget {
@@ -18,8 +21,8 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   @override
-  @override
   Widget build(BuildContext context) {
+    var items = Provider.of<ProductState>(context);
     return SafeArea(
       child: Scaffold(
         backgroundColor: kBackgroundColor,
@@ -31,26 +34,45 @@ class _HomeState extends State<Home> {
           ),
           backgroundColor: kColor1,
           actions: [
-            IconButton(
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => FavoriteScreen()));
-              },
-              icon: const Icon(
-                Icons.favorite,
-                color: Colors.white,
+            Padding(
+              padding: const EdgeInsets.only(top: 8.0),
+              child: IconButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => FavoriteScreen(),
+                    ),
+                  );
+                },
+                icon: const Icon(
+                  Icons.favorite,
+                  color: Colors.white,
+                ),
               ),
             ),
-            IconButton(
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => MainCart()));
-              },
-              icon: const Icon(
-                Icons.shopping_cart,
-                color: Colors.white,
+            Padding(
+              padding: const EdgeInsets.only(top: 8.0, right: 14.0),
+              child: InkWell(
+                onTap: (){
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Cart(),
+                    ),
+                  );
+                },
+                child: Badge(
+                  badgeContent: Text(
+                    items.getCartQty().toString(),
+                    style: const TextStyle(
+                      color: kWhite,
+                    ),
+                  ),
+                  child: const Icon(Icons.shopping_cart),
+                ),
               ),
-            )
+            ),
           ],
         ),
         drawer: const MenuScreen(),

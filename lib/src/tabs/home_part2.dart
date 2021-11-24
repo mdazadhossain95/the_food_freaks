@@ -15,6 +15,7 @@ class HomePart2 extends StatefulWidget {
 class _HomePart2State extends State<HomePart2> {
   bool _init = true;
   bool _isLoading = false;
+
   @override
   // everytime we call a api or future data we need to make the function async
   void didChangeDependencies() async {
@@ -31,7 +32,7 @@ class _HomePart2State extends State<HomePart2> {
 
   @override
   Widget build(BuildContext context) {
-    final items = Provider.of<ProductState>(context).getProductList;
+    var items = Provider.of<ProductState>(context);
     if (!_isLoading) {
       return Container();
     } else {
@@ -40,7 +41,7 @@ class _HomePart2State extends State<HomePart2> {
         child: ListView.builder(
             shrinkWrap: true,
             scrollDirection: Axis.horizontal,
-            itemCount: items.length,
+            itemCount: items.getProductList.length,
             itemBuilder: (_, index) {
               return Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -62,24 +63,18 @@ class _HomePart2State extends State<HomePart2> {
                       children: [
                         GestureDetector(
                           onTap: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => ProductDetails(
-                                      assetPath:
-                                          "http://10.0.2.2:8000${items[index].image}",
-                                      productprice:
-                                          items[index].price.toString(),
-                                      productname:
-                                          items[index].title.toString(),
-                                      rating: items[index].rateing.toString(),
-                                      description:
-                                          items[index].description.toString(),
-                                      add: 0,
-                                    )));
+                            items.setActiveProduct(items.getProductList[index]);
+
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => ProductDetails(),
+                              ),
+                            );
                           },
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Image.network(
-                              "http://10.0.2.2:8000${items[index].image}",
+                              "http://10.0.2.2:8000${items.getProductList[index].image}",
                               height: 140,
                               width: 140,
                               fit: BoxFit.cover,
@@ -93,7 +88,7 @@ class _HomePart2State extends State<HomePart2> {
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: CustomText(
-                                  text: items[index].title.toString()),
+                                  text: items.getProductList[index].title.toString()),
                             ),
 
                             Padding(
@@ -113,11 +108,11 @@ class _HomePart2State extends State<HomePart2> {
                                   onTap: () {
                                     Provider.of<ProductState>(context,
                                             listen: false)
-                                        .favoriteButton(items[index].id as int);
+                                        .favoriteButton(items.getProductList[index].id as int);
                                   },
                                   child: Padding(
                                     padding: const EdgeInsets.all(4),
-                                    child: items[index].favorite
+                                    child: items.getProductList[index].favorite
                                         ? const Icon(
                                             Icons.favorite,
                                             color: kColor1,
@@ -144,7 +139,7 @@ class _HomePart2State extends State<HomePart2> {
                                   Padding(
                                     padding: const EdgeInsets.only(left: 8.0),
                                     child: CustomText(
-                                        text: items[index].rateing.toString(),
+                                        text: items.getProductList[index].rateing.toString(),
                                         color: kGrey,
                                         size: 14),
                                   ),
@@ -158,7 +153,7 @@ class _HomePart2State extends State<HomePart2> {
                               Padding(
                                 padding: const EdgeInsets.only(right: 8.0),
                                 child: CustomText(
-                                  text: "\$${items[index].price.toString()}",
+                                  text: "\$${items.getProductList[index].price.toString()}",
                                   weight: FontWeight.bold,
                                   size: 12,
                                 ),

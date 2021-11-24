@@ -1,13 +1,19 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:localstorage/localstorage.dart';
 import 'package:the_food_freaks/src/models/products.dart';
+import 'package:collection/collection.dart';
 
 class ProductState with ChangeNotifier {
   // Making a list of products from product Model class
   List<Product> _products = [];
+  List<Product> _cart = [];
+  late Product _activeProduct;
+
+
   LocalStorage storage = LocalStorage('usertoken');
 
   // Making a http request to get the data from api
@@ -41,6 +47,14 @@ class ProductState with ChangeNotifier {
       return false;
     }
   }
+
+  // List<Product> get products => _products;
+
+
+
+
+
+
 
   // Making a http request to get the data from api
   Future<void> favoriteButton(int id) async {
@@ -79,8 +93,66 @@ class ProductState with ChangeNotifier {
     return _products.where((element) => element.favorite == true).toList();
   }
 
+  List<Product> get cart => _cart;
+
+  Product? get activeProduct => _activeProduct;
+
   // getting a single product by the product id
   Product singleProduct(int id) {
     return _products.firstWhere((element) => element.id == id);
   }
+
+
+
+  setActiveProduct(Product p) {
+    _activeProduct = p;
+  }
+
+  addOneItemToCart(Product p) {
+    //find if the p is already in the basket
+    //if that is the case just increment the qty property by 1
+    Product? found = _cart.firstWhereOrNull((a) => a.id == p.id);
+    if (found != null) {
+      found.quantity += 1;
+    } else {
+      _cart.add(p);
+    }
+    notifyListeners();
+  }
+
+  removeOneItemToCart(Product p) {
+    //find if the p is already in the basket
+    //if that is the case just increment the qty property by 1
+    Product? found = _cart.firstWhereOrNull((a) => a.id == p.id);
+    if (found != null && found.quantity == 1) {
+      _cart.remove(p);
+    } else {
+      found!.quantity -= 1;
+    }
+    notifyListeners();
+  }
+
+  getCartQty(){
+    int total = 0;
+    for(int i=0; i < cart.length; i++){
+      total += cart[i].quantity;
+    }
+    return total;
+  }
+
+  // double get totalamount {
+  //   var total = 0.0;
+  //
+  //   _products.forEach((cart) {
+  //     total += cart.price * cart.quantity;
+  //
+  //   });
+  //
+  //   return total;
+  // }
+
+  // num get totalprice => _products.fold(0, (previousValue, element) => previousValue + element.price);
+
+
+
 }

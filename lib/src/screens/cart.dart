@@ -1,10 +1,16 @@
 import 'dart:convert';
 
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' as rootBundle;
+import 'package:provider/provider.dart';
 import 'package:the_food_freaks/constants.dart';
+import 'package:the_food_freaks/src/home.dart';
 import 'package:the_food_freaks/src/models/products.dart';
+import 'package:the_food_freaks/src/screens/favorite.dart';
 import 'package:the_food_freaks/src/screens/payment.dart';
+import 'package:the_food_freaks/src/state/product_state.dart';
+import 'package:the_food_freaks/src/user/profile_screen.dart';
 import 'package:the_food_freaks/src/widgets/customtext.dart';
 import 'package:the_food_freaks/src/widgets/iconbutton.dart';
 
@@ -17,47 +23,17 @@ Future<List<Product>> ReadJsonData() async {
 }
 
 class Cart extends StatefulWidget {
-  // const Cart({Key? key}) : super(key: key);
-  final assetPath;
-  final productprice;
-  final productname;
-  late int add = 1;
-  final description;
-
-  Cart({
-    Key? key,
-    this.assetPath,
-    this.productprice,
-    this.productname,
-    this.description,
-  }) : super(key: key);
-
   @override
   _CartState createState() => _CartState();
 }
 
 class _CartState extends State<Cart> {
-  late int total = int.parse(productprices);
-  late final assetPaths;
-  late final productprices;
-  late final productnames;
-  late int adds;
-  late final description;
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    assetPaths = widget.assetPath;
-    productprices = widget.productprice;
-    productnames = widget.productname;
-    adds = widget.add;
-    description = widget.description;
-  }
+  late int subtotal = 0;
 
   @override
   Widget build(BuildContext context) {
-    int DeleveryCharge = 20;
+    var items = Provider.of<ProductState>(context);
+
     return Scaffold(
       backgroundColor: kBackgroundColor,
       appBar: AppBar(
@@ -68,6 +44,36 @@ class _CartState extends State<Cart> {
           size: 18,
           weight: FontWeight.bold,
         ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => FavoriteScreen(),
+                ),
+              );
+            },
+            icon: const Icon(
+              Icons.favorite,
+              color: Colors.white,
+            ),
+          ),
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => Home(),
+                ),
+              );
+            },
+            icon: const Icon(
+              Icons.home,
+              color: Colors.white,
+            ),
+          ),
+        ],
       ),
       body: Column(
         children: [
@@ -76,8 +82,8 @@ class _CartState extends State<Cart> {
               child: ListView.builder(
                 shrinkWrap: true,
                 scrollDirection: Axis.vertical,
-                itemCount: 1,
-                itemBuilder: (_, index) {
+                itemCount: items.cart.length,
+                itemBuilder: (BuildContext context, int index) {
                   return Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
@@ -95,89 +101,97 @@ class _CartState extends State<Cart> {
                       ),
                       child: Row(
                         children: [
-                          Column(
-                            children: [
-                              Hero(
-                                tag: assetPaths,
-                                child: Padding(
+                          Expanded(
+                            flex: 2,
+                            child: Column(
+                              children: [
+                                Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(10.0),
                                     child: Image.network(
-                                      assetPaths,
+                                      "http://10.0.2.2:8000${items.getProductList[index].image}",
                                       height: 90,
                                       width: 90,
                                       fit: BoxFit.cover,
                                     ),
                                   ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(4.0),
-                                child: CustomText(
-                                    text: productnames,
-                                    size: 18,
-                                    weight: FontWeight.bold),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(4.0),
-                                child: CustomText(text: productprices),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(4.0),
-                                child: CustomText(text: description),
-                              ),
-                            ],
+                          Expanded(
+                            flex: 3,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(4.0),
+                                  child: CustomText(
+                                      text: items.cart[index].title,
+                                      size: 18,
+                                      weight: FontWeight.bold),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(4.0),
+                                  child: CustomText(
+                                      text: items.cart[index].price.toString()),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(4.0),
+                                  child: CustomText(
+                                      text: items.cart[index].description),
+                                ),
+                              ],
+                            ),
                           ),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            // crossAxisAlignment: CrossAxisAlignment.,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(left: 60.0),
-                                child: Row(
+                          Expanded(
+                            flex: 2,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              // crossAxisAlignment: CrossAxisAlignment.,
+                              children: [
+                                Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    RoundIconButton(
-                                        icon: Icons.remove,
-                                        onPressed: () {
-                                          setState(() {
-                                            adds--;
-                                            total = total -
-                                                int.parse(productprices);
-                                          });
-                                        }),
-                                    CustomText(
-                                      text: adds.toString(),
-                                      size: 20,
+                                    IconButton(
+                                      onPressed: () {
+                                        items.addOneItemToCart(
+                                            items.cart[index]);
+                                      },
+                                      icon: const Icon(Icons.add,
+                                          color: Colors.green),
                                     ),
-                                    RoundIconButton(
-                                        icon: Icons.add,
-                                        onPressed: () {
-                                          setState(() {
-                                            adds++;
-                                            total =
-                                                adds * int.parse(productprices);
-                                          });
-                                        }),
-                                    GestureDetector(
-                                      onTap: () {},
-                                      child: const Icon(
-                                        Icons.delete,
-                                        color: kColor1,
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        border: Border.all(color: Colors.grey),
                                       ),
+                                      child: Text(items.cart[index].quantity
+                                          .toString()),
+                                    ),
+                                    IconButton(
+                                      onPressed: () {
+                                        items.removeOneItemToCart(
+                                            items.cart[index]);
+                                      },
+                                      icon: const Icon(Icons.remove,
+                                          color: Colors.red),
                                     ),
                                   ],
                                 ),
-                              ),
-                            ],
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    // const CustomText(text: 'Subtotal = '),
+                                    CustomText(
+                                        text:
+                                            '\$${items.cart[index].price * items.cart[index].quantity}'),
+                                  ],
+                                )
+                              ],
+                            ),
                           )
                         ],
                       ),
@@ -194,27 +208,15 @@ class _CartState extends State<Cart> {
               color: kWhite,
             ),
             child: Column(
+              // mainAxisSize: MainAxisSize.max,
               children: [
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const CustomText(text: 'Subtotal'),
-                      CustomText(text: productprices),
-                    ],
-                  ),
-                ),
-                const Divider(
-                  color: kWhite,
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
                       const CustomText(text: 'Total'),
-                      CustomText(text: total.toString()),
+                      // CustomText(text: '\$${items.totalamount}'),
                       // TextField()
                     ],
                   ),
