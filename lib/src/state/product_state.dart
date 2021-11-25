@@ -103,11 +103,12 @@ class ProductState with ChangeNotifier {
     //find if the p is already in the basket
     //if that is the case just increment the qty property by 1
     Product? found = _cart.firstWhereOrNull((a) => a.id == p.id);
-    if (found != null) {
+    if (found != null ) {
       found.quantity += 1;
     } else {
       _cart.add(p);
     }
+
     notifyListeners();
   }
 
@@ -117,6 +118,7 @@ class ProductState with ChangeNotifier {
     Product? found = _cart.firstWhereOrNull((a) => a.id == p.id);
     if (found != null && found.quantity == 0) {
       _cart.remove(p);
+      found.quantity == 0;
     } else {
       found!.quantity -= 1;
     }
@@ -144,6 +146,7 @@ class ProductState with ChangeNotifier {
     //if that is the case just increment the qty property by 1
     Product? found = _cart.firstWhereOrNull((a) => a.id == p.id);
     _cart.remove(p);
+    p.quantity = 0;
     notifyListeners();
   }
 }

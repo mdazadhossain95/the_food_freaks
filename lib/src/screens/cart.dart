@@ -22,12 +22,9 @@ Future<List<Product>> ReadJsonData() async {
   return list.map((e) => Product.fromJson(e)).toList();
 }
 
-class Cart extends StatefulWidget {
-  @override
-  _CartState createState() => _CartState();
-}
+class Cart extends StatelessWidget {
+  const Cart({Key? key}) : super(key: key);
 
-class _CartState extends State<Cart> {
   @override
   Widget build(BuildContext context) {
     var items = Provider.of<ProductState>(context);
@@ -189,7 +186,7 @@ class _CartState extends State<Cart> {
                                   children: [
                                     CustomText(
                                         text:
-                                            '\$${items.cart[index].price * items.cart[index].quantity}'),
+                                        '\$${items.cart[index].price * items.cart[index].quantity}'),
                                   ],
                                 )
                               ],
