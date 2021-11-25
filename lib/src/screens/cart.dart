@@ -121,7 +121,7 @@ class _CartState extends State<Cart> {
                           Expanded(
                             flex: 3,
                             child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Padding(
@@ -134,12 +134,7 @@ class _CartState extends State<Cart> {
                                 Padding(
                                   padding: const EdgeInsets.all(4.0),
                                   child: CustomText(
-                                      text: items.cart[index].price.toString()),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(4.0),
-                                  child: CustomText(
-                                      text: items.cart[index].description),
+                                      text: '\$${items.cart[index].price.toString()}'),
                                 ),
                               ],
                             ),

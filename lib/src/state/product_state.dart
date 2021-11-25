@@ -13,7 +13,6 @@ class ProductState with ChangeNotifier {
   List<Product> _cart = [];
   late Product _activeProduct;
 
-
   LocalStorage storage = LocalStorage('usertoken');
 
   // Making a http request to get the data from api
@@ -49,12 +48,6 @@ class ProductState with ChangeNotifier {
   }
 
   // List<Product> get products => _products;
-
-
-
-
-
-
 
   // Making a http request to get the data from api
   Future<void> favoriteButton(int id) async {
@@ -102,8 +95,6 @@ class ProductState with ChangeNotifier {
     return _products.firstWhere((element) => element.id == id);
   }
 
-
-
   setActiveProduct(Product p) {
     _activeProduct = p;
   }
@@ -124,7 +115,7 @@ class ProductState with ChangeNotifier {
     //find if the p is already in the basket
     //if that is the case just increment the qty property by 1
     Product? found = _cart.firstWhereOrNull((a) => a.id == p.id);
-    if (found != null && found.quantity == 1) {
+    if (found != null && found.quantity == 0) {
       _cart.remove(p);
     } else {
       found!.quantity -= 1;
@@ -132,23 +123,19 @@ class ProductState with ChangeNotifier {
     notifyListeners();
   }
 
-  getCartQty(){
+  getCartQty() {
     int total = 0;
-    for(int i=0; i < cart.length; i++){
+    for (int i = 0; i < cart.length; i++) {
       total += cart[i].quantity;
     }
     return total;
   }
 
-  getTotalPrice(){
+  getTotalPrice() {
     double total = 0.0;
     cart.forEach((element) {
       total += element.price * element.quantity;
     });
     return total;
   }
-
-
-
-
 }
