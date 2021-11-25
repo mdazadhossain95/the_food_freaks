@@ -136,6 +136,15 @@ class _CartState extends State<Cart> {
                                   child: CustomText(
                                       text: '\$${items.cart[index].price.toString()}'),
                                 ),
+                                IconButton(
+                                  onPressed: () {
+                                    items.deleteOneItemToCart(
+                                        items.cart[index]);
+                                  },
+                                  icon: const Icon(Icons.delete,
+                                      color: kColor1),
+                                ),
+
                               ],
                             ),
                           ),
@@ -149,6 +158,7 @@ class _CartState extends State<Cart> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
+
                                     IconButton(
                                       onPressed: () {
                                         items.addOneItemToCart(
@@ -177,7 +187,6 @@ class _CartState extends State<Cart> {
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    // const CustomText(text: 'Subtotal = '),
                                     CustomText(
                                         text:
                                             '\$${items.cart[index].price * items.cart[index].quantity}'),

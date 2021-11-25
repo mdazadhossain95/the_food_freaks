@@ -138,4 +138,12 @@ class ProductState with ChangeNotifier {
     });
     return total;
   }
+
+  deleteOneItemToCart(Product p) {
+    //find if the p is already in the basket
+    //if that is the case just increment the qty property by 1
+    Product? found = _cart.firstWhereOrNull((a) => a.id == p.id);
+    _cart.remove(p);
+    notifyListeners();
+  }
 }
