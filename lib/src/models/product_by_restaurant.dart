@@ -1,17 +1,16 @@
-class Product {
+class RestaurantProduct {
   late int id;
   late String title;
   late int price;
   late int quantity;
   late String image;
   late String date;
-  late double rating;
+  late int rating;
   late String description;
   late Vendor vendor;
   late Category category;
-  late bool favorite;
 
-  Product(
+  RestaurantProduct(
       {required this.id,
       required this.title,
       required this.price,
@@ -21,10 +20,9 @@ class Product {
       required this.rating,
       required this.description,
       required this.vendor,
-      required this.category,
-      required this.favorite});
+      required this.category});
 
-  Product.fromJson(Map<String, dynamic> json) {
+  RestaurantProduct.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     title = json['title'];
     price = json['price'];
@@ -38,7 +36,6 @@ class Product {
     category = (json['category'] != null
         ? new Category.fromJson(json['category'])
         : null)!;
-    favorite = json['favorite'];
   }
 
   Map<String, dynamic> toJson() {
@@ -57,7 +54,6 @@ class Product {
     if (this.category != null) {
       data['category'] = this.category.toJson();
     }
-    data['favorite'] = this.favorite;
     return data;
   }
 }

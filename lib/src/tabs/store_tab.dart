@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:the_food_freaks/src/state/product_state.dart';
+import 'package:the_food_freaks/src/state/restaurant_state.dart';
 import 'package:the_food_freaks/src/tabs/resturantdetails.dart';
 import 'package:the_food_freaks/src/widgets/customtext.dart';
 
@@ -21,9 +21,7 @@ class _StoreScreenState extends State<StoreScreen> {
     if (_init) {
       // calling global state here
       // we are calling getProduct function form Product class
-      _isLoading = await Provider.of<ProductState>(context).getProducts();
-      print("in store_tab 2 $_isLoading");
-
+      _isLoading = await Provider.of<RestaurantState>(context).getRestaurant();
       setState(() {});
     }
     _init = false;
@@ -32,7 +30,7 @@ class _StoreScreenState extends State<StoreScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final items = Provider.of<ProductState>(context).getProductList;
+    final items = Provider.of<RestaurantState>(context).getRestaurantList;
     if (!_isLoading) {
       return const Scaffold(
         body: Text("Something is wrong"),
@@ -61,9 +59,12 @@ class _StoreScreenState extends State<StoreScreen> {
                           builder: (context) => ResturantDetails(
                             assetPath:
                                 "http://10.0.2.2:8000${items[index].image}",
+                            assetId: items[index].id,
                           ),
                         ),
                       );
+                      // Provider.of<RestaurantState>(context, listen: false)
+                      //     .productByRestaurant(items[index].id as int);
                     },
                     child: Column(
                       children: [
@@ -79,7 +80,7 @@ class _StoreScreenState extends State<StoreScreen> {
                         ),
                         Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: CustomText(text: items[index].vendor),
+                          child: CustomText(text: items[index].name),
                         ),
                       ],
                     ),

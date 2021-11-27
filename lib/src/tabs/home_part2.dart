@@ -88,7 +88,8 @@ class _HomePart2State extends State<HomePart2> {
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: CustomText(
-                                  text: items.getProductList[index].title.toString()),
+                                  text: items.getProductList[index].title
+                                      .toString()),
                             ),
 
                             Padding(
@@ -108,7 +109,8 @@ class _HomePart2State extends State<HomePart2> {
                                   onTap: () {
                                     Provider.of<ProductState>(context,
                                             listen: false)
-                                        .favoriteButton(items.getProductList[index].id as int);
+                                        .favoriteButton(items
+                                            .getProductList[index].id as int);
                                   },
                                   child: Padding(
                                     padding: const EdgeInsets.all(4),
@@ -139,7 +141,8 @@ class _HomePart2State extends State<HomePart2> {
                                   Padding(
                                     padding: const EdgeInsets.only(left: 8.0),
                                     child: CustomText(
-                                        text: items.getProductList[index].rateing.toString(),
+                                        text: items.getProductList[index].rating
+                                            .toString(),
                                         color: kGrey,
                                         size: 14),
                                   ),
@@ -153,7 +156,8 @@ class _HomePart2State extends State<HomePart2> {
                               Padding(
                                 padding: const EdgeInsets.only(right: 8.0),
                                 child: CustomText(
-                                  text: "\$${items.getProductList[index].price.toString()}",
+                                  text:
+                                      "\$${items.getProductList[index].price.toString()}",
                                   weight: FontWeight.bold,
                                   size: 12,
                                 ),

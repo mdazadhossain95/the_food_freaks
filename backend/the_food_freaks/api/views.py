@@ -37,7 +37,54 @@ class ProductView(APIView):
             data.append(product)
         
         # sending response as json file
+        return Response(data)    
+    
+class RestaurantView(APIView):
+    # authenticating user 
+    permission_classes = (IsAuthenticated,)
+    authentication_classes = (TokenAuthentication,)
+    
+    def get(self, request):
+        query = Restaurant.objects.all()
+        # many=true is: here we can have many product or object using query
+        serializers = RestaurantSerializer(query, many=True)
+        # checking is Favorite of a product
+        data = []
+        for rest in serializers.data:
+            data.append(rest)
+        
+        # sending response as json file
         return Response(data)
+    
+class ProductsByRestaurantView(APIView):
+    # authenticating user 
+    permission_classes = (IsAuthenticated,)
+    authentication_classes = (TokenAuthentication,)
+    
+    def get(self, request, *args, **kwargs):
+        
+        print(request.query_params['id'])
+        id = int(request.query_params['id'])
+        
+        
+        query = Product.objects.all()
+        serializers = ProductSerializer(query, many=True)
+        data = []
+
+        for product in serializers.data:
+            fab_query = Favorite.objects.filter(user=request.user).filter(
+                product_id = product['id']
+            )
+            if fab_query:
+                product['favorite'] = fab_query[0].isFavorite
+            else:
+                product['favorite'] = False
+                
+            if product['vendor']['id'] == id:
+                data.append(product)
+        
+        # sending response as json file
+        return Response(data)  
 
 
 class FavoriteView(APIView):

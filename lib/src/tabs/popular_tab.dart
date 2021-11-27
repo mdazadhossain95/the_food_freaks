@@ -153,7 +153,7 @@ class _PopularTabState extends State<PopularTab> {
                               Padding(
                                 padding: const EdgeInsets.only(left: 8.0),
                                 child: CustomText(
-                                    text: items.getProductList[index].rateing
+                                    text: items.getProductList[index].rating
                                         .toString(),
                                     color: kGrey,
                                     size: 14),

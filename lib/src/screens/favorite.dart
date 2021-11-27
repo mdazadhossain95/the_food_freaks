@@ -35,7 +35,7 @@ class FavoriteScreen extends StatelessWidget {
           title: favorite[i].title,
           price: favorite[i].price,
           image: favorite[i].image.toString(),
-          rateing: favorite[i].rateing,
+          rateing: favorite[i].rating,
           favorite: favorite[i].favorite,
           description: favorite[i].description,
         ),

@@ -2,15 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:the_food_freaks/constants.dart';
 import 'package:the_food_freaks/src/models/products.dart';
-import 'package:the_food_freaks/src/screens/cart.dart';
 import 'package:the_food_freaks/src/screens/productdetails_screen.dart';
 import 'package:the_food_freaks/src/state/product_state.dart';
+import 'package:the_food_freaks/src/state/restaurant_state.dart';
 import 'package:the_food_freaks/src/widgets/customtext.dart';
 
 class ResturantDetails extends StatefulWidget {
   final assetPath;
+  final assetId;
 
-  const ResturantDetails({Key? key, this.assetPath}) : super(key: key);
+  const ResturantDetails({Key? key, this.assetPath, this.assetId})
+      : super(key: key);
 
   @override
   State<ResturantDetails> createState() => _ResturantDetailsState();
@@ -18,30 +20,39 @@ class ResturantDetails extends StatefulWidget {
 
 class _ResturantDetailsState extends State<ResturantDetails> {
   late final assetPaths;
+  late final assetId;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     assetPaths = widget.assetPath;
+    assetId = widget.assetId;
+    // print(widget.assetId);
+
+    Provider.of<RestaurantState>(context, listen: false)
+        .productByRestaurant(assetId);
   }
 
-  Future<List<Product>> ReadJsonData() async {
-    final items = Provider.of<ProductState>(context).getProductList;
+  Future<List<Product>> readJsonData() async {
+    // Provider.of<RestaurantState>(context, listen: false)
+    //     .productByRestaurant(assetId);
+    // final items = Provider.of<ProductState>(context).getProductList;
+
+    final items = Provider.of<RestaurantState>(context).getProductList;
 
     return items;
   }
 
   @override
   Widget build(BuildContext context) {
-    var items2 = Provider.of<ProductState>(context);
-
+    var detailsFood = Provider.of<ProductState>(context);
     return Scaffold(
       backgroundColor: kBackgroundColor,
       appBar: AppBar(
         centerTitle: true,
         title: const CustomText(
-          text: 'Resturant details',
+          text: 'Restaurant details',
           size: 18,
         ),
         backgroundColor: kColor1,
@@ -55,7 +66,7 @@ class _ResturantDetailsState extends State<ResturantDetails> {
         ],
       ),
       body: FutureBuilder(
-        future: ReadJsonData(),
+        future: readJsonData(),
         builder: (context, data) {
           if (data.hasError) {
             return Center(
@@ -90,7 +101,7 @@ class _ResturantDetailsState extends State<ResturantDetails> {
                     child: ListView.builder(
                       shrinkWrap: true,
                       scrollDirection: Axis.vertical,
-                      itemCount: items2.getProductList.length,
+                      itemCount: items.length,
                       itemBuilder: (_, index) {
                         return Padding(
                           padding: const EdgeInsets.all(8.0),
@@ -109,8 +120,8 @@ class _ResturantDetailsState extends State<ResturantDetails> {
                             ),
                             child: InkWell(
                               onTap: () {
-                                items2.setActiveProduct(
-                                    items2.getProductList[index]);
+                                detailsFood.setActiveProduct(
+                                    detailsFood.getProductList[index]);
 
                                 Navigator.of(context).push(
                                   MaterialPageRoute(
@@ -129,7 +140,7 @@ class _ResturantDetailsState extends State<ResturantDetails> {
                                           borderRadius:
                                               BorderRadius.circular(10.0),
                                           child: Image.network(
-                                            "http://10.0.2.2:8000${items2.getProductList[index].image}",
+                                            "http://10.0.2.2:8000${items[index].image}",
                                             height: 90,
                                             width: 130,
                                             fit: BoxFit.cover,
@@ -147,9 +158,7 @@ class _ResturantDetailsState extends State<ResturantDetails> {
                                       Padding(
                                         padding: const EdgeInsets.all(4.0),
                                         child: CustomText(
-                                            text: items2
-                                                .getProductList[index].title
-                                                .toString(),
+                                            text: items[index].title.toString(),
                                             size: 18,
                                             weight: FontWeight.bold),
                                       ),
@@ -158,13 +167,13 @@ class _ResturantDetailsState extends State<ResturantDetails> {
                                         padding: const EdgeInsets.all(4.0),
                                         child: CustomText(
                                             text:
-                                                "\$${items2.getProductList[index].price.toString()}"),
+                                                "\$${items[index].price.toString()}"),
                                       ),
                                       //product description
                                       Padding(
                                         padding: const EdgeInsets.all(4.0),
                                         child: CustomText(
-                                            text: items2.getProductList[index]
+                                            text: items[index]
                                                 .description
                                                 .toString()),
                                       ),

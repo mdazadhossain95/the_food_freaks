@@ -21,4 +21,10 @@ class ProductSerializer(serializers.ModelSerializer):
         model = Product
         fields = "__all__"
         # to see inside the category 1 level deep
+        depth = 1    
+class RestaurantSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Restaurant
+        fields = "__all__"
+        # to see inside the category 1 level deep
         depth = 1

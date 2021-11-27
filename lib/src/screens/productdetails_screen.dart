@@ -130,7 +130,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                     Padding(
                       padding: const EdgeInsets.only(left: 8.0),
                       child: CustomText(
-                          text: items.activeProduct!.rateing.toString() + '/5',
+                          text: items.activeProduct!.rating.toString() + '/5',
                           color: kBlack,
                           size: 14),
                     ),
