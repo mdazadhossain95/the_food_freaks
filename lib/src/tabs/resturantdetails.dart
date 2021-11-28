@@ -51,7 +51,7 @@ class _ResturantDetailsState extends State<ResturantDetails> {
   @override
   Widget build(BuildContext context) {
     var detailsFood = Provider.of<ProductState>(context);
-    final items = Provider.of<RestaurantState>(context).getProductList;
+    final items = Provider.of<RestaurantState>(context);
 
     if (!_isLoading) {
       return Scaffold(
@@ -87,7 +87,7 @@ class _ResturantDetailsState extends State<ResturantDetails> {
                 child: ListView.builder(
                   shrinkWrap: true,
                   scrollDirection: Axis.vertical,
-                  itemCount: items.length,
+                  itemCount: items.getProductList.length,
                   itemBuilder: (_, index) {
                     return Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -107,7 +107,7 @@ class _ResturantDetailsState extends State<ResturantDetails> {
                         child: InkWell(
                           onTap: () {
                             detailsFood.setActiveProduct(
-                                detailsFood.getProductList[index]);
+                                items.getProductList[index]);
 
                             Navigator.of(context).push(
                               MaterialPageRoute(
@@ -125,7 +125,7 @@ class _ResturantDetailsState extends State<ResturantDetails> {
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(10.0),
                                       child: Image.network(
-                                        "http://10.0.2.2:8000${items[index].image}",
+                                        "http://10.0.2.2:8000${items.getProductList[index].image}",
                                         height: 90,
                                         width: 130,
                                         fit: BoxFit.cover,
@@ -142,7 +142,7 @@ class _ResturantDetailsState extends State<ResturantDetails> {
                                   Padding(
                                     padding: const EdgeInsets.all(4.0),
                                     child: CustomText(
-                                        text: items[index].title.toString(),
+                                        text: items.getProductList[index].title.toString(),
                                         size: 18,
                                         weight: FontWeight.bold),
                                   ),
@@ -151,13 +151,13 @@ class _ResturantDetailsState extends State<ResturantDetails> {
                                     padding: const EdgeInsets.all(4.0),
                                     child: CustomText(
                                         text:
-                                            "\$${items[index].price.toString()}"),
+                                            "\$${items.getProductList[index].price.toString()}"),
                                   ),
                                   //product description
                                   Padding(
                                     padding: const EdgeInsets.all(4.0),
                                     child: CustomText(
-                                        text: items[index]
+                                        text: items.getProductList[index]
                                             .description
                                             .toString()),
                                   ),
