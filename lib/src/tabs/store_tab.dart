@@ -60,6 +60,7 @@ class _StoreScreenState extends State<StoreScreen> {
                             assetPath:
                                 "http://10.0.2.2:8000${items[index].image}",
                             assetId: items[index].id,
+                            restName: items[index].name,
                           ),
                         ),
                       );

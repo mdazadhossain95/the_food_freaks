@@ -9,8 +9,10 @@ import 'package:the_food_freaks/src/widgets/customtext.dart';
 class ResturantDetails extends StatefulWidget {
   final assetPath;
   final assetId;
+  final restName;
 
-  ResturantDetails({Key? key, this.assetPath, this.assetId}) : super(key: key);
+  ResturantDetails({Key? key, this.assetPath, this.assetId, this.restName})
+      : super(key: key);
 
   @override
   State<ResturantDetails> createState() => _ResturantDetailsState();
@@ -19,6 +21,7 @@ class ResturantDetails extends StatefulWidget {
 class _ResturantDetailsState extends State<ResturantDetails> {
   late final assetPaths;
   late final assetId;
+  late final restName;
 
   bool _init = true;
   bool _isLoading = false;
@@ -28,6 +31,7 @@ class _ResturantDetailsState extends State<ResturantDetails> {
     super.initState();
     assetId = widget.assetId;
     assetPaths = widget.assetPath;
+    restName = widget.restName;
   }
 
   @override
@@ -65,9 +69,9 @@ class _ResturantDetailsState extends State<ResturantDetails> {
               child: Card(
                 child: Column(
                   children: [
-                    const Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: CustomText(text: 'Khanas'),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: CustomText(text: '$restName'),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
