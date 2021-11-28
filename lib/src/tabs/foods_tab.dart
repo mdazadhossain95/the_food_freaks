@@ -8,15 +8,23 @@ import 'package:the_food_freaks/src/widgets/customtext.dart';
 import 'package:the_food_freaks/src/widgets/search_bar2.dart';
 
 class FoodsTab extends StatefulWidget {
-  const FoodsTab({Key? key}) : super(key: key);
+  late final searchText;
+  FoodsTab({Key? key, required this.searchText}) : super(key: key);
 
   @override
   State<FoodsTab> createState() => _FoodsTabState();
 }
 
 class _FoodsTabState extends State<FoodsTab> {
+  late final searchText;
   bool _init = true;
   bool _isLoading = false;
+
+  @override
+  void initState() {
+    super.initState();
+    searchText = widget.searchText;
+  }
 
   @override
   // everytime we call a api or future data we need to make the function async
@@ -24,7 +32,8 @@ class _FoodsTabState extends State<FoodsTab> {
     if (_init) {
       // calling global state here
       // we are calling getProduct function form Product class
-      _isLoading = await Provider.of<ProductState>(context).getProducts();
+      _isLoading =
+          await Provider.of<ProductState>(context).searchProducts(searchText);
 
       setState(() {});
     }
@@ -71,7 +80,7 @@ class _FoodsTabState extends State<FoodsTab> {
               physics: const ScrollPhysics(),
               gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
                   maxCrossAxisExtent: 400),
-              itemCount: items.getProductList.length,
+              itemCount: items.getSearchProduct.length,
               itemBuilder: (context, index) {
                 return Padding(
                   padding: const EdgeInsets.all(8),
@@ -91,7 +100,8 @@ class _FoodsTabState extends State<FoodsTab> {
                       children: [
                         GestureDetector(
                           onTap: () {
-                            items.setActiveProduct(items.getProductList[index]);
+                            items.setActiveProduct(
+                                items.getSearchProduct[index]);
 
                             Navigator.push(
                               context,
@@ -102,7 +112,7 @@ class _FoodsTabState extends State<FoodsTab> {
                           },
                           child: Hero(
                             tag:
-                                "http://10.0.2.2:8000${items.getProductList[index].title}",
+                                "http://10.0.2.2:8000${items.getSearchProduct[index].title}",
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Container(
@@ -112,7 +122,7 @@ class _FoodsTabState extends State<FoodsTab> {
                                 decoration: BoxDecoration(
                                   image: DecorationImage(
                                     image: NetworkImage(
-                                        "http://10.0.2.2:8000${items.getProductList[index].image}"),
+                                        "http://10.0.2.2:8000${items.getSearchProduct[index].image}"),
                                   ),
                                 ),
                               ),
@@ -126,7 +136,7 @@ class _FoodsTabState extends State<FoodsTab> {
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: CustomText(
-                                text: items.getProductList[index].title
+                                text: items.getSearchProduct[index].title
                                     .toString(),
                               ),
                             ),
@@ -148,22 +158,23 @@ class _FoodsTabState extends State<FoodsTab> {
                                   onTap: () {
                                     Provider.of<ProductState>(context,
                                             listen: false)
-                                        .favoriteButton(items
-                                            .getProductList[index].id);
+                                        .favoriteButton(
+                                            items.getSearchProduct[index].id);
                                   },
                                   child: Padding(
                                     padding: const EdgeInsets.all(4),
-                                    child: items.getProductList[index].favorite
-                                        ? const Icon(
-                                            Icons.favorite,
-                                            color: kColor1,
-                                            size: 18,
-                                          )
-                                        : const Icon(
-                                            Icons.favorite_border,
-                                            color: kColor1,
-                                            size: 18,
-                                          ),
+                                    child:
+                                        items.getSearchProduct[index].favorite
+                                            ? const Icon(
+                                                Icons.favorite,
+                                                color: kColor1,
+                                                size: 18,
+                                              )
+                                            : const Icon(
+                                                Icons.favorite_border,
+                                                color: kColor1,
+                                                size: 18,
+                                              ),
                                   ),
                                 ),
                               ),
@@ -179,7 +190,7 @@ class _FoodsTabState extends State<FoodsTab> {
                                 Padding(
                                   padding: const EdgeInsets.only(left: 8.0),
                                   child: CustomText(
-                                      text: items.getProductList[index].rating
+                                      text: items.getSearchProduct[index].rating
                                           .toString(),
                                       color: kGrey,
                                       size: 14),
@@ -196,7 +207,7 @@ class _FoodsTabState extends State<FoodsTab> {
                               padding: const EdgeInsets.only(right: 8.0),
                               child: CustomText(
                                 text:
-                                    "\$${items.getProductList[index].price.toString()}",
+                                    "\$${items.getSearchProduct[index].price.toString()}",
                                 weight: FontWeight.bold,
                               ),
                             )

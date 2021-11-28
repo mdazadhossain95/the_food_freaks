@@ -10,6 +10,7 @@ class SearchBar extends StatefulWidget {
 }
 
 class _SearchBarState extends State<SearchBar> {
+  final textController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -28,9 +29,16 @@ class _SearchBarState extends State<SearchBar> {
             ListTile(
               trailing: GestureDetector(
                 onTap: () {
+                  // Provider.of<ProductState>(context, listen: false)
+                  //     .searchProducts(textController.text);
+
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => FoodsTab()),
+                    MaterialPageRoute(
+                      builder: (context) => FoodsTab(
+                        searchText: textController.text,
+                      ),
+                    ),
                   );
                 },
                 child: const Icon(
@@ -38,13 +46,8 @@ class _SearchBarState extends State<SearchBar> {
                   color: kColor1,
                 ),
               ),
-              title: const TextField(
-                // onTap: (){
-                //   Navigator.push(
-                //     context,
-                //     MaterialPageRoute(builder: (context) => FoodsTab()),
-                //   );
-                // },
+              title: TextField(
+                controller: textController,
                 decoration: InputDecoration(
                   hintText: 'Find your food',
                   border: InputBorder.none,

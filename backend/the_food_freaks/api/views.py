@@ -2,6 +2,8 @@ from django.shortcuts import render
 from .serializer import *
 from .models import *
 from rest_framework.views import APIView
+from rest_framework import filters, generics
+from django.db.models import Q
 from rest_framework.response import Response
 # to work with auth token 
 from rest_framework.permissions import IsAuthenticated
@@ -114,3 +116,45 @@ class FavoriteView(APIView):
         except:
             response_msg = {'error': True}
         return Response(response_msg)
+    
+    
+class SearchProduct(APIView):
+    # authenticating user 
+    permission_classes = (IsAuthenticated,)
+    authentication_classes = (TokenAuthentication,)
+    
+    # search_fields = ['title']
+    # filter_backends = (filters.SearchFilter,)
+    # queryset = Product.objects.all()
+    # serializer_class = ProductSerializer
+    
+    
+    def get(self, request, *args, **kwargs):
+        
+        # print(request.query_params['search'])
+        id = request.query_params['search']
+        
+        
+        query = Product.objects.all()
+        serializers = ProductSerializer(query, many=True)
+        # print(serializers)
+        # result = Product.objects.filter(Q(title__contains=id))
+        # print(result)
+        data = []
+
+        for product in serializers.data:
+            fab_query = Favorite.objects.filter(user=request.user).filter(
+                product_id = product['id']
+            ) 
+            if fab_query:
+                product['favorite'] = fab_query[0].isFavorite
+            else:
+                product['favorite'] = False
+                
+            # print(product)
+            if  id in product['title']:  
+                data.append(product)
+        
+        # sending response as json file
+        return Response(data)
+    

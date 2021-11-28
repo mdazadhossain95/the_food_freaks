@@ -152,6 +152,7 @@ class ProductState with ChangeNotifier {
   }
 
   Future<bool> searchProducts(String query) async {
+    print(query);
     var token = storage.getItem('token');
     var url = Uri.parse(
         'http://10.0.2.2:8000/api/searchproduct/?search=$query'); // while using on emulator
@@ -166,13 +167,13 @@ class ProductState with ChangeNotifier {
       // converting the response body as a json list
       var data = json.decode(response.body) as List;
       // print(data);
-      // List<Product> temp = [];
+      List<Product> temp = [];
       for (var element in data) {
-        // Product product = Product.fromJson(element);
-        // temp.add(product);
-        print(element);
+        Product product = Product.fromJson(element);
+        temp.add(product);
+        // print(element);
       }
-      // _searchProduct = temp;
+      _searchProduct = temp;
       // print(_searchProduct);
       // notifyListeners();
       return true;
@@ -183,39 +184,7 @@ class ProductState with ChangeNotifier {
     return false;
   }
 
-  // List<Product> get getSearchProduct {
-  //   return [..._searchProduct];
-  // }
+  List<Product> get getSearchProduct {
+    return [..._searchProduct];
+  }
 }
-
-// Future<bool> searchProducts(String query) async {
-//   var token = storage.getItem('token');
-//
-//   var url = Uri.parse(
-//       'http://10.0.2.2:8000/api/searchproduct/?search=$query'); // while using on emulator
-//   try {
-//     http.Response response = await http.get(
-//       url,
-//       headers: {
-//         "Content-Type": "application/json",
-//         'Authorization': "token $token",
-//       },
-//     );
-//     // converting the response body as a json list
-//     var data = json.decode(response.body) as List;
-//     List<Product> temp = [];
-//     for (var element in data) {
-//       Product product = Product.fromJson(element);
-//       temp.add(product);
-//     }
-//     _searchProduct = temp;
-//     print(_searchProduct);
-//
-//     // notifyListeners();
-//     return true;
-//   } catch (e) {
-//     print("e product by restaurant");
-//     print(e);
-//   }
-//   return false;
-// }

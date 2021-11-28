@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:collection/src/iterable_extensions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:localstorage/localstorage.dart';
@@ -12,6 +13,7 @@ class RestaurantState with ChangeNotifier {
   late List<Restaurant> _restaurant = [];
   late List<Product> _products = [];
   late Product _activeProduct;
+  List<Product> _cart = [];
 
   LocalStorage storage = LocalStorage('usertoken');
 
@@ -81,17 +83,70 @@ class RestaurantState with ChangeNotifier {
     return false;
   }
 
+  List<Product> get cart => _cart;
+
+  List<Product> get favorites {
+    return _products.where((element) => element.favorite == true).toList();
+  }
+
   // using get we can only get the data
   List<Product> get getProductList {
     // print(_products);
     return [..._products];
   }
 
-  Product? get activeProduct => _activeProduct;
-
-  // getting a single product by the product id
-
   setActiveProduct(Product p) {
     _activeProduct = p;
+  }
+
+  addOneItemToCart(Product p) {
+    //find if the p is already in the basket
+    //if that is the case just increment the qty property by 1
+    Product? found = _cart.firstWhereOrNull((a) => a.id == p.id);
+    if (found != null) {
+      found.quantity += 1;
+    } else {
+      _cart.add(p);
+    }
+
+    notifyListeners();
+  }
+
+  removeOneItemToCart(Product p) {
+    //find if the p is already in the basket
+    //if that is the case just increment the qty property by 1
+    Product? found = _cart.firstWhereOrNull((a) => a.id == p.id);
+    if (found != null && found.quantity == 0) {
+      _cart.remove(p);
+      found.quantity == 0;
+    } else {
+      found!.quantity -= 1;
+    }
+    notifyListeners();
+  }
+
+  getCartQty() {
+    int total = 0;
+    for (int i = 0; i < cart.length; i++) {
+      total += cart[i].quantity;
+    }
+    return total;
+  }
+
+  getTotalPrice() {
+    double total = 0.0;
+    cart.forEach((element) {
+      total += element.price * element.quantity;
+    });
+    return total;
+  }
+
+  deleteOneItemToCart(Product p) {
+    //find if the p is already in the basket
+    //if that is the case just increment the qty property by 1
+    Product? found = _cart.firstWhereOrNull((a) => a.id == p.id);
+    _cart.remove(p);
+    p.quantity = 0;
+    notifyListeners();
   }
 }

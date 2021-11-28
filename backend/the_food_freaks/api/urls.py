@@ -10,4 +10,5 @@ urlpatterns = [
     path('favorite/', FavoriteView.as_view()),
     path('restaurant/', RestaurantView.as_view()),
     path('productbyrestaurant/', ProductsByRestaurantView.as_view()),
+    path('searchproduct/', SearchProduct.as_view()),
 ]
