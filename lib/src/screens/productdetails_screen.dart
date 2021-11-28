@@ -60,7 +60,7 @@ class _ProductDetailsState extends State<ProductDetails> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Image.network(
-                "http://10.0.2.2:8000${items.activeProduct!.image}",
+                "http://10.0.2.2:8000${items.activeProduct.image}",
                 height: 300.0,
                 width: 70.0,
                 fit: BoxFit.cover),
@@ -72,13 +72,13 @@ class _ProductDetailsState extends State<ProductDetails> {
               children: [
                 //product name
                 CustomText(
-                    text: items.activeProduct!.title,
+                    text: items.activeProduct.title,
                     size: 22.0,
                     weight: FontWeight.bold),
 
                 //product price
                 CustomText(
-                    text: items.activeProduct!.price.toString(),
+                    text: items.activeProduct.price.toString(),
                     size: 22.0,
                     weight: FontWeight.bold)
               ],
@@ -93,7 +93,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                 IconButton(
                   onPressed: () {
                     items.addOneItemToCart(
-                        items.activeProduct!);
+                        items.activeProduct);
                   },
                   icon: const Icon(Icons.add,
                       color: Colors.green),
@@ -102,13 +102,13 @@ class _ProductDetailsState extends State<ProductDetails> {
                   decoration: BoxDecoration(
                     border: Border.all(color: Colors.grey),
                   ),
-                  child: Text(items.activeProduct!.quantity
+                  child: Text(items.activeProduct.quantity
                       .toString()),
                 ),
                 IconButton(
                   onPressed: () {
                     items.removeOneItemToCart(
-                        items.activeProduct!);
+                        items.activeProduct);
                   },
                   icon: const Icon(Icons.remove,
                       color: Colors.red),
@@ -130,7 +130,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                     Padding(
                       padding: const EdgeInsets.only(left: 8.0),
                       child: CustomText(
-                          text: items.activeProduct!.rating.toString() + '/5',
+                          text: items.activeProduct.rating.toString() + '/5',
                           color: kBlack,
                           size: 14),
                     ),
@@ -156,7 +156,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                   child: Container(
                     width: MediaQuery.of(context).size.width - 50.0,
                     child: CustomText(
-                      text: items.activeProduct!.description,
+                      text: items.activeProduct.description,
                       size: 16,
                     ),
                   ),

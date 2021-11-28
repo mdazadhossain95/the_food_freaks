@@ -105,7 +105,7 @@ class Cart extends StatelessWidget {
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(10.0),
                                     child: Image.network(
-                                      "http://10.0.2.2:8000${items.getProductList[index].image}",
+                                      "http://10.0.2.2:8000${items.cart[index].image}",
                                       height: 90,
                                       width: 90,
                                       fit: BoxFit.cover,

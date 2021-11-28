@@ -110,7 +110,7 @@ class _HomePart2State extends State<HomePart2> {
                                     Provider.of<ProductState>(context,
                                             listen: false)
                                         .favoriteButton(items
-                                            .getProductList[index].id as int);
+                                            .getProductList[index].id);
                                   },
                                   child: Padding(
                                     padding: const EdgeInsets.all(4),

@@ -89,7 +89,7 @@ class ProductState with ChangeNotifier {
 
   List<Product> get cart => _cart;
 
-  Product? get activeProduct => _activeProduct;
+  Product get activeProduct => _activeProduct;
 
   // getting a single product by the product id
   Product singleProduct(int id) {

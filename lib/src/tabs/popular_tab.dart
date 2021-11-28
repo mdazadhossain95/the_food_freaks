@@ -33,7 +33,7 @@ class _PopularTabState extends State<PopularTab> {
   // backgroundColor: kBackgroundColor,
   @override
   Widget build(BuildContext context) {
-    var items = Provider.of<ProductState>(context);
+    final items = Provider.of<ProductState>(context);
 
     if (!_isLoading) {
       return const Scaffold(
