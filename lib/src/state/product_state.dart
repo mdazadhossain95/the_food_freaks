@@ -1,16 +1,17 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:localstorage/localstorage.dart';
 import 'package:the_food_freaks/src/models/products.dart';
-import 'package:collection/collection.dart';
 
 class ProductState with ChangeNotifier {
   // Making a list of products from product Model class
   List<Product> _products = [];
   List<Product> _cart = [];
+  List<Product> _searchProduct = [];
   late Product _activeProduct;
 
   LocalStorage storage = LocalStorage('usertoken');
@@ -103,7 +104,7 @@ class ProductState with ChangeNotifier {
     //find if the p is already in the basket
     //if that is the case just increment the qty property by 1
     Product? found = _cart.firstWhereOrNull((a) => a.id == p.id);
-    if (found != null ) {
+    if (found != null) {
       found.quantity += 1;
     } else {
       _cart.add(p);
@@ -149,4 +150,72 @@ class ProductState with ChangeNotifier {
     p.quantity = 0;
     notifyListeners();
   }
+
+  Future<bool> searchProducts(String query) async {
+    var token = storage.getItem('token');
+    var url = Uri.parse(
+        'http://10.0.2.2:8000/api/searchproduct/?search=$query'); // while using on emulator
+    try {
+      http.Response response = await http.get(
+        url,
+        headers: {
+          "Content-Type": "application/json",
+          'Authorization': "token $token"
+        },
+      );
+      // converting the response body as a json list
+      var data = json.decode(response.body) as List;
+      // print(data);
+      // List<Product> temp = [];
+      for (var element in data) {
+        // Product product = Product.fromJson(element);
+        // temp.add(product);
+        print(element);
+      }
+      // _searchProduct = temp;
+      // print(_searchProduct);
+      // notifyListeners();
+      return true;
+    } catch (e) {
+      print("e searchProducts");
+      print(e);
+    }
+    return false;
+  }
+
+  // List<Product> get getSearchProduct {
+  //   return [..._searchProduct];
+  // }
 }
+
+// Future<bool> searchProducts(String query) async {
+//   var token = storage.getItem('token');
+//
+//   var url = Uri.parse(
+//       'http://10.0.2.2:8000/api/searchproduct/?search=$query'); // while using on emulator
+//   try {
+//     http.Response response = await http.get(
+//       url,
+//       headers: {
+//         "Content-Type": "application/json",
+//         'Authorization': "token $token",
+//       },
+//     );
+//     // converting the response body as a json list
+//     var data = json.decode(response.body) as List;
+//     List<Product> temp = [];
+//     for (var element in data) {
+//       Product product = Product.fromJson(element);
+//       temp.add(product);
+//     }
+//     _searchProduct = temp;
+//     print(_searchProduct);
+//
+//     // notifyListeners();
+//     return true;
+//   } catch (e) {
+//     print("e product by restaurant");
+//     print(e);
+//   }
+//   return false;
+// }

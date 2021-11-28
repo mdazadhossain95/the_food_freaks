@@ -71,7 +71,7 @@ class RestaurantState with ChangeNotifier {
       }
       _products = temp;
       // print('calling resaturant by id');
-      // print(_products);
+      // print(_products[0].title);
       // notifyListeners();
       return true;
     } catch (e) {
