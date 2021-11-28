@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:the_food_freaks/constants.dart';
+import 'package:the_food_freaks/src/tabs/foods_tab.dart';
 import 'package:the_food_freaks/src/tabs/home_tab.dart';
 import 'package:the_food_freaks/src/tabs/popular_tab.dart';
 import 'package:the_food_freaks/src/tabs/store_tab.dart';
@@ -51,12 +52,19 @@ class _MainTabState extends State<MainTab> with SingleTickerProviderStateMixin {
                     )),
               ),
               Tab(
-                child: Text('Resturants',
+                child: Text('Restaurants',
                     style: TextStyle(
                       fontFamily: 'Oswald',
                       fontSize: 21.0,
                     )),
               ),
+              // Tab(
+              //   child: Text('Foods',
+              //       style: TextStyle(
+              //         fontFamily: 'Oswald',
+              //         fontSize: 21.0,
+              //       )),
+              // ),
             ]),
         SizedBox(
           height: MediaQuery.of(context).size.height - 20.0,
@@ -67,7 +75,7 @@ class _MainTabState extends State<MainTab> with SingleTickerProviderStateMixin {
               HomeTab(),
               PopularTab(),
               StoreScreen(),
-              // ResturantDetails(),
+              // FoodsTab(),
             ],
           ),
         )

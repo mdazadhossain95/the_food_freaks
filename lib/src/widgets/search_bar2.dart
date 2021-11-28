@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:the_food_freaks/constants.dart';
 import 'package:the_food_freaks/src/tabs/foods_tab.dart';
 
-class SearchBar extends StatefulWidget {
-  const SearchBar({Key? key}) : super(key: key);
+class SearchBar2 extends StatefulWidget {
+  const SearchBar2({Key? key}) : super(key: key);
 
   @override
-  _SearchBarState createState() => _SearchBarState();
+  _SearchBar2State createState() => _SearchBar2State();
 }
 
-class _SearchBarState extends State<SearchBar> {
+class _SearchBar2State extends State<SearchBar2> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -27,27 +27,26 @@ class _SearchBarState extends State<SearchBar> {
           children: [
             ListTile(
               trailing: GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => FoodsTab()),
-                  );
+                onTap: (){
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //       builder: (context) => FoodsTab()
+                  //   ),
+                  // );
+
                 },
                 child: const Icon(
                   Icons.search,
                   color: kColor1,
                 ),
+
               ),
               title: const TextField(
-                // onTap: (){
-                //   Navigator.push(
-                //     context,
-                //     MaterialPageRoute(builder: (context) => FoodsTab()),
-                //   );
-                // },
                 decoration: InputDecoration(
                   hintText: 'Find your food',
                   border: InputBorder.none,
+
                 ),
               ),
             ),
