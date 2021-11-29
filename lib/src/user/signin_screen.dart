@@ -14,6 +14,7 @@ import 'forgot_pas_screen.dart';
 // Touhid
 class SignInScreen extends StatefulWidget {
   static const routeName = '/sign-in-screens';
+
   const SignInScreen({Key? key}) : super(key: key);
   static const String id = 'Signin_screen';
 
@@ -61,7 +62,6 @@ class _SignInScreenState extends State<SignInScreen> {
 
   @override
   void initState() {
-
     Provider.of<NotificationService>(context, listen: false).initialize();
 
     super.initState();
@@ -72,35 +72,34 @@ class _SignInScreenState extends State<SignInScreen> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: kBackgroundColor,
-        appBar: AppBar(
-          centerTitle: true,
-          backgroundColor: kColor1,
-          title: const CustomText(
-            text: 'The Food Freaks',
-            size: 20,
-            color: kWhite,
-            weight: FontWeight.bold,
-          ),
-        ),
+        // appBar: AppBar(
+        //   centerTitle: true,
+        //   backgroundColor: kColor1,
+        //   title: const CustomText(
+        //     text: 'The Food Freaks',
+        //     size: 20,
+        //     color: kWhite,
+        //     weight: FontWeight.bold,
+        //   ),
+        // ),
         body: SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: Form(
             key: _form,
             child: Center(
               child: Consumer<NotificationService>(
-                builder: (context, model, _) =>
-                Column(
+                builder: (context, model, _) => Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     // const SizedBox(height: 50.0),
-                    const Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: CustomText(
-                        text: 'Login',
-                        size: 30,
-                        weight: FontWeight.bold,
-                      ),
-                    ),
+                    // const Padding(
+                    //   padding: EdgeInsets.all(8.0),
+                    //   child: CustomText(
+                    //     text: 'Login',
+                    //     size: 30,
+                    //     weight: FontWeight.bold,
+                    //   ),
+                    // ),
                     const SizedBox(height: 10.0),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -164,10 +163,13 @@ class _SignInScreenState extends State<SignInScreen> {
                           _loginNow();
                         },
                         style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all(kColor1),
-                            shape: MaterialStateProperty.all(
-                                RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(18.0)))),
+                          backgroundColor: MaterialStateProperty.all(kColor1),
+                          shape: MaterialStateProperty.all(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                          ),
+                        ),
                         child: const CustomText(
                           text: 'Sign in',
                         ),
@@ -193,7 +195,8 @@ class _SignInScreenState extends State<SignInScreen> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => const Registration(),
+                                      builder: (context) =>
+                                          const Registration(),
                                     ),
                                   );
                                 },
@@ -202,7 +205,7 @@ class _SignInScreenState extends State<SignInScreen> {
                                       MaterialStateProperty.all(kColor2),
                                   shape: MaterialStateProperty.all(
                                     RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(30.0),
+                                      borderRadius: BorderRadius.circular(10.0),
                                     ),
                                   ),
                                 ),

@@ -78,46 +78,12 @@ class _ProductDetailsState extends State<ProductDetails> {
 
                 //product price
                 CustomText(
-                    text: items.activeProduct.price.toString(),
+                    text: "\$${items.activeProduct.price.toString()}",
                     size: 22.0,
                     weight: FontWeight.bold)
               ],
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: 8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                IconButton(
-                  onPressed: () {
-                    items.addOneItemToCart(
-                        items.activeProduct);
-                  },
-                  icon: const Icon(Icons.add,
-                      color: Colors.green),
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey),
-                  ),
-                  child: Text(items.activeProduct.quantity
-                      .toString()),
-                ),
-                IconButton(
-                  onPressed: () {
-                    items.removeOneItemToCart(
-                        items.activeProduct);
-                  },
-                  icon: const Icon(Icons.remove,
-                      color: Colors.red),
-                ),
-              ],
-            ),
-          ),
-
-          //product description
           Padding(
             padding: const EdgeInsets.all(20.0),
             child: Row(
@@ -146,7 +112,7 @@ class _ProductDetailsState extends State<ProductDetails> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.only(right: 8.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -175,21 +141,27 @@ class _ProductDetailsState extends State<ProductDetails> {
                     height: 100,
                     width: 100,
                     child: FittedBox(
-                      child: FloatingActionButton(
+                      child: ElevatedButton(
                         onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => Cart(),
-                            ),
+                          items.addOneItemToCart(
+                            items.activeProduct);
+                          const snackBar = SnackBar(
+                            content: Text('Food Added to your cart. Click Cart icon to check.'),
                           );
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
                         },
-                        child: const Icon(
-                          Icons.shopping_cart,
-                          size: 25.0,
-                          color: kWhite,
+                        style: ButtonStyle(
+                          backgroundColor:
+                          MaterialStateProperty.all(kColor1),
+                          shape: MaterialStateProperty.all(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                          ),
                         ),
-                        backgroundColor: kColor1,
+                        child: const CustomText(
+                          text: 'Add to Cart',
+                        ),
                       ),
                     ),
                   ),
@@ -202,3 +174,27 @@ class _ProductDetailsState extends State<ProductDetails> {
     );
   }
 }
+
+
+
+
+
+
+
+
+// FloatingActionButton(
+// onPressed: () {
+// Navigator.push(
+// context,
+// MaterialPageRoute(
+// builder: (context) => Cart(),
+// ),
+// );
+// },
+// child: const Icon(
+// Icons.shopping_cart,
+// size: 25.0,
+// color: kWhite,
+// ),
+// backgroundColor: kColor1,
+// ),

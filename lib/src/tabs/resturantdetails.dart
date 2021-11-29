@@ -9,11 +9,13 @@ import 'package:the_food_freaks/src/widgets/customtext.dart';
 extension StringCasingExtension on String {
   String toCapitalized() =>
       this.length > 0 ? '${this[0].toUpperCase()}${this.substring(1)}' : '';
-  String get toTitleCase => this
-      .replaceAll(RegExp(' +'), ' ')
-      .split(" ")
-      .map((str) => str.toCapitalized())
-      .join(" ");
+
+  String get toTitleCase =>
+      this
+          .replaceAll(RegExp(' +'), ' ')
+          .split(" ")
+          .map((str) => str.toCapitalized())
+          .join(" ");
 }
 
 class ResturantDetails extends StatefulWidget {
@@ -29,6 +31,11 @@ class ResturantDetails extends StatefulWidget {
 }
 
 class _ResturantDetailsState extends State<ResturantDetails> {
+
+  ScrollController controller = ScrollController();
+  bool closeTopContainer = false;
+
+
   late final assetPaths;
   late final assetId;
   late final restName;
@@ -42,6 +49,12 @@ class _ResturantDetailsState extends State<ResturantDetails> {
     assetId = widget.assetId;
     assetPaths = widget.assetPath;
     restName = widget.restName;
+
+    controller.addListener(() {
+      setState(() {
+        closeTopContainer = controller.offset > 3;
+      });
+    });
   }
 
   @override
@@ -63,11 +76,16 @@ class _ResturantDetailsState extends State<ResturantDetails> {
     var detailsFood = Provider.of<ProductState>(context);
     final items = Provider.of<RestaurantState>(context);
 
+    final Size size = MediaQuery.of(context).size;
+    final double categoryHeight = size.height*0.30;
+
+    // final double catagoryheight = Size.height * 0.30;
+
     if (!_isLoading) {
       return Scaffold(
         backgroundColor: kBackgroundColor,
         appBar: customAppBar(),
-        body: Text("Something is wrong.."),
+        body: const Text("Something is wrong.."),
       );
     } else {
       return Scaffold(
@@ -75,115 +93,114 @@ class _ResturantDetailsState extends State<ResturantDetails> {
         appBar: customAppBar(),
         body: Column(
           children: [
-            Container(
-              child: Card(
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: CustomText(text: '$restName'),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Image.network(assetPaths,
-                          height: 250.0, fit: BoxFit.cover),
-                    )
-                  ],
-                ),
-              ),
+            AnimatedOpacity(
+              duration: const Duration(milliseconds: 200),
+              opacity: closeTopContainer?0:1,
+              child: AnimatedContainer(duration: const Duration(milliseconds: 200),
+              height: closeTopContainer?0: categoryHeight,
+              child: ResturentName(
+                  restName: restName, assetPaths: assetPaths)),
             ),
-            Container(
-              child: Expanded(
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  scrollDirection: Axis.vertical,
-                  itemCount: items.getProductList.length,
-                  itemBuilder: (_, index) {
-                    return Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        height: MediaQuery.of(context).size.height * 0.16,
-                        width: MediaQuery.of(context).size.width,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: kWhite,
-                          boxShadow: const [
-                            BoxShadow(
-                                color: kColor1,
-                                offset: Offset(1, 1),
-                                blurRadius: 30)
-                          ],
-                        ),
-                        child: InkWell(
-                          onTap: () {
-                            detailsFood
-                                .setActiveProduct(items.getProductList[index]);
+            Expanded(
+              child: ListView.builder(
+                // shrinkWrap: true,
+                // scrollDirection: Axis.vertical,
+                controller: controller,
+                physics: const BouncingScrollPhysics(),
+                itemCount: items.getProductList.length,
+                itemBuilder: (_, index) {
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      height: MediaQuery
+                          .of(context)
+                          .size
+                          .height * 0.16,
+                      width: MediaQuery
+                          .of(context)
+                          .size
+                          .width,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: kWhite,
+                        boxShadow: const [
+                          BoxShadow(
+                              color: kColor1,
+                              offset: Offset(1, 1),
+                              blurRadius: 30)
+                        ],
+                      ),
+                      child: InkWell(
+                        onTap: () {
+                          detailsFood
+                              .setActiveProduct(items.getProductList[index]);
 
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) => ProductDetails(),
-                              ),
-                            );
-                          },
-                          child: Row(
-                            children: [
-                              Column(
-                                children: [
-                                  //product picture
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(10.0),
-                                      child: Image.network(
-                                        "http://10.0.2.2:8000${items.getProductList[index].image}",
-                                        height: 90,
-                                        width: 130,
-                                        fit: BoxFit.cover,
-                                      ),
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => ProductDetails(),
+                            ),
+                          );
+                        },
+                        child: Row(
+                          children: [
+                            Column(
+                              children: [
+                                //product picture
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    child: Image.network(
+                                      "http://10.0.2.2:8000${items
+                                          .getProductList[index].image}",
+                                      height: 90,
+                                      width: 130,
+                                      fit: BoxFit.cover,
                                     ),
                                   ),
-                                ],
-                              ),
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  //product name
-                                  Padding(
-                                    padding: const EdgeInsets.all(4.0),
-                                    child: CustomText(
-                                        text: items.getProductList[index].title
-                                            .toString()
-                                            .toTitleCase,
-                                        size: 18,
-                                        weight: FontWeight.bold),
-                                  ),
-                                  //product price
-                                  Padding(
-                                    padding: const EdgeInsets.all(4.0),
-                                    child: CustomText(
-                                        text:
-                                            "\$${items.getProductList[index].price.toString()}"),
-                                  ),
-                                  //product description
-                                  Padding(
-                                    padding: const EdgeInsets.all(4.0),
-                                    child: CustomText(
-                                        text: items
-                                            .getProductList[index].description
-                                            .toString()),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
+                                ),
+                              ],
+                            ),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                //product name
+                                Padding(
+                                  padding: const EdgeInsets.all(4.0),
+                                  child: CustomText(
+                                      text: items.getProductList[index].title
+                                          .toString()
+                                          .toTitleCase,
+                                      size: 18,
+                                      weight: FontWeight.bold),
+                                ),
+                                //product price
+                                Padding(
+                                  padding: const EdgeInsets.all(4.0),
+                                  child: CustomText(
+                                      text:
+                                      "\$${items.getProductList[index].price
+                                          .toString()}"),
+                                ),
+                                //product description
+                                Padding(
+                                  padding: const EdgeInsets.all(4.0),
+                                  child: CustomText(
+                                      text: items
+                                          .getProductList[index].description
+                                          .toString()),
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
                       ),
-                    );
-                  },
-                ),
+                    ),
+                  );
+                },
               ),
-            )
+            ),
           ],
         ),
       );
@@ -206,6 +223,42 @@ class _ResturantDetailsState extends State<ResturantDetails> {
               color: kWhite,
             )),
       ],
+    );
+  }
+}
+
+class ResturentName extends StatelessWidget {
+  const ResturentName({
+    Key? key,
+    required this.restName,
+    required this.assetPaths,
+  }) : super(key: key);
+
+  final restName;
+  final assetPaths;
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      physics: const BouncingScrollPhysics(),
+      scrollDirection: Axis.vertical,
+      child: FittedBox(
+        fit: BoxFit.fill,
+        alignment: Alignment.topCenter,
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: CustomText(text: '$restName'),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Image.network(assetPaths,
+                  height: 250.0, fit: BoxFit.cover),
+            )
+          ],
+        ),
+      ),
     );
   }
 }

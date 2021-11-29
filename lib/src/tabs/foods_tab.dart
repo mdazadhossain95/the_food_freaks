@@ -5,7 +5,6 @@ import 'package:the_food_freaks/src/home.dart';
 import 'package:the_food_freaks/src/screens/productdetails_screen.dart';
 import 'package:the_food_freaks/src/state/product_state.dart';
 import 'package:the_food_freaks/src/widgets/customtext.dart';
-import 'package:the_food_freaks/src/widgets/search_bar2.dart';
 
 class FoodsTab extends StatefulWidget {
   late final searchText;
@@ -18,6 +17,7 @@ class FoodsTab extends StatefulWidget {
 class _FoodsTabState extends State<FoodsTab> {
   late final searchText;
   bool _init = true;
+  // ignore: unused_field
   bool _isLoading = false;
 
   @override
@@ -73,7 +73,6 @@ class _FoodsTabState extends State<FoodsTab> {
       ),
       body: ListView(
         children: [
-          const SearchBar2(),
           GridView.builder(
               shrinkWrap: true,
               scrollDirection: Axis.vertical,

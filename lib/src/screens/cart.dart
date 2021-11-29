@@ -1,6 +1,4 @@
 import 'dart:convert';
-
-import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' as rootBundle;
 import 'package:provider/provider.dart';
@@ -10,9 +8,7 @@ import 'package:the_food_freaks/src/models/products.dart';
 import 'package:the_food_freaks/src/screens/favorite.dart';
 import 'package:the_food_freaks/src/screens/payment.dart';
 import 'package:the_food_freaks/src/state/product_state.dart';
-import 'package:the_food_freaks/src/user/profile_screen.dart';
 import 'package:the_food_freaks/src/widgets/customtext.dart';
-import 'package:the_food_freaks/src/widgets/iconbutton.dart';
 
 Future<List<Product>> ReadJsonData() async {
   final jsondata =
@@ -131,17 +127,49 @@ class Cart extends StatelessWidget {
                                 Padding(
                                   padding: const EdgeInsets.all(4.0),
                                   child: CustomText(
-                                      text: '\$${items.cart[index].price.toString()}'),
+                                      text:
+                                          '\$${items.cart[index].price.toString()}'),
                                 ),
                                 IconButton(
                                   onPressed: () {
-                                    items.deleteOneItemToCart(
-                                        items.cart[index]);
+                                    showDialog(
+                                        context: context,
+                                        builder: (context) {
+                                          return AlertDialog(
+                                            title: const Text(
+                                                "Do You Want to Delete This Food from your cart?"),
+                                            actions: [
+                                              ElevatedButton(
+                                                style: ButtonStyle(
+                                                  backgroundColor:
+                                                      MaterialStateProperty.all(
+                                                          kGrey),
+                                                ),
+                                                onPressed: () {
+                                                  Navigator.of(context).pop();
+                                                },
+                                                child: const Text("No"),
+                                              ),
+                                              ElevatedButton(
+                                                style: ButtonStyle(
+                                                  backgroundColor:
+                                                  MaterialStateProperty.all(
+                                                      kColor1),
+                                                ),
+                                                onPressed: () {
+                                                  Navigator.of(context).pop();
+                                                  items.deleteOneItemToCart(
+                                                      items.cart[index]);
+                                                },
+                                                child: const Text("Yes"),
+                                              )
+                                            ],
+                                          );
+                                        });
                                   },
-                                  icon: const Icon(Icons.delete,
-                                      color: kColor1),
+                                  icon:
+                                      const Icon(Icons.delete, color: kColor1),
                                 ),
-
                               ],
                             ),
                           ),
@@ -149,35 +177,37 @@ class Cart extends StatelessWidget {
                             flex: 2,
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
-                              // crossAxisAlignment: CrossAxisAlignment.,
                               children: [
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-
                                     IconButton(
-                                      onPressed: () {
-                                        items.addOneItemToCart(
-                                            items.cart[index]);
-                                      },
-                                      icon: const Icon(Icons.add,
-                                          color: Colors.green),
-                                    ),
-                                    Container(
-                                      decoration: BoxDecoration(
-                                        border: Border.all(color: Colors.grey),
-                                      ),
-                                      child: Text(items.cart[index].quantity
-                                          .toString()),
-                                    ),
-                                    IconButton(
+                                      iconSize: 30,
                                       onPressed: () {
                                         items.removeOneItemToCart(
                                             items.cart[index]);
                                       },
                                       icon: const Icon(Icons.remove,
                                           color: Colors.red),
+                                    ),
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        border: Border.all(color: kWhite),
+                                      ),
+                                      child: Text(
+                                        items.cart[index].quantity.toString(),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                    IconButton(
+                                      iconSize: 30,
+                                      onPressed: () {
+                                        items.addOneItemToCart(
+                                            items.cart[index]);
+                                      },
+                                      icon: const Icon(Icons.add,
+                                          color: Colors.green),
                                     ),
                                   ],
                                 ),
@@ -186,7 +216,7 @@ class Cart extends StatelessWidget {
                                   children: [
                                     CustomText(
                                         text:
-                                        '\$${items.cart[index].price * items.cart[index].quantity}'),
+                                            '\$${items.cart[index].price * items.cart[index].quantity}'),
                                   ],
                                 )
                               ],
@@ -224,7 +254,6 @@ class Cart extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: ElevatedButton(
                     onPressed: () {
-
                       items.deleteAllItemToCart();
                       Navigator.push(
                         context,

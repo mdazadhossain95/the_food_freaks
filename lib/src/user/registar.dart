@@ -72,7 +72,7 @@ class _RegistrationState extends State<Registration> {
           centerTitle: true,
           backgroundColor: kColor1,
           title: const CustomText(
-            text: 'The Food Freaks',
+            text: 'Sign Up',
             size: 20,
             color: kWhite,
             weight: FontWeight.bold,
@@ -90,16 +90,7 @@ class _RegistrationState extends State<Registration> {
                       Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const SizedBox(height: 50.0),
-                          const Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: CustomText(
-                              text: 'Sign Up',
-                              size: 30,
-                              weight: FontWeight.bold,
-                            ),
-                          ),
-                          const SizedBox(height: 10.0),
+                          const SizedBox(height: 30.0),
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Image.asset(
@@ -160,6 +151,8 @@ class _RegistrationState extends State<Registration> {
                             icon: Icons.lock_sharp,
                             obscureText: true,
                           ),
+                          const SizedBox(height: 20),
+
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -177,7 +170,7 @@ class _RegistrationState extends State<Registration> {
                                       shape: MaterialStateProperty.all(
                                           RoundedRectangleBorder(
                                               borderRadius:
-                                              BorderRadius.circular(30.0)))),
+                                              BorderRadius.circular(10.0)))),
                                   child: const CustomText(
                                     text: 'Sign Up',
                                   ),
