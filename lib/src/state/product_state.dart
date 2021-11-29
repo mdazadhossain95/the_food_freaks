@@ -151,6 +151,11 @@ class ProductState with ChangeNotifier {
     notifyListeners();
   }
 
+  deleteAllItemToCart() {
+    _cart.clear();
+    notifyListeners();
+  }
+
   Future<bool> searchProducts(String query) async {
     print(query);
     var token = storage.getItem('token');
@@ -188,3 +193,7 @@ class ProductState with ChangeNotifier {
     return [..._searchProduct];
   }
 }
+
+
+
+

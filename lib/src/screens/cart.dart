@@ -224,6 +224,8 @@ class Cart extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: ElevatedButton(
                     onPressed: () {
+
+                      items.deleteAllItemToCart();
                       Navigator.push(
                         context,
                         MaterialPageRoute(
