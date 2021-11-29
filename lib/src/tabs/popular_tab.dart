@@ -5,6 +5,16 @@ import 'package:the_food_freaks/src/screens/productdetails_screen.dart';
 import 'package:the_food_freaks/src/state/product_state.dart';
 import 'package:the_food_freaks/src/widgets/customtext.dart';
 
+extension StringCasingExtension on String {
+  String toCapitalized() =>
+      this.length > 0 ? '${this[0].toUpperCase()}${this.substring(1)}' : '';
+  String get toTitleCase => this
+      .replaceAll(RegExp(' +'), ' ')
+      .split(" ")
+      .map((str) => str.toCapitalized())
+      .join(" ");
+}
+
 class PopularTab extends StatefulWidget {
   const PopularTab({Key? key}) : super(key: key);
 
@@ -48,7 +58,7 @@ class _PopularTabState extends State<PopularTab> {
             scrollDirection: Axis.vertical,
             physics: ScrollPhysics(),
             gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-              maxCrossAxisExtent: 400),
+                maxCrossAxisExtent: 400),
             itemCount: items.getProductList.length,
             itemBuilder: (context, index) {
               return Padding(
@@ -77,7 +87,8 @@ class _PopularTabState extends State<PopularTab> {
                           );
                         },
                         child: Hero(
-                          tag: "http://10.0.2.2:8000${items.getProductList[index].title}",
+                          tag:
+                              "http://10.0.2.2:8000${items.getProductList[index].title}",
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Container(
@@ -100,8 +111,9 @@ class _PopularTabState extends State<PopularTab> {
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: CustomText(
-                              text:
-                                  items.getProductList[index].title.toString(),
+                              text: items.getProductList[index].title
+                                  .toString()
+                                  .toTitleCase,
                             ),
                           ),
 

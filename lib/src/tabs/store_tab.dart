@@ -76,6 +76,7 @@ class _StoreScreenState extends State<StoreScreen> {
                             padding: const EdgeInsets.all(8.0),
                             child: Image.network(
                               "http://10.0.2.2:8000${items[index].image}",
+                              height: 200.0,
                             ),
                           ),
                         ),

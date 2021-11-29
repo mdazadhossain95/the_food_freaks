@@ -6,6 +6,16 @@ import 'package:the_food_freaks/src/state/product_state.dart';
 import 'package:the_food_freaks/src/state/restaurant_state.dart';
 import 'package:the_food_freaks/src/widgets/customtext.dart';
 
+extension StringCasingExtension on String {
+  String toCapitalized() =>
+      this.length > 0 ? '${this[0].toUpperCase()}${this.substring(1)}' : '';
+  String get toTitleCase => this
+      .replaceAll(RegExp(' +'), ' ')
+      .split(" ")
+      .map((str) => str.toCapitalized())
+      .join(" ");
+}
+
 class ResturantDetails extends StatefulWidget {
   final assetPath;
   final assetId;
@@ -106,8 +116,8 @@ class _ResturantDetailsState extends State<ResturantDetails> {
                         ),
                         child: InkWell(
                           onTap: () {
-                            detailsFood.setActiveProduct(
-                                items.getProductList[index]);
+                            detailsFood
+                                .setActiveProduct(items.getProductList[index]);
 
                             Navigator.of(context).push(
                               MaterialPageRoute(
@@ -142,7 +152,9 @@ class _ResturantDetailsState extends State<ResturantDetails> {
                                   Padding(
                                     padding: const EdgeInsets.all(4.0),
                                     child: CustomText(
-                                        text: items.getProductList[index].title.toString(),
+                                        text: items.getProductList[index].title
+                                            .toString()
+                                            .toTitleCase,
                                         size: 18,
                                         weight: FontWeight.bold),
                                   ),
@@ -157,8 +169,8 @@ class _ResturantDetailsState extends State<ResturantDetails> {
                                   Padding(
                                     padding: const EdgeInsets.all(4.0),
                                     child: CustomText(
-                                        text: items.getProductList[index]
-                                            .description
+                                        text: items
+                                            .getProductList[index].description
                                             .toString()),
                                   ),
                                 ],

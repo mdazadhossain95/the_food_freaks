@@ -5,6 +5,16 @@ import 'package:the_food_freaks/src/screens/productdetails_screen.dart';
 import 'package:the_food_freaks/src/state/product_state.dart';
 import 'package:the_food_freaks/src/widgets/customtext.dart';
 
+extension StringCasingExtension on String {
+  String toCapitalized() =>
+      this.length > 0 ? '${this[0].toUpperCase()}${this.substring(1)}' : '';
+  String get toTitleCase => this
+      .replaceAll(RegExp(' +'), ' ')
+      .split(" ")
+      .map((str) => str.toCapitalized())
+      .join(" ");
+}
+
 class HomePart2 extends StatefulWidget {
   const HomePart2({Key? key}) : super(key: key);
 
@@ -88,8 +98,10 @@ class _HomePart2State extends State<HomePart2> {
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: CustomText(
-                                  text: items.getProductList[index].title
-                                      .toString()),
+                                text: items.getProductList[index].title
+                                    .toString()
+                                    .toTitleCase,
+                              ),
                             ),
 
                             Padding(
@@ -109,8 +121,8 @@ class _HomePart2State extends State<HomePart2> {
                                   onTap: () {
                                     Provider.of<ProductState>(context,
                                             listen: false)
-                                        .favoriteButton(items
-                                            .getProductList[index].id);
+                                        .favoriteButton(
+                                            items.getProductList[index].id);
                                   },
                                   child: Padding(
                                     padding: const EdgeInsets.all(4),
