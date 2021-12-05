@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:the_food_freaks/constants.dart';
+import 'package:the_food_freaks/src/no_internet.dart';
 import 'package:the_food_freaks/src/screens/components/form_input_box.dart';
 import 'package:the_food_freaks/src/state/user_state.dart';
 import 'package:the_food_freaks/src/user/signin_screen.dart';
 import 'package:the_food_freaks/src/widgets/customtext.dart';
 import 'package:the_food_freaks/src/notification/notification.dart';
+
+import '../connectivity_provider.dart';
 
 // Touhid
 class Registration extends StatefulWidget {
@@ -57,7 +60,7 @@ class _RegistrationState extends State<Registration> {
 
   @override
   void initState() {
-
+    Provider.of<ConnectivityProvider>(context, listen: false).startMonitoring();
     Provider.of<NotificationService>(context, listen: false).initialize();
 
     super.initState();
@@ -78,114 +81,135 @@ class _RegistrationState extends State<Registration> {
             weight: FontWeight.bold,
           ),
         ),
-        body: Form(
-          key: _from,
-          child: SingleChildScrollView(
+        body: pageUI()
+      ),
+    );
+  }
+
+
+  Widget pageUI() {
+    return Consumer<ConnectivityProvider>(
+      builder: (context, model, child) {
+        // ignore: unnecessary_null_comparison
+        if (model.isOnline != null) {
+          return model.isOnline
+              ? SingleChildScrollView(
             scrollDirection: Axis.vertical,
-            // ignore: avoid_unnecessary_containers
-            child: Container(
-              child: Center(
-                child: Consumer<NotificationService>(
-                  builder: (context, model, _) =>
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const SizedBox(height: 30.0),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Image.asset(
-                              'images/The_Food_Freaks.png',
-                              height: MediaQuery.of(context).size.height * 0.3,
-                              width: MediaQuery.of(context).size.width,
-                            ),
-                          ),
-                          const SizedBox(height: 10),
-                          LoginSignUpInputBox(
-                            validator: (v) {
-                              if (v!.isEmpty) {
-                                return 'Enter Your Email';
-                              }
-                              return null;
-                            },
-                            onSave: (v) {
-                              _useremail = v!;
-                            },
-                            labelText: "Enter Your Email",
-                            icon: Icons.person,
-                            obscureText: false,
-                          ),
-                          const SizedBox(height: 10),
-                          LoginSignUpInputBox(
-                            validator: (v) {
-                              if (v!.isEmpty) {
-                                return 'Enter Your Password';
-                              }
-                              return null;
-                            },
-                            onChange: (v) {
-                              setState(() {
-                                _confpassword = v;
-                              });
-                            },
-                            onSave: (v) {
-                              _password = v!;
-                            },
-                            labelText: "Enter Your Password",
-                            icon: Icons.lock_sharp,
-                            obscureText: true,
-                          ),
-                          const SizedBox(height: 10),
-                          LoginSignUpInputBox(
-                            validator: (v) {
-                              if (_confpassword != v) {
-                                return 'Confirm Password';
-                              }
-                              return null;
-                            },
-                            onSave: (v) {
-                              setState(() {
-                                _password = v;
-                              });
-                            },
-                            labelText: "Confirm Password",
-                            icon: Icons.lock_sharp,
-                            obscureText: true,
-                          ),
-                          const SizedBox(height: 20),
-
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: ElevatedButton(
-                                  onPressed: () {
-                                    model.instantNotification();
-                                    _registerNow();
-
-                                  },
-                                  style: ButtonStyle(
-                                      backgroundColor:
-                                      MaterialStateProperty.all(kColor2),
-                                      shape: MaterialStateProperty.all(
-                                          RoundedRectangleBorder(
-                                              borderRadius:
-                                              BorderRadius.circular(10.0)))),
-                                  child: const CustomText(
-                                    text: 'Sign Up',
+            child: Form(
+              key: _from,
+              child: SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                // ignore: avoid_unnecessary_containers
+                child: Container(
+                  child: Center(
+                      child: Consumer<NotificationService>(
+                        builder: (context, model, _) =>
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const SizedBox(height: 30.0),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Image.asset(
+                                    'images/The_Food_Freaks.png',
+                                    height: MediaQuery.of(context).size.height * 0.3,
+                                    width: MediaQuery.of(context).size.width,
                                   ),
                                 ),
-                              ),
-                            ],
-                          )
-                        ],
-                      ),
-                )
+                                const SizedBox(height: 10),
+                                LoginSignUpInputBox(
+                                  validator: (v) {
+                                    if (v!.isEmpty) {
+                                      return 'Enter Your Email';
+                                    }
+                                    return null;
+                                  },
+                                  onSave: (v) {
+                                    _useremail = v!;
+                                  },
+                                  labelText: "Enter Your Email",
+                                  icon: Icons.person,
+                                  obscureText: false,
+                                ),
+                                const SizedBox(height: 10),
+                                LoginSignUpInputBox(
+                                  validator: (v) {
+                                    if (v!.isEmpty) {
+                                      return 'Enter Your Password';
+                                    }
+                                    return null;
+                                  },
+                                  onChange: (v) {
+                                    setState(() {
+                                      _confpassword = v;
+                                    });
+                                  },
+                                  onSave: (v) {
+                                    _password = v!;
+                                  },
+                                  labelText: "Enter Your Password",
+                                  icon: Icons.lock_sharp,
+                                  obscureText: true,
+                                ),
+                                const SizedBox(height: 10),
+                                LoginSignUpInputBox(
+                                  validator: (v) {
+                                    if (_confpassword != v) {
+                                      return 'Confirm Password';
+                                    }
+                                    return null;
+                                  },
+                                  onSave: (v) {
+                                    setState(() {
+                                      _password = v;
+                                    });
+                                  },
+                                  labelText: "Confirm Password",
+                                  icon: Icons.lock_sharp,
+                                  obscureText: true,
+                                ),
+                                const SizedBox(height: 20),
+
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: ElevatedButton(
+                                        onPressed: () {
+                                          model.instantNotification();
+                                          _registerNow();
+
+                                        },
+                                        style: ButtonStyle(
+                                            backgroundColor:
+                                            MaterialStateProperty.all(kColor2),
+                                            shape: MaterialStateProperty.all(
+                                                RoundedRectangleBorder(
+                                                    borderRadius:
+                                                    BorderRadius.circular(10.0)))),
+                                        child: const CustomText(
+                                          text: 'Sign Up',
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
+                      )
+                  ),
+                ),
               ),
             ),
-          ),
-        ),
-      ),
+          )
+              : const NoInternet();
+        }
+
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      },
     );
   }
 }

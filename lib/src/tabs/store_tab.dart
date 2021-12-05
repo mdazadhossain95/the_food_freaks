@@ -56,7 +56,7 @@ class _StoreScreenState extends State<StoreScreen> {
                     onTap: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (context) => ResturantDetails(
+                          builder: (context) => ResturentDetails(
                             assetPath:
                                 "http://10.0.2.2:8000${items[index].image}",
                             assetId: items[index].id,

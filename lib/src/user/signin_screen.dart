@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:localstorage/localstorage.dart';
 import 'package:provider/provider.dart';
 import 'package:the_food_freaks/constants.dart';
+import 'package:the_food_freaks/src/connectivity_provider.dart';
+import 'package:the_food_freaks/src/no_internet.dart';
 import 'package:the_food_freaks/src/notification/notification.dart';
 import 'package:the_food_freaks/src/state/user_state.dart';
 import 'package:the_food_freaks/src/user/registar.dart';
@@ -62,6 +64,8 @@ class _SignInScreenState extends State<SignInScreen> {
 
   @override
   void initState() {
+    Provider.of<ConnectivityProvider>(context, listen: false).startMonitoring();
+
     Provider.of<NotificationService>(context, listen: false).initialize();
 
     super.initState();
@@ -72,159 +76,166 @@ class _SignInScreenState extends State<SignInScreen> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: kBackgroundColor,
-        // appBar: AppBar(
-        //   centerTitle: true,
-        //   backgroundColor: kColor1,
-        //   title: const CustomText(
-        //     text: 'The Food Freaks',
-        //     size: 20,
-        //     color: kWhite,
-        //     weight: FontWeight.bold,
-        //   ),
-        // ),
-        body: SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          child: Form(
-            key: _form,
-            child: Center(
-              child: Consumer<NotificationService>(
-                builder: (context, model, _) => Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    // const SizedBox(height: 50.0),
-                    // const Padding(
-                    //   padding: EdgeInsets.all(8.0),
-                    //   child: CustomText(
-                    //     text: 'Login',
-                    //     size: 30,
-                    //     weight: FontWeight.bold,
-                    //   ),
-                    // ),
-                    const SizedBox(height: 10.0),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Image.asset(
-                        'images/The_Food_Freaks.png',
-                        height: MediaQuery.of(context).size.height * 0.3,
-                        width: MediaQuery.of(context).size.width,
-                      ),
-                    ),
-                    LoginSignUpInputBox(
-                      validator: (v) {
-                        if (v!.isEmpty) {
-                          return 'Enter Your Email';
-                        }
-                        return null;
-                      },
-                      onSave: (v) {
-                        _useremail = v!;
-                      },
-                      labelText: "Enter Your Email",
-                      icon: Icons.person,
-                      obscureText: false,
-                    ),
-                    const SizedBox(height: 10),
-                    LoginSignUpInputBox(
-                      validator: (v) {
-                        if (v!.isEmpty) {
-                          return 'Enter Your Password';
-                        }
-                        return null;
-                      },
-                      onSave: (v) {
-                        _password = v!;
-                      },
-                      labelText: "Enter Your Password",
-                      icon: Icons.lock_sharp,
-                      obscureText: true,
-                    ),
-                    const SizedBox(height: 10),
-                    GestureDetector(
-                      child: const Text(
-                        "FORGOT PASSWORD?",
-                        style: kTextStyle,
-                        textAlign: TextAlign.right,
-                      ),
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const ForgotPasScreen(),
+        body: pageUI(),
+      ),
+    );
+  }
+
+
+
+
+  Widget pageUI() {
+    return Consumer<ConnectivityProvider>(
+      builder: (context, model, child) {
+        // ignore: unnecessary_null_comparison
+        if (model.isOnline != null) {
+          return model.isOnline
+              ? SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: Form(
+              key: _form,
+              child: Center(
+                child: Consumer<NotificationService>(
+                    builder: (context, model, _) => Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const SizedBox(height: 10.0),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Image.asset(
+                            'images/The_Food_Freaks.png',
+                            height: MediaQuery
+                                .of(context)
+                                .size
+                                .height * 0.3,
+                            width: MediaQuery
+                                .of(context)
+                                .size
+                                .width,
                           ),
-                        );
-                      },
-                    ),
-                    const SizedBox(height: 10),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: ElevatedButton(
-                        onPressed: () {
-                          model.instantNotification();
-                          _loginNow();
-                        },
-                        style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(kColor1),
-                          shape: MaterialStateProperty.all(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        LoginSignUpInputBox(
+                          validator: (v) {
+                            if (v!.isEmpty) {
+                              return 'Enter Your Email';
+                            }
+                            return null;
+                          },
+                          onSave: (v) {
+                            _useremail = v!;
+                          },
+                          labelText: "Enter Your Email",
+                          icon: Icons.person,
+                          obscureText: false,
+                        ),
+                        const SizedBox(height: 10),
+                        LoginSignUpInputBox(
+                          validator: (v) {
+                            if (v!.isEmpty) {
+                              return 'Enter Your Password';
+                            }
+                            return null;
+                          },
+                          onSave: (v) {
+                            _password = v!;
+                          },
+                          labelText: "Enter Your Password",
+                          icon: Icons.lock_sharp,
+                          obscureText: true,
+                        ),
+                        const SizedBox(height: 10),
+                        GestureDetector(
+                          child: const Text(
+                            "FORGOT PASSWORD?",
+                            style: kTextStyle,
+                            textAlign: TextAlign.right,
+                          ),
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const ForgotPasScreen(),
+                              ),
+                            );
+                          },
+                        ),
+                        const SizedBox(height: 10),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: ElevatedButton(
+                            onPressed: () {
+                              model.instantNotification();
+                              _loginNow();
+                            },
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all(kColor1),
+                              shape: MaterialStateProperty.all(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                              ),
+                            ),
+                            child: const CustomText(
+                              text: 'Sign in',
                             ),
                           ),
                         ),
-                        child: const CustomText(
-                          text: 'Sign in',
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 10.0),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: Text(
-                            "DON'T HAVE ACCOUNT?",
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            children: [
-                              ElevatedButton(
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
+                        const SizedBox(height: 10.0),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Text(
+                                "DON'T HAVE ACCOUNT?",
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                children: [
+                                  ElevatedButton(
+                                    onPressed: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
                                           const Registration(),
-                                    ),
-                                  );
-                                },
-                                style: ButtonStyle(
-                                  backgroundColor:
+                                        ),
+                                      );
+                                    },
+                                    style: ButtonStyle(
+                                      backgroundColor:
                                       MaterialStateProperty.all(kColor2),
-                                  shape: MaterialStateProperty.all(
-                                    RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10.0),
+                                      shape: MaterialStateProperty.all(
+                                        RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(10.0),
+                                        ),
+                                      ),
+                                    ),
+                                    child: const CustomText(
+                                      text: 'Sign Up',
                                     ),
                                   ),
-                                ),
-                                child: const CustomText(
-                                  text: 'Sign Up',
-                                ),
+                                ],
                               ),
-                            ],
-                          ),
-                        ),
+                            ),
+                          ],
+                        )
                       ],
                     )
-                  ],
                 ),
               ),
             ),
-          ),
-        ),
-      ),
+          )
+              : const NoInternet();
+        }
+
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      },
     );
   }
 }

@@ -29,6 +29,7 @@ dependencies:
 #  Touid
   http: ^0.13.4
   localstorage: ^4.0.0+1
+  connectivity: ^3.0.6
 
 
 
