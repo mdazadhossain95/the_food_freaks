@@ -1,29 +1,25 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart' as rootBundle;
 import 'package:provider/provider.dart';
 import 'package:the_food_freaks/constants.dart';
 import 'package:the_food_freaks/src/home.dart';
-import 'package:the_food_freaks/src/models/products.dart';
 import 'package:the_food_freaks/src/screens/favorite.dart';
 import 'package:the_food_freaks/src/screens/payment.dart';
-import 'package:the_food_freaks/src/state/product_state.dart';
+import 'package:the_food_freaks/src/state/cart_state.dart';
 import 'package:the_food_freaks/src/widgets/customtext.dart';
 
-Future<List<Product>> ReadJsonData() async {
-  final jsondata =
-      await rootBundle.rootBundle.loadString('jsonfiles/productlist.json');
-  final list = json.decode(jsondata) as List<dynamic>;
-
-  return list.map((e) => Product.fromJson(e)).toList();
-}
-
-class Cart extends StatelessWidget {
+class Cart extends StatefulWidget {
   const Cart({Key? key}) : super(key: key);
 
   @override
+  State<Cart> createState() => _CartState();
+}
+
+class _CartState extends State<Cart> {
+  @override
   Widget build(BuildContext context) {
-    var items = Provider.of<ProductState>(context);
+    // var items = Provider.of<ProductState>(context);
+    var cart = Provider.of<CartState>(context).cartModel;
+    var items = cart![0].cartproducts;
 
     return Scaffold(
       backgroundColor: kBackgroundColor,
@@ -73,7 +69,7 @@ class Cart extends StatelessWidget {
               child: ListView.builder(
                 shrinkWrap: true,
                 scrollDirection: Axis.vertical,
-                itemCount: items.cart.length,
+                itemCount: items.length,
                 itemBuilder: (BuildContext context, int index) {
                   return Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -101,7 +97,7 @@ class Cart extends StatelessWidget {
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(10.0),
                                     child: Image.network(
-                                      "http://10.0.2.2:8000${items.cart[index].image}",
+                                      "http://10.0.2.2:8000${items[index].product[0].image}",
                                       height: 90,
                                       width: 90,
                                       fit: BoxFit.cover,
@@ -120,7 +116,7 @@ class Cart extends StatelessWidget {
                                 Padding(
                                   padding: const EdgeInsets.all(4.0),
                                   child: CustomText(
-                                      text: items.cart[index].title,
+                                      text: items[index].product[0].title,
                                       size: 18,
                                       weight: FontWeight.bold),
                                 ),
@@ -128,7 +124,7 @@ class Cart extends StatelessWidget {
                                   padding: const EdgeInsets.all(4.0),
                                   child: CustomText(
                                       text:
-                                          '\$${items.cart[index].price.toString()}'),
+                                          '\$${items[index].product[0].price.toString()}'),
                                 ),
                                 IconButton(
                                   onPressed: () {
@@ -153,13 +149,17 @@ class Cart extends StatelessWidget {
                                               ElevatedButton(
                                                 style: ButtonStyle(
                                                   backgroundColor:
-                                                  MaterialStateProperty.all(
-                                                      kColor1),
+                                                      MaterialStateProperty.all(
+                                                          kColor1),
                                                 ),
                                                 onPressed: () {
+                                                  Provider.of<CartState>(
+                                                          context,
+                                                          listen: false)
+                                                      .deletecartproduct(
+                                                          items[index].id);
+                                                  print(items[index].id);
                                                   Navigator.of(context).pop();
-                                                  items.deleteOneItemToCart(
-                                                      items.cart[index]);
                                                 },
                                                 child: const Text("Yes"),
                                               )
@@ -184,10 +184,7 @@ class Cart extends StatelessWidget {
                                   children: [
                                     IconButton(
                                       iconSize: 30,
-                                      onPressed: () {
-                                        items.removeOneItemToCart(
-                                            items.cart[index]);
-                                      },
+                                      onPressed: () {},
                                       icon: const Icon(Icons.remove,
                                           color: Colors.red),
                                     ),
@@ -196,15 +193,17 @@ class Cart extends StatelessWidget {
                                         border: Border.all(color: kWhite),
                                       ),
                                       child: Text(
-                                        items.cart[index].quantity.toString(),
+                                        items[index].quantity.toString(),
                                         textAlign: TextAlign.center,
                                       ),
                                     ),
                                     IconButton(
                                       iconSize: 30,
                                       onPressed: () {
-                                        items.addOneItemToCart(
-                                            items.cart[index]);
+                                        Provider.of<CartState>(context,
+                                                listen: false)
+                                            .addtoCart(
+                                                items[index].product[0].id);
                                       },
                                       icon: const Icon(Icons.add,
                                           color: Colors.green),
@@ -216,7 +215,7 @@ class Cart extends StatelessWidget {
                                   children: [
                                     CustomText(
                                         text:
-                                            '\$${items.cart[index].price * items.cart[index].quantity}'),
+                                            '\$${items[index].product[0].price * items[index].quantity}'),
                                   ],
                                 )
                               ],
@@ -245,7 +244,7 @@ class Cart extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       const CustomText(text: 'Total'),
-                      CustomText(text: '\$${items.getTotalPrice()}'),
+                      CustomText(text: '\$${cart[0].total}'),
                       // TextField()
                     ],
                   ),
@@ -254,7 +253,7 @@ class Cart extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: ElevatedButton(
                     onPressed: () {
-                      items.deleteAllItemToCart();
+                      // items.deleteAllItemToCart();
                       Navigator.push(
                         context,
                         MaterialPageRoute(

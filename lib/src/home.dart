@@ -1,3 +1,4 @@
+import 'package:badges/badges.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -5,10 +6,10 @@ import 'package:the_food_freaks/constants.dart';
 import 'package:the_food_freaks/src/screens/cart.dart';
 import 'package:the_food_freaks/src/screens/favorite.dart';
 import 'package:the_food_freaks/src/screens/menu_screen.dart';
+import 'package:the_food_freaks/src/state/cart_state.dart';
 import 'package:the_food_freaks/src/state/product_state.dart';
 import 'package:the_food_freaks/src/tabs/main_tab.dart';
 import 'package:the_food_freaks/src/widgets/customtext.dart';
-import 'package:badges/badges.dart';
 
 // Touhid
 class Home extends StatefulWidget {
@@ -20,9 +21,24 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  bool _init = true;
+  // var cart;
+  @override
+  void didChangeDependencies() {
+    if (_init) {
+      Provider.of<CartState>(context).getCartDatas();
+      // setState(() {
+      //
+      // });
+    }
+    _init = false;
+    super.didChangeDependencies();
+  }
+
   @override
   Widget build(BuildContext context) {
     var items = Provider.of<ProductState>(context);
+    var cart = Provider.of<CartState>(context).cartModel;
     return SafeArea(
       child: Scaffold(
         backgroundColor: kBackgroundColor,
@@ -54,7 +70,7 @@ class _HomeState extends State<Home> {
             Padding(
               padding: const EdgeInsets.only(top: 8.0, right: 14.0),
               child: InkWell(
-                onTap: (){
+                onTap: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -64,12 +80,24 @@ class _HomeState extends State<Home> {
                 },
                 child: Badge(
                   badgeContent: Text(
-                    items.getCartQty().toString(),
+                    cart![0].cartproducts.length.toString(),
                     style: const TextStyle(
                       color: kWhite,
                     ),
                   ),
-                  child: const Icon(Icons.shopping_cart),
+                  // Provider.of<CartState>(context).getCartDatas();
+                  // child: IconButton(
+                  //     onPressed: () {
+                  //       // Provider.of<CartState>(context).getCartDatas();
+                  //       Navigator.push(
+                  //         context,
+                  //         MaterialPageRoute(
+                  //           builder: (context) => Cart(),
+                  //         ),
+                  //       );
+                  //     },
+                  //     icon: Icon(Icons.shopping_cart)),
+                  child: Icon(Icons.shopping_cart),
                 ),
               ),
             ),

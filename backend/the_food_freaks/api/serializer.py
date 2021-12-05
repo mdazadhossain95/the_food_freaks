@@ -28,3 +28,22 @@ class RestaurantSerializer(serializers.ModelSerializer):
         fields = "__all__"
         # to see inside the category 1 level deep
         depth = 1
+        
+class CartSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = Cart
+        fields = "__all__"
+
+
+class CartProductSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = CartProduct
+        fields = "__all__"
+        depth = 1
+
+
+# class OrdersSerializers(serializers.ModelSerializer):
+#     class Meta:
+#         model = Order
+#         fields = "__all__"
+#         depth = 1

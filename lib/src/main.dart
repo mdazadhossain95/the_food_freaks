@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:the_food_freaks/src/connectivity_provider.dart';
 import 'package:the_food_freaks/src/home.dart';
 import 'package:the_food_freaks/src/notification/notification.dart';
+import 'package:the_food_freaks/src/state/cart_state.dart';
 import 'package:the_food_freaks/src/state/product_state.dart';
 import 'package:the_food_freaks/src/state/restaurant_state.dart';
 import 'package:the_food_freaks/src/state/user_state.dart';
@@ -30,6 +31,9 @@ class TheFoodFreaks extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (ctx) => ProductState(), // ctx is context here
+        ),
+        ChangeNotifierProvider(
+          create: (ctx) => CartState(), // ctx is context here
         ),
         ChangeNotifierProvider(
           create: (ctx) => RestaurantState(), // ctx is context here

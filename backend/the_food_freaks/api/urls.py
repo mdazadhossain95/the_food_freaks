@@ -11,4 +11,7 @@ urlpatterns = [
     path('restaurant/', RestaurantView.as_view()),
     path('productbyrestaurant/', ProductsByRestaurantView.as_view()),
     path('searchproduct/', SearchProduct.as_view()),
+    path('cart/', CartView.as_view()),
+    path('addtocart/', AddToCart.as_view()),
+    path('delatecartprod/', DelateCarProduct.as_view()),
 ]
