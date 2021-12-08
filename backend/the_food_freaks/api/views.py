@@ -237,6 +237,40 @@ class AddToCart(APIView):
             response_mesage = {'error': True,
                                'message': "Product Not add!Somthing is wrong"}
         return Response(response_mesage)
+   
+class DeleteFromCart(APIView):
+    permission_classes = [IsAuthenticated, ]
+    authentication_classes = [TokenAuthentication, ]
+
+    def post(self, request):
+        product_id = request.data['id']
+        product_obj = Product.objects.get(id=product_id)
+
+        cart_cart = Cart.objects.filter(
+            user=request.user).filter(isComplete=False).first()
+        cart_product_obj = CartProduct.objects.filter(
+            product__id=product_id).first()
+
+        try:
+            if cart_cart:
+                print(cart_cart)
+                print("OLD CART")
+                this_product_in_cart = cart_cart.cartproduct_set.filter(
+                    product=product_obj)
+                if this_product_in_cart.exists():
+                    cartprod_uct = CartProduct.objects.filter(
+                        product=product_obj).filter(cart__isComplete=False).first()
+                    cartprod_uct.quantity -= 1
+                    cartprod_uct.subtotal -= product_obj.price
+                    cartprod_uct.save()
+                    cart_cart.total -= product_obj.price
+                    cart_cart.save()
+            response_mesage = {
+                'error': False, 'message': "Product deleted from card successfully", "product": product_id}
+        except:
+            response_mesage = {'error': True,
+                               'message': "Product Not deleted! Somthing is wrong"}
+        return Response(response_mesage)
     
 class DelateCarProduct(APIView):
     authentication_classes = [TokenAuthentication, ]

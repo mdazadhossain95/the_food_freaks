@@ -184,7 +184,14 @@ class _CartState extends State<Cart> {
                                   children: [
                                     IconButton(
                                       iconSize: 30,
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        if (items[index].quantity > 1) {
+                                          Provider.of<CartState>(context,
+                                                  listen: false)
+                                              .deleteFromCart(
+                                                  items[index].product[0].id);
+                                        }
+                                      },
                                       icon: const Icon(Icons.remove,
                                           color: Colors.red),
                                     ),

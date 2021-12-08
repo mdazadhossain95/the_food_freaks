@@ -105,6 +105,28 @@ class CartState with ChangeNotifier {
     }
   }
 
+  Future<void> deleteFromCart(int id) async {
+    var url = Uri.parse('http://10.0.2.2:8000/api/deletefromcart/');
+    var token = storage.getItem('token');
+    try {
+      http.Response response = await http.post(url,
+          body: json.encode({
+            'id': id,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+            'Authorization': "token $token"
+          });
+      var data = json.decode(response.body) as Map;
+      if (data['error'] == false) {
+        getCartDatas();
+      }
+    } catch (e) {
+      print("e delete from cat");
+      print(e);
+    }
+  }
+
   Future<void> deleteallcartproduct(int id) async {
     var url = Uri.parse('http://10.0.2.2:8000/api/delateallcartprod/');
     var token = storage.getItem('token');
