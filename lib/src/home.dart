@@ -88,18 +88,6 @@ class _HomeState extends State<Home> {
                       color: kWhite,
                     ),
                   ),
-                  // Provider.of<CartState>(context).getCartDatas();
-                  // child: IconButton(
-                  //     onPressed: () {
-                  //       // Provider.of<CartState>(context).getCartDatas();
-                  //       Navigator.push(
-                  //         context,
-                  //         MaterialPageRoute(
-                  //           builder: (context) => Cart(),
-                  //         ),
-                  //       );
-                  //     },
-                  //     icon: Icon(Icons.shopping_cart)),
                   child: Icon(Icons.shopping_cart),
                 ),
               ),

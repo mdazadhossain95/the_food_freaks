@@ -71,7 +71,8 @@ class _FoodsTabState extends State<FoodsTab> {
           ),
         ],
       ),
-      body: ListView(
+      body: items.getSearchProduct == null ?
+      ListView(
         children: [
           GridView.builder(
               shrinkWrap: true,
@@ -111,12 +112,12 @@ class _FoodsTabState extends State<FoodsTab> {
                           },
                           child: Hero(
                             tag:
-                                "http://10.0.2.2:8000${items.getSearchProduct[index].title}",
+                            "http://10.0.2.2:8000${items.getSearchProduct[index].title}",
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Container(
                                 height:
-                                    MediaQuery.of(context).size.height * 0.12,
+                                MediaQuery.of(context).size.height * 0.12,
                                 width: MediaQuery.of(context).size.width,
                                 decoration: BoxDecoration(
                                   image: DecorationImage(
@@ -156,24 +157,24 @@ class _FoodsTabState extends State<FoodsTab> {
                                 child: GestureDetector(
                                   onTap: () {
                                     Provider.of<ProductState>(context,
-                                            listen: false)
+                                        listen: false)
                                         .favoriteButton(
-                                            items.getSearchProduct[index].id);
+                                        items.getSearchProduct[index].id);
                                   },
                                   child: Padding(
                                     padding: const EdgeInsets.all(4),
                                     child:
-                                        items.getSearchProduct[index].favorite
-                                            ? const Icon(
-                                                Icons.favorite,
-                                                color: kColor1,
-                                                size: 18,
-                                              )
-                                            : const Icon(
-                                                Icons.favorite_border,
-                                                color: kColor1,
-                                                size: 18,
-                                              ),
+                                    items.getSearchProduct[index].favorite
+                                        ? const Icon(
+                                      Icons.favorite,
+                                      color: kColor1,
+                                      size: 18,
+                                    )
+                                        : const Icon(
+                                      Icons.favorite_border,
+                                      color: kColor1,
+                                      size: 18,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -206,7 +207,7 @@ class _FoodsTabState extends State<FoodsTab> {
                               padding: const EdgeInsets.only(right: 8.0),
                               child: CustomText(
                                 text:
-                                    "\$${items.getSearchProduct[index].price.toString()}",
+                                "\$${items.getSearchProduct[index].price.toString()}",
                                 weight: FontWeight.bold,
                               ),
                             )
@@ -218,7 +219,19 @@ class _FoodsTabState extends State<FoodsTab> {
                 );
               }),
         ],
+      ) : Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: const <Widget>[
+          SizedBox(
+            width: double.infinity,
+            child: Text('No result found', style: TextStyle(fontSize: 24), textAlign: TextAlign.center, )
+          ),
+        ],
       ),
     );
   }
 }
+
+
+

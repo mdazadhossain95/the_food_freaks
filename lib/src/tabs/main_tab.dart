@@ -27,79 +27,55 @@ class _MainTabState extends State<MainTab> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return pageUI();
-  }
-
-  Widget pageUI() {
-    return Consumer<ConnectivityProvider>(
-      builder: (context, model, child) {
-        // ignore: unnecessary_null_comparison
-        if (model.isOnline != null) {
-          return model.isOnline
-              ? ListView(
-                  // padding: const EdgeInsets.only(left: 20.0),
-                  children: <Widget>[
-                    const SizedBox(height: 15.0),
-                    SearchBar(),
-                    const SizedBox(height: 15.0),
-                    TabBar(
-                        controller: _tabController,
-                        indicatorColor: kColor1,
-                        labelColor: kColor1,
-                        isScrollable: true,
-                        unselectedLabelColor: Colors.black,
-                        tabs: const [
-                          Tab(
-                            child: Text('Home',
-                                style: TextStyle(
-                                  fontFamily: 'Oswald',
-                                  fontSize: 21.0,
-                                )),
-                          ),
-                          Tab(
-                            child: Text('Popular',
-                                style: TextStyle(
-                                  fontFamily: 'Oswald',
-                                  fontSize: 21.0,
-                                )),
-                          ),
-                          Tab(
-                            child: Text('Restaurants',
-                                style: TextStyle(
-                                  fontFamily: 'Oswald',
-                                  fontSize: 21.0,
-                                )),
-                          ),
-                          // Tab(
-                          //   child: Text('Foods',
-                          //       style: TextStyle(
-                          //         fontFamily: 'Oswald',
-                          //         fontSize: 21.0,
-                          //       )),
-                          // ),
-                        ]),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height - 20.0,
-                      width: MediaQuery.of(context).size.width,
-                      child: TabBarView(
-                        controller: _tabController,
-                        children: const [
-                          HomeTab(),
-                          PopularTab(),
-                          StoreScreen(),
-                          // FoodsTab(),
-                        ],
-                      ),
-                    )
-                  ],
-                )
-              : const NoInternet();
-        }
-
-        return const Center(
-          child: CircularProgressIndicator(),
-        );
-      },
+    return ListView(
+      // padding: const EdgeInsets.only(left: 20.0),
+      children: <Widget>[
+        const SizedBox(height: 15.0),
+        SearchBar(),
+        const SizedBox(height: 15.0),
+        TabBar(
+            controller: _tabController,
+            indicatorColor: kColor1,
+            labelColor: kColor1,
+            isScrollable: true,
+            unselectedLabelColor: Colors.black,
+            tabs: const [
+              Tab(
+                child: Text('Home',
+                    style: TextStyle(
+                      fontFamily: 'Oswald',
+                      fontSize: 21.0,
+                    )),
+              ),
+              Tab(
+                child: Text('Popular',
+                    style: TextStyle(
+                      fontFamily: 'Oswald',
+                      fontSize: 21.0,
+                    )),
+              ),
+              Tab(
+                child: Text('Restaurants',
+                    style: TextStyle(
+                      fontFamily: 'Oswald',
+                      fontSize: 21.0,
+                    )),
+              ),
+            ]),
+        SizedBox(
+          height: MediaQuery.of(context).size.height - 20.0,
+          width: MediaQuery.of(context).size.width,
+          child: TabBarView(
+            controller: _tabController,
+            children: const [
+              HomeTab(),
+              PopularTab(),
+              StoreScreen(),
+              // FoodsTab(),
+            ],
+          ),
+        )
+      ],
     );
   }
 }

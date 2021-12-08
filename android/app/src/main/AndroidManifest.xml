@@ -50,5 +50,6 @@
            android:value="AIzaSyA6qD7AJtHgA3txNN1EesNDrwnogBMLedg"/>
     </application>
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
 
 </manifest>
