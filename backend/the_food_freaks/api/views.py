@@ -256,4 +256,37 @@ class DelateCarProduct(APIView):
             response_msg = {'error': False}
         except:
             response_msg = {'error': True}
+        return Response(response_msg)    
+    
+class DelateAllCarProduct(APIView):
+    authentication_classes = [TokenAuthentication, ]
+    permission_classes = [IsAuthenticated, ]
+
+    def post(self, request):
+        cart_obj_id = int(request.data['id'])
+        cart = Cart.objects.get(id=cart_obj_id)
+        
+        try:
+            cart_obj = CartProduct.objects.filter(cart_id=cart_obj_id)
+            for product_cart in cart_obj:
+                product_cart.delete()
+            cart.total = 0
+            cart.save()
+            response_msg = {'error': False}
+        except:
+            response_msg = {'error': True}
+        return Response(response_msg)
+    
+class DelateCart(APIView):
+    permission_classes = [IsAuthenticated, ]
+    authentication_classes = [TokenAuthentication, ]
+
+    def post(self, request):
+        cart_id = request.data['id']
+        try:
+            cart_obj = Cart.objects.get(id=cart_id)
+            cart_obj.delete()
+            response_msg = {'error': False}
+        except:
+            response_msg = {'error': True}
         return Response(response_msg)

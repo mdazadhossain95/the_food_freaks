@@ -8,7 +8,7 @@ import 'package:the_food_freaks/src/models/cart.dart';
 class CartState with ChangeNotifier {
   LocalStorage storage = new LocalStorage('usertoken');
   // var token = storage.getItem('token');
-  late List<CartModel> _cartModel;
+  List<CartModel>? _cartModel;
   // List<OrderModel> _orderder;
 
   Future<void> getCartDatas() async {
@@ -83,7 +83,6 @@ class CartState with ChangeNotifier {
     }
   }
 
-  //
   Future<void> deletecartproduct(int id) async {
     var url = Uri.parse('http://10.0.2.2:8000/api/delatecartprod/');
     var token = storage.getItem('token');
@@ -105,35 +104,57 @@ class CartState with ChangeNotifier {
       print(e);
     }
   }
-  //
-  // Future<bool> deletecart(int id) async {
-  //   String url = 'http://10.0.2.2:8000/api/deletecart/';
-  //   var token = storage.getItem('token');
-  //   try {
-  //     http.Response response = await http.post(url,
-  //         body: json.encode({
-  //           'id': id,
-  //         }),
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //           'Authorization': "token $token"
-  //         });
-  //     var data = json.decode(response.body) as Map;
-  //     if (data['error'] == false) {
-  //       getCartDatas();
-  //       _cartModel = null;
-  //       notifyListeners();
-  //       return true;
-  //     }
-  //     return false;
-  //   } catch (e) {
-  //     print("e deletecart");
-  //     print(e);
-  //
-  //     return false;
-  //   }
-  // }
-  //
+
+  Future<void> deleteallcartproduct(int id) async {
+    var url = Uri.parse('http://10.0.2.2:8000/api/delateallcartprod/');
+    var token = storage.getItem('token');
+    try {
+      http.Response response = await http.post(url,
+          body: json.encode({
+            'id': id,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+            'Authorization': "token $token"
+          });
+      var data = json.decode(response.body) as Map;
+      if (data['error'] == false) {
+        getCartDatas();
+      }
+    } catch (e) {
+      print("e addtoCart");
+      print(e);
+    }
+  }
+
+  Future<bool> deletecart(int id) async {
+    var url = Uri.parse('http://10.0.2.2:8000/api/deletecart/');
+    var token = storage.getItem('token');
+    try {
+      http.Response response = await http.post(url,
+          body: json.encode({
+            'id': id,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+            'Authorization': "token $token"
+          });
+      var data = json.decode(response.body) as Map;
+      if (data['error'] == false) {
+        getCartDatas();
+        // _cartModel;
+        notifyListeners();
+        return true;
+      }
+      return false;
+    } catch (e) {
+      print("e deletecart");
+      print(e);
+
+      return false;
+    }
+  }
+
   // Future<bool> ordercart(
   //     int cartid, String address, String email, String phone) async {
   //   String url = 'http://10.0.2.2:8000/api/ordernow/';

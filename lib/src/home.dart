@@ -7,7 +7,6 @@ import 'package:the_food_freaks/src/screens/cart.dart';
 import 'package:the_food_freaks/src/screens/favorite.dart';
 import 'package:the_food_freaks/src/screens/menu_screen.dart';
 import 'package:the_food_freaks/src/state/cart_state.dart';
-import 'package:the_food_freaks/src/state/product_state.dart';
 import 'package:the_food_freaks/src/tabs/main_tab.dart';
 import 'package:the_food_freaks/src/widgets/customtext.dart';
 
@@ -27,9 +26,6 @@ class _HomeState extends State<Home> {
   void didChangeDependencies() {
     if (_init) {
       Provider.of<CartState>(context).getCartDatas();
-      // setState(() {
-      //
-      // });
     }
     _init = false;
     super.didChangeDependencies();
@@ -37,8 +33,12 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    var items = Provider.of<ProductState>(context);
-    var cart = Provider.of<CartState>(context).cartModel;
+    // var items = Provider.of<ProductState>(context);
+    var cart;
+    cart = Provider.of<CartState>(context);
+    if (cart != null) {
+      cart = cart.cartModel;
+    }
     return SafeArea(
       child: Scaffold(
         backgroundColor: kBackgroundColor,
@@ -80,7 +80,10 @@ class _HomeState extends State<Home> {
                 },
                 child: Badge(
                   badgeContent: Text(
-                    cart![0].cartproducts.length.toString(),
+                    cart!.isEmpty
+                        ? '0'
+                        : cart[0].cartproducts.length.toString(),
+                    // '',
                     style: const TextStyle(
                       color: kWhite,
                     ),
