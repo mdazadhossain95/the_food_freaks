@@ -12,6 +12,7 @@ dependencies:
   flutter:
     sdk: flutter
 
+
   cupertino_icons: ^1.0.2
   font_awesome_flutter: ^9.1.0
   carousel_slider: ^4.0.0
@@ -34,8 +35,11 @@ dependencies:
 
 
 dev_dependencies:
+  flutter_driver:
+    sdk: flutter
   flutter_test:
     sdk: flutter
+  test: any
 
 
 
