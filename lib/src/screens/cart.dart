@@ -19,7 +19,7 @@ class _CartState extends State<Cart> {
   Widget build(BuildContext context) {
     // var items = Provider.of<ProductState>(context);
     var cart = Provider.of<CartState>(context).cartModel;
-    var items = cart![0].cartproducts;
+    var items = cart[0].cartproducts;
 
     return Scaffold(
       backgroundColor: kBackgroundColor,

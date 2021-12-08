@@ -18,6 +18,7 @@ class ProductDetails extends StatefulWidget {
 
 class _ProductDetailsState extends State<ProductDetails> {
   // final TextEditingController _controller = TextEditingController();
+  var cart = [];
 
   @override
   void initState() {
@@ -29,6 +30,7 @@ class _ProductDetailsState extends State<ProductDetails> {
   @override
   Widget build(BuildContext context) {
     var items = Provider.of<ProductState>(context);
+    cart = Provider.of<CartState>(context).cartModel;
 
     return Scaffold(
         backgroundColor: kBackgroundColor,
@@ -53,7 +55,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                 },
                 child: Badge(
                   badgeContent: Text(
-                    items.getCartQty().toString(),
+                    cart.isEmpty ? '0' : cart[0].cartproducts.length.toString(),
                     style: const TextStyle(
                       color: kWhite,
                     ),
@@ -169,7 +171,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                                 child: ElevatedButton(
                                   onPressed: () {
                                     // if don't have cart product then this section is working
-                                    if (cart![0].cartproducts.isEmpty) {
+                                    if (cart[0].cartproducts.isEmpty) {
                                       print('don\'t have cart product');
                                       Provider.of<CartState>(context,
                                               listen: false)

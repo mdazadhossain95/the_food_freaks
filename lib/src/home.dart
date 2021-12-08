@@ -21,11 +21,13 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   bool _init = true;
+  var cart = [];
   // var cart;
   @override
-  void didChangeDependencies() {
+  void didChangeDependencies() async {
     if (_init) {
-      Provider.of<CartState>(context).getCartDatas();
+      await Provider.of<CartState>(context).getCartDatas();
+      // Provider.of<CartState>(context).cartModel;
     }
     _init = false;
     super.didChangeDependencies();
@@ -33,12 +35,7 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    // var items = Provider.of<ProductState>(context);
-    var cart;
-    cart = Provider.of<CartState>(context);
-    if (cart != null) {
-      cart = cart.cartModel;
-    }
+    cart = Provider.of<CartState>(context).cartModel;
     return SafeArea(
       child: Scaffold(
         backgroundColor: kBackgroundColor,
@@ -80,9 +77,7 @@ class _HomeState extends State<Home> {
                 },
                 child: Badge(
                   badgeContent: Text(
-                    cart!.isEmpty
-                        ? '0'
-                        : cart[0].cartproducts.length.toString(),
+                    cart.isEmpty ? '0' : cart[0].cartproducts.length.toString(),
                     // '',
                     style: const TextStyle(
                       color: kWhite,
