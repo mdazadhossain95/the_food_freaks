@@ -188,13 +188,23 @@ class CartState with ChangeNotifier {
   //   }
   // }
 
-  List<CartModel>? get cartModel {
+  // List<CartModel>? get cartModel {
+  //   if (_cartModel != null) {
+  //     return _cartModel;
+  //   } else {
+  //     return null;
+  //   }
+  // }
+  List<CartModel> get cartModel {
     if (_cartModel != null) {
-      return _cartModel;
+      return [..._cartModel!];
     } else {
-      return null;
+      return <CartModel>[];
     }
   }
+  // List<CartModel> get cartModel {
+  //   return [..._cartModel!];
+  // }
 
   // List<OrderModel> get oldorder {
   //   if (_orderder != null) {
