@@ -20,6 +20,7 @@ samples, gui
 1. [Popular Page](#popular-page)
 1. [Favorite Page](#favorite-page)
 1. [Restaurant Page](#restaurant-page)
+1. [Restaurant Details Page](#restaurant-details-page)
 1. [Product Details Page](#product-details-page)
 1. [Cart Page](#Cart-page)
 1. [Payment Page](#payment-page)
@@ -102,6 +103,11 @@ The user can favorite items they like the most in order to watch them later or o
 Users can find any type of restaurant near them and order products directly from that restaurant.  
 
 <img src="documentation/07_restaurant_page.png" width=40% height=40%>
+
+## Restaurant Details Page
+
+Users can view all the food available at the restaurant. 
+
 <img src="documentation/08_restaurant_details_page.png" width=40% height=40%>
 
 ## Product Details Page
