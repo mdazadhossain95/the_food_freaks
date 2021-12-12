@@ -100,13 +100,13 @@ The user can favorite items they like the most in order to watch them later or o
 
 ## Restaurant Page
 
-Users can find any type of restaurant near them and order products directly from that restaurant.  
+Users can find any type of restaurant.
 
 <img src="documentation/07_restaurant_page.png" width=40% height=40%>
 
 ## Restaurant Details Page
 
-Users can view all the food available at the restaurant. 
+Users can view all the food available at the restaurant and order products directly from that restaurant.
 
 <img src="documentation/08_restaurant_details_page.png" width=40% height=40%>
 
