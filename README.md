@@ -70,53 +70,53 @@ Users can log in using their email/username and password, but if they do not hav
 
 To get started, users need to register. 
 
-<img src="documentation/02_sign_up_page.png" width=40% height=40%>
+<img src="documentation/02_signup_page.png" width=40% height=40%>
 
 ## Home Page
 
 The user can see the application's home page after logging in. Here the user is shown a side-menu, search bar where they can type in the name or keyword of a food item and press the search button. On this page, users can view the food slider, the popular food items in restaurants by sliding, and the restaurants themselves.
 
-<img src="documentation/05_home_2_page.png" width=40% height=40%>
+<img src="documentation/04_home1_page.png" width=40% height=40%>
+<img src="documentation/05_home2_page.png" width=40% height=40%>
 
 ## Menu Button 
 
 Users can access several options when they click on the menu button, such as User Profile, Settings, and Logout. 
 
-<img src="documentation/04_home_1_page.png" width=40% height=40%>
-
-
+<img src="documentation/03_sidebar_page.png" width=40% height=40%>
 
 ## Popular Page
 
 Users will find here the most popular food items. 
 
-<img src="documentation/08_popular_page.png" width=40% height=40%>
+<img src="documentation/06_popular_page.png" width=40% height=40%>
 
 ## Favorite Page
 
 The user can favorite items they like the most in order to watch them later or order them again at a later time.  
 
-<img src="documentation/13_favorite_page.png" width=40% height=40%>
+<img src="documentation/11_favorite_page.png" width=40% height=40%>
 
 ## Restaurant Page
 
 Users can find any type of restaurant near them and order products directly from that restaurant.  
 
-<img src="documentation/09_restaurants_page.png" width=40% height=40%>
+<img src="documentation/07_restaurant_page.png" width=40% height=40%>
+<img src="documentation/08_restaurant_details_page.png" width=40% height=40%>
 
 ## Product Details Page
 
 Users can view food details including its image, rating, and description.
 
 
-<img src="documentation/11_product_detail_page.png" width=40% height=40%>
+<img src="documentation/09_product_details_page.png" width=40% height=40%>
 
 ## Cart Page
 
 After adding food to the cart users can see that item in the cart and they can order. Users can change the quantity of items. It is not possible to order food from more than one restaurant at a time, but you can order multiple items from the same restaurant.
 
 
-<img src="documentation/12_cart_page.png" width=40% height=40%>
+<img src="documentation/10_cart_page.png" width=40% height=40%>
 
 ## Payment Page
 
@@ -124,7 +124,7 @@ The user pays for the order after clicking checkout.
 
 
 
-<img src="documentation/14_payment_page.png" width=40% height=40%>
+<img src="documentation/12_payment_page.png" width=40% height=40%>
 
 
 
