@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:the_food_freaks/constants.dart';
 import 'package:the_food_freaks/src/screens/productdetails_screen.dart';
+import 'package:the_food_freaks/src/screens/productdetails_test.dart';
 import 'package:the_food_freaks/src/state/product_state.dart';
 import 'package:the_food_freaks/src/widgets/customtext.dart';
 
@@ -80,12 +81,23 @@ class _PopularTabState extends State<PopularTab> {
                           items
                               .setActiveProduct(items.getProductList[index].id);
 
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => ProductDetails(),
-                            ),
+                          showModalBottomSheet(
+                            context: context,
+                            isScrollControlled: true,
+                            builder: (BuildContext context) {
+                              return FractionallySizedBox(
+                                heightFactor: 0.7,
+                                child: ProductDetailsTest(),
+                              );
+                            },
                           );
+
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //     builder: (context) => ProductDetails(),
+                          //   ),
+                          // );
                         },
                         child: Hero(
                           tag:

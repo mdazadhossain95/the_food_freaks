@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:the_food_freaks/constants.dart';
 import 'package:the_food_freaks/src/connectivity_provider.dart';
 import 'package:the_food_freaks/src/screens/productdetails_screen.dart';
+import 'package:the_food_freaks/src/screens/productdetails_test.dart';
 import 'package:the_food_freaks/src/state/product_state.dart';
 import 'package:the_food_freaks/src/state/restaurant_state.dart';
 import 'package:the_food_freaks/src/widgets/customtext.dart';
@@ -130,11 +131,22 @@ class _ResturentDetailsState extends State<ResturentDetails> {
                             detailsFood.setActiveProduct(
                                 items.getProductList[index].id);
 
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) => ProductDetails(),
-                              ),
+                            showModalBottomSheet(
+                              context: context,
+                              isScrollControlled: true,
+                              builder: (BuildContext context) {
+                                return FractionallySizedBox(
+                                  heightFactor: 0.7,
+                                  child: ProductDetailsTest(),
+                                );
+                              },
                             );
+
+                            // Navigator.of(context).push(
+                            //   MaterialPageRoute(
+                            //     builder: (context) => ProductDetails(),
+                            //   ),
+                            // );
                           },
                           child: Row(
                             children: [
