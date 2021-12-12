@@ -64,7 +64,7 @@ class _HomePart2State extends State<HomePart2> {
                       color: kWhite,
                       boxShadow: [
                         BoxShadow(
-                            color: kColor1,
+                            color: kGrey,
                             offset: Offset(15, 5),
                             blurRadius: 30)
                       ],

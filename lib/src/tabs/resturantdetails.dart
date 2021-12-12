@@ -120,7 +120,7 @@ class _ResturentDetailsState extends State<ResturentDetails> {
                           color: kWhite,
                           boxShadow: const [
                             BoxShadow(
-                                color: kColor1,
+                                color: kGrey,
                                 offset: Offset(1, 1),
                                 blurRadius: 30)
                           ],

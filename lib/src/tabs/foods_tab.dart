@@ -71,7 +71,7 @@ class _FoodsTabState extends State<FoodsTab> {
           ),
         ],
       ),
-      body: items.getSearchProduct == null
+      body: items.getSearchProduct.isNotEmpty
           ? ListView(
               children: [
                 GridView.builder(
@@ -92,7 +92,7 @@ class _FoodsTabState extends State<FoodsTab> {
                             color: kWhite,
                             boxShadow: [
                               BoxShadow(
-                                  color: kColor1,
+                                  color: kGrey,
                                   offset: Offset(1, 1),
                                   blurRadius: 30)
                             ],

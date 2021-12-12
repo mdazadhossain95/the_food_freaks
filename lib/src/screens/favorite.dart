@@ -13,7 +13,7 @@ class FavoriteScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final favorite = Provider.of<ProductState>(context).favorites;
     return Scaffold(
-      backgroundColor: kBackgroundColor,
+      backgroundColor: kWhite,
       appBar: AppBar(
         backgroundColor: kColor1,
         centerTitle: true,
@@ -31,7 +31,7 @@ class FavoriteScreen extends StatelessWidget {
             mainAxisSpacing: 10),
         itemCount: favorite.length,
         itemBuilder: (ctx, i) => SingleProduct(
-          id: favorite[i].id as int,
+          id: favorite[i].id,
           title: favorite[i].title,
           price: favorite[i].price,
           image: favorite[i].image.toString(),

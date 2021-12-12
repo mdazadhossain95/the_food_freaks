@@ -81,7 +81,7 @@ class _CartState extends State<Cart> {
                         color: kWhite,
                         boxShadow: const [
                           BoxShadow(
-                              color: kColor1,
+                              color: kGrey,
                               offset: Offset(1, 1),
                               blurRadius: 30)
                         ],

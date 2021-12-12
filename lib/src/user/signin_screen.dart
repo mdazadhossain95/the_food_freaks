@@ -114,34 +114,62 @@ class _SignInScreenState extends State<SignInScreen> {
                                 .width,
                           ),
                         ),
-                        LoginSignUpInputBox(
-                          validator: (v) {
-                            if (v!.isEmpty) {
-                              return 'Enter Your Email';
-                            }
-                            return null;
-                          },
-                          onSave: (v) {
-                            _useremail = v!;
-                          },
-                          labelText: "Enter Your Email",
-                          icon: Icons.person,
-                          obscureText: false,
+                        Padding(
+                          padding: const EdgeInsets.only(left: 15.0, right: 15.0),
+                          child: Container(
+                            decoration: const BoxDecoration(
+                              color: kWhite,
+                              boxShadow: [
+                                BoxShadow(
+                                    color: kGrey,
+                                    offset: Offset(15, 5),
+                                    blurRadius: 30)
+                              ],
+                            ),
+                            child: LoginSignUpInputBox(
+                              validator: (v) {
+                                if (v!.isEmpty) {
+                                  return 'Enter Your Email';
+                                }
+                                return null;
+                              },
+                              onSave: (v) {
+                                _useremail = v!;
+                              },
+                              labelText: "Enter Your Email",
+                              icon: Icons.person,
+                              obscureText: false,
+                            ),
+                          ),
                         ),
                         const SizedBox(height: 10),
-                        LoginSignUpInputBox(
-                          validator: (v) {
-                            if (v!.isEmpty) {
-                              return 'Enter Your Password';
-                            }
-                            return null;
-                          },
-                          onSave: (v) {
-                            _password = v!;
-                          },
-                          labelText: "Enter Your Password",
-                          icon: Icons.lock_sharp,
-                          obscureText: true,
+                        Padding(
+                          padding: const EdgeInsets.only(left: 15.0, right: 15.0),
+                          child: Container(
+                            decoration: const BoxDecoration(
+                              color: kWhite,
+                              boxShadow: [
+                                BoxShadow(
+                                    color: kGrey,
+                                    offset: Offset(15, 5),
+                                    blurRadius: 30)
+                              ],
+                            ),
+                            child: LoginSignUpInputBox(
+                              validator: (v) {
+                                if (v!.isEmpty) {
+                                  return 'Enter Your Password';
+                                }
+                                return null;
+                              },
+                              onSave: (v) {
+                                _password = v!;
+                              },
+                              labelText: "Enter Your Password",
+                              icon: Icons.lock_sharp,
+                              obscureText: true,
+                            ),
+                          ),
                         ),
                         const SizedBox(height: 10),
                         GestureDetector(

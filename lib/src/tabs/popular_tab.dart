@@ -70,7 +70,7 @@ class _PopularTabState extends State<PopularTab> {
                     color: kWhite,
                     boxShadow: [
                       BoxShadow(
-                          color: kColor1, offset: Offset(1, 1), blurRadius: 30)
+                          color: kGrey, offset: Offset(1, 1), blurRadius: 30)
                     ],
                   ),
                   child: Column(
@@ -136,7 +136,7 @@ class _PopularTabState extends State<PopularTab> {
                                   Provider.of<ProductState>(context,
                                           listen: false)
                                       .favoriteButton(items
-                                          .getProductList[index].id as int);
+                                          .getProductList[index].id);
                                 },
                                 child: Padding(
                                   padding: const EdgeInsets.all(4),

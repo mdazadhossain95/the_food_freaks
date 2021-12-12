@@ -39,7 +39,6 @@ class _StoreScreenState extends State<StoreScreen> {
       return Scaffold(
         body: Container(
           padding: const EdgeInsets.only(bottom: 230.0),
-          // margin: const EdgeInsets.symmetric(vertical: 50.0),
           height: MediaQuery.of(context).size.height,
           child: ListView.builder(
             shrinkWrap: true,
@@ -64,13 +63,9 @@ class _StoreScreenState extends State<StoreScreen> {
                           ),
                         ),
                       );
-                      // Provider.of<RestaurantState>(context, listen: false)
-                      //     .productByRestaurant(items[index].id as int);
                     },
                     child: Column(
                       children: [
-                        // GestureDetector
-
                         GestureDetector(
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),

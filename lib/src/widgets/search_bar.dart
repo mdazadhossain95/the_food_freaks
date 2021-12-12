@@ -29,17 +29,25 @@ class _SearchBarState extends State<SearchBar> {
             ListTile(
               trailing: GestureDetector(
                 onTap: () {
-                  // Provider.of<ProductState>(context, listen: false)
-                  //     .searchProducts(textController.text);
-
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => FoodsTab(
-                        searchText: textController.text,
+                  if(textController.text.isNotEmpty){
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => FoodsTab(
+                          searchText: textController.text,
+                        ),
                       ),
-                    ),
-                  );
+                    );
+                  }else{
+                    var snackBar = const SnackBar(
+                      content: Text(
+                          'Your search bar is empty! Please write something.'),
+                    );
+                    ScaffoldMessenger.of(context)
+                        .showSnackBar(snackBar);
+                  }
+
+
                 },
                 child: const Icon(
                   Icons.search,
@@ -48,7 +56,7 @@ class _SearchBarState extends State<SearchBar> {
               ),
               title: TextField(
                 controller: textController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: 'Find your food',
                   border: InputBorder.none,
                 ),
