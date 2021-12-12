@@ -43,21 +43,17 @@ class SingleProduct extends StatelessWidget {
           children: [
             GestureDetector(
               onTap: () {
-                Navigator.of(context).push(
+                items.setActiveProduct(items.getProductList[id]);
+
+                Navigator.push(
+                  context,
                   MaterialPageRoute(
-                    builder: (context) => ProductDetails(
-                      // assetPath: "http://10.0.2.2:8000${image}",
-                      // productprice: price.toString(),
-                      // productname: title,
-                      // rating: rateing.toString(),
-                      // description: description,
-                      // add: 0,
-                    ),
+                    builder: (context) => ProductDetails(),
                   ),
                 );
               },
               child: Hero(
-                tag: "http://10.0.2.2:8000$image",
+                tag: "$kServerAddress$image",
                 child: Padding(
                   padding: const EdgeInsets.all(4.0),
                   child: Container(
@@ -65,7 +61,7 @@ class SingleProduct extends StatelessWidget {
                     // width: MediaQuery.of(context).size.width,
                     decoration: BoxDecoration(
                       image: DecorationImage(
-                        image: NetworkImage("http://10.0.2.2:8000$image"),
+                        image: NetworkImage("$kServerAddress$image"),
                       ),
                     ),
                   ),

@@ -7,6 +7,8 @@ import 'package:http/http.dart' as http;
 import 'package:localstorage/localstorage.dart';
 import 'package:the_food_freaks/src/models/products.dart';
 
+import '../../constants.dart';
+
 class ProductState with ChangeNotifier {
   // Making a list of products from product Model class
   List<Product> _products = [];
@@ -23,8 +25,8 @@ class ProductState with ChangeNotifier {
     // 'Authorization': 'token 5335e412ef8951e7fc82c9af032d0abff9f84705'
     // var url = Uri.parse('http://192.168.200.112:8000/api/products'); // while using on real device
     var token = storage.getItem('token');
-    var url = Uri.parse(
-        'http://10.0.2.2:8000/api/products'); // while using on emulator
+    var url =
+        Uri.parse('$kServerAddress/api/products'); // while using on emulator
     try {
       http.Response response = await http.get(url, headers: {
         'Authorization': "token $token",
@@ -39,7 +41,6 @@ class ProductState with ChangeNotifier {
       // assigning the list to _product from temporary list
       _products = temp;
       notifyListeners();
-      // print(response.body);
       return true;
     } catch (e) {
       print("e getProducts");
@@ -53,8 +54,8 @@ class ProductState with ChangeNotifier {
   // Making a http request to get the data from api
   Future<void> favoriteButton(int id) async {
     var token = storage.getItem('token');
-    var url = Uri.parse(
-        'http://10.0.2.2:8000/api/favorite/'); // while using on emulator
+    var url =
+        Uri.parse('$kServerAddress/api/favorite/'); // while using on emulator
     try {
       http.Response response = await http.post(
         url,
@@ -68,7 +69,6 @@ class ProductState with ChangeNotifier {
       );
       // converting the response body as a json list
       var data = json.decode(response.body);
-      print(data);
       getProducts();
       // notifyListeners();
     } catch (e) {
@@ -157,7 +157,7 @@ class ProductState with ChangeNotifier {
     print(query);
     var token = storage.getItem('token');
     var url = Uri.parse(
-        'http://10.0.2.2:8000/api/searchproduct/?search=$query'); // while using on emulator
+        '$kServerAddress/api/searchproduct/?search=$query'); // while using on emulator
     try {
       http.Response response = await http.get(
         url,
@@ -168,7 +168,6 @@ class ProductState with ChangeNotifier {
       );
       // converting the response body as a json list
       var data = json.decode(response.body) as List;
-      // print(data);
       List<Product> temp = [];
       for (var element in data) {
         Product product = Product.fromJson(element);
@@ -190,7 +189,3 @@ class ProductState with ChangeNotifier {
     return [..._searchProduct];
   }
 }
-
-
-
-

@@ -8,6 +8,8 @@ import 'package:localstorage/localstorage.dart';
 import 'package:the_food_freaks/src/models/products.dart';
 import 'package:the_food_freaks/src/models/restaurant.dart';
 
+import '../../constants.dart';
+
 class RestaurantState with ChangeNotifier {
   // Making a list of products from product Model class
   late List<Restaurant> _restaurant = [];
@@ -20,8 +22,8 @@ class RestaurantState with ChangeNotifier {
   // Making a http request to get the data from api
   Future<bool> getRestaurant() async {
     var token = storage.getItem('token');
-    var url = Uri.parse(
-        'http://10.0.2.2:8000/api/restaurant'); // while using on emulator
+    var url =
+        Uri.parse('$kServerAddress/api/restaurant'); // while using on emulator
     try {
       http.Response response = await http.get(url, headers: {
         'Authorization': "token $token",
@@ -55,7 +57,7 @@ class RestaurantState with ChangeNotifier {
     var token = storage.getItem('token');
 
     var url = Uri.parse(
-        'http://10.0.2.2:8000/api/productbyrestaurant/?id=$id'); // while using on emulator
+        '$kServerAddress/api/productbyrestaurant/?id=$id'); // while using on emulator
     try {
       http.Response response = await http.get(
         url,

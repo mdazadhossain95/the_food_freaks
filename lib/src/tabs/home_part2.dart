@@ -84,7 +84,7 @@ class _HomePart2State extends State<HomePart2> {
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Image.network(
-                              "http://10.0.2.2:8000${items.getProductList[index].image}",
+                              "$kServerAddress${items.getProductList[index].image}",
                               height: 140,
                               width: 140,
                               fit: BoxFit.cover,

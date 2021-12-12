@@ -71,167 +71,174 @@ class _FoodsTabState extends State<FoodsTab> {
           ),
         ],
       ),
-      body: items.getSearchProduct == null ?
-      ListView(
-        children: [
-          GridView.builder(
-              shrinkWrap: true,
-              scrollDirection: Axis.vertical,
-              physics: const ScrollPhysics(),
-              gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                  maxCrossAxisExtent: 400),
-              itemCount: items.getSearchProduct.length,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.all(8),
-                  child: Container(
-                    height: MediaQuery.of(context).size.height * 0.33,
-                    width: MediaQuery.of(context).size.width * 0.50,
-                    decoration: const BoxDecoration(
-                      color: kWhite,
-                      boxShadow: [
-                        BoxShadow(
-                            color: kColor1,
-                            offset: Offset(1, 1),
-                            blurRadius: 30)
-                      ],
-                    ),
-                    child: Column(
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            items.setActiveProduct(
-                                items.getSearchProduct[index]);
-
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => ProductDetails(),
-                              ),
-                            );
-                          },
-                          child: Hero(
-                            tag:
-                            "http://10.0.2.2:8000${items.getSearchProduct[index].title}",
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Container(
-                                height:
-                                MediaQuery.of(context).size.height * 0.12,
-                                width: MediaQuery.of(context).size.width,
-                                decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                    image: NetworkImage(
-                                        "http://10.0.2.2:8000${items.getSearchProduct[index].image}"),
-                                  ),
-                                ),
-                              ),
-                            ),
+      body: items.getSearchProduct == null
+          ? ListView(
+              children: [
+                GridView.builder(
+                    shrinkWrap: true,
+                    scrollDirection: Axis.vertical,
+                    physics: const ScrollPhysics(),
+                    gridDelegate:
+                        const SliverGridDelegateWithMaxCrossAxisExtent(
+                            maxCrossAxisExtent: 400),
+                    itemCount: items.getSearchProduct.length,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.all(8),
+                        child: Container(
+                          height: MediaQuery.of(context).size.height * 0.33,
+                          width: MediaQuery.of(context).size.width * 0.50,
+                          decoration: const BoxDecoration(
+                            color: kWhite,
+                            boxShadow: [
+                              BoxShadow(
+                                  color: kColor1,
+                                  offset: Offset(1, 1),
+                                  blurRadius: 30)
+                            ],
                           ),
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            //name
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: CustomText(
-                                text: items.getSearchProduct[index].title
-                                    .toString(),
-                              ),
-                            ),
+                          child: Column(
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  items.setActiveProduct(
+                                      items.getSearchProduct[index]);
 
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                  color: kWhite,
-                                  boxShadow: const [
-                                    BoxShadow(
-                                        color: kGrey,
-                                        offset: Offset(1, 1),
-                                        blurRadius: 4)
-                                  ],
-                                ),
-                                child: GestureDetector(
-                                  onTap: () {
-                                    Provider.of<ProductState>(context,
-                                        listen: false)
-                                        .favoriteButton(
-                                        items.getSearchProduct[index].id);
-                                  },
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => ProductDetails(),
+                                    ),
+                                  );
+                                },
+                                child: Hero(
+                                  tag:
+                                      "$kServerAddress${items.getSearchProduct[index].title}",
                                   child: Padding(
-                                    padding: const EdgeInsets.all(4),
-                                    child:
-                                    items.getSearchProduct[index].favorite
-                                        ? const Icon(
-                                      Icons.favorite,
-                                      color: kColor1,
-                                      size: 18,
-                                    )
-                                        : const Icon(
-                                      Icons.favorite_border,
-                                      color: kColor1,
-                                      size: 18,
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Container(
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.12,
+                                      width: MediaQuery.of(context).size.width,
+                                      decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                          image: NetworkImage(
+                                              "$kServerAddress${items.getSearchProduct[index].image}"),
+                                        ),
+                                      ),
                                     ),
                                   ),
                                 ),
                               ),
-                            )
-                          ],
-                        ),
-                        const SizedBox(height: 1),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 8.0),
-                                  child: CustomText(
-                                      text: items.getSearchProduct[index].rating
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  //name
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: CustomText(
+                                      text: items.getSearchProduct[index].title
                                           .toString(),
-                                      color: kGrey,
-                                      size: 14),
-                                ),
-                                const SizedBox(width: 2),
-                                const Icon(
-                                  Icons.star,
-                                  color: kColor1,
-                                  size: 16,
-                                )
-                              ],
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(right: 8.0),
-                              child: CustomText(
-                                text:
-                                "\$${items.getSearchProduct[index].price.toString()}",
-                                weight: FontWeight.bold,
+                                    ),
+                                  ),
+
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(20),
+                                        color: kWhite,
+                                        boxShadow: const [
+                                          BoxShadow(
+                                              color: kGrey,
+                                              offset: Offset(1, 1),
+                                              blurRadius: 4)
+                                        ],
+                                      ),
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          Provider.of<ProductState>(context,
+                                                  listen: false)
+                                              .favoriteButton(items
+                                                  .getSearchProduct[index].id);
+                                        },
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(4),
+                                          child: items.getSearchProduct[index]
+                                                  .favorite
+                                              ? const Icon(
+                                                  Icons.favorite,
+                                                  color: kColor1,
+                                                  size: 18,
+                                                )
+                                              : const Icon(
+                                                  Icons.favorite_border,
+                                                  color: kColor1,
+                                                  size: 18,
+                                                ),
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                ],
                               ),
-                            )
-                          ],
-                        )
-                      ],
-                    ),
-                  ),
-                );
-              }),
-        ],
-      ) : Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: const <Widget>[
-          SizedBox(
-            width: double.infinity,
-            child: Text('No result found', style: TextStyle(fontSize: 24), textAlign: TextAlign.center, )
-          ),
-        ],
-      ),
+                              const SizedBox(height: 1),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 8.0),
+                                        child: CustomText(
+                                            text: items
+                                                .getSearchProduct[index].rating
+                                                .toString(),
+                                            color: kGrey,
+                                            size: 14),
+                                      ),
+                                      const SizedBox(width: 2),
+                                      const Icon(
+                                        Icons.star,
+                                        color: kColor1,
+                                        size: 16,
+                                      )
+                                    ],
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 8.0),
+                                    child: CustomText(
+                                      text:
+                                          "\$${items.getSearchProduct[index].price.toString()}",
+                                      weight: FontWeight.bold,
+                                    ),
+                                  )
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
+                      );
+                    }),
+              ],
+            )
+          : Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: const <Widget>[
+                SizedBox(
+                    width: double.infinity,
+                    child: Text(
+                      'No result found',
+                      style: TextStyle(fontSize: 24),
+                      textAlign: TextAlign.center,
+                    )),
+              ],
+            ),
     );
   }
 }
-
-
-

@@ -85,7 +85,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Image.network(
-                          "http://10.0.2.2:8000${items.activeProduct.image}",
+                          "$kServerAddress${items.activeProduct.image}",
                           height: 300.0,
                           width: 70.0,
                           fit: BoxFit.cover),

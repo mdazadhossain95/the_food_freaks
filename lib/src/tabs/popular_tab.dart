@@ -88,7 +88,7 @@ class _PopularTabState extends State<PopularTab> {
                         },
                         child: Hero(
                           tag:
-                              "http://10.0.2.2:8000${items.getProductList[index].title}",
+                              "$kServerAddress${items.getProductList[index].title}",
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Container(
@@ -97,7 +97,7 @@ class _PopularTabState extends State<PopularTab> {
                               decoration: BoxDecoration(
                                 image: DecorationImage(
                                   image: NetworkImage(
-                                      "http://10.0.2.2:8000${items.getProductList[index].image}"),
+                                      "$kServerAddress${items.getProductList[index].image}"),
                                 ),
                               ),
                             ),

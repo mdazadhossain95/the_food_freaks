@@ -97,7 +97,7 @@ class _CartState extends State<Cart> {
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(10.0),
                                     child: Image.network(
-                                      "http://10.0.2.2:8000${items[index].product[0].image}",
+                                      "$kServerAddress${items[index].product[0].image}",
                                       height: 90,
                                       width: 90,
                                       fit: BoxFit.cover,

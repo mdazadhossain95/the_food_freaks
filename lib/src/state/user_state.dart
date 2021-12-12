@@ -4,13 +4,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:localstorage/localstorage.dart';
 
+import '../../constants.dart';
+
 // Touhid
 class UserState with ChangeNotifier {
   // saving the token in localStorage
   LocalStorage storage = LocalStorage('usertoken');
   Future<bool> loginNow(String username, String password) async {
     var url =
-        Uri.parse('http://10.0.2.2:8000/api/login/'); // while using on emulator
+        Uri.parse('$kServerAddress/api/login/'); // while using on emulator
     try {
       http.Response response = await http.post(
         url,
@@ -41,8 +43,8 @@ class UserState with ChangeNotifier {
 
   // Register
   Future<bool> registerNow(String username, String password) async {
-    var url = Uri.parse(
-        'http://10.0.2.2:8000/api/register/'); // while using on emulator
+    var url =
+        Uri.parse('$kServerAddress/api/register/'); // while using on emulator
     try {
       http.Response response = await http.post(
         url,
