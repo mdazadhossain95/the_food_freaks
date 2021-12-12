@@ -77,7 +77,8 @@ class _PopularTabState extends State<PopularTab> {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          items.setActiveProduct(items.getProductList[index]);
+                          items
+                              .setActiveProduct(items.getProductList[index].id);
 
                           Navigator.push(
                             context,

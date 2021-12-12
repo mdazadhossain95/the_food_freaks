@@ -43,7 +43,7 @@ class SingleProduct extends StatelessWidget {
           children: [
             GestureDetector(
               onTap: () {
-                items.setActiveProduct(items.getProductList[id]);
+                items.setActiveProduct(id);
 
                 Navigator.push(
                   context,

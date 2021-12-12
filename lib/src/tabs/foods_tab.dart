@@ -102,7 +102,7 @@ class _FoodsTabState extends State<FoodsTab> {
                               GestureDetector(
                                 onTap: () {
                                   items.setActiveProduct(
-                                      items.getSearchProduct[index]);
+                                      items.getProductList[index].id);
 
                                   Navigator.push(
                                     context,

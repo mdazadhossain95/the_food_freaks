@@ -73,7 +73,8 @@ class _HomePart2State extends State<HomePart2> {
                       children: [
                         GestureDetector(
                           onTap: () {
-                            items.setActiveProduct(items.getProductList[index]);
+                            items.setActiveProduct(
+                                items.getProductList[index].id);
 
                             Navigator.of(context).push(
                               MaterialPageRoute(

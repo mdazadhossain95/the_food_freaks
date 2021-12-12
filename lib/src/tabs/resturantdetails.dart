@@ -127,8 +127,8 @@ class _ResturentDetailsState extends State<ResturentDetails> {
                         ),
                         child: InkWell(
                           onTap: () {
-                            detailsFood
-                                .setActiveProduct(items.getProductList[index]);
+                            detailsFood.setActiveProduct(
+                                items.getProductList[index].id);
 
                             Navigator.of(context).push(
                               MaterialPageRoute(
